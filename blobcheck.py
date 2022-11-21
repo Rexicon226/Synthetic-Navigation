@@ -41,8 +41,8 @@ def blobs(pic):
     axes[0][1].imshow(borderpic, cmap='binary')
     axes[1][0].imshow(pic, cmap='winter_r')
     axes[1][0].imshow(borderpic, cmap='binary', alpha=0.8)
-    print("Islands: " + islands)
-    print("Oceans: " + oceans)
+    print("Islands: " + str(islands))
+    print("Oceans: " + str(oceans))
     plt.show()
 
 
