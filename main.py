@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import matplotlib.pyplot as plt
 from perlin_noise import PerlinNoise
 
@@ -23,3 +24,10 @@ pic = [[thresholdedNoise(i / xpix, j / ypix, noise) for j in range(xpix)] for i 
 
 plt.imshow(pic, cmap='gray')
 plt.show()
+=======
+def main(name):
+    print(name)
+
+
+main("test")
+>>>>>>> e77fb6c (first test)
