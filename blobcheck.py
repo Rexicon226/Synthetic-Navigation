@@ -4,6 +4,7 @@ import copy
 
 
 def solve(matrix):
+    """TODO: @Rexicon266 add comments and docstring"""
     def dfs(i, j):
         if i < 0 or j < 0 or i >= R or j >= C:
             return True
@@ -26,9 +27,18 @@ def solve(matrix):
     return ans
 
 
-def blobs(pic):
-    borderpic = border.bordercheck(pic)
-    fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 6))
+def blobs(pic: list[list[int]]):
+    """Calculates the number of "blobs" in the given array
+
+    Parameters
+    ----------
+    pic : list[list[1,0]]
+        2 dimensional binary array of the "terrain". Typically generated with perlin noise.
+
+    Returns
+    -------
+    islands, oceans : int,int
+        number of regions with a value of 0, number of regions with a value of 1"""
     islandpic = copy.deepcopy(pic)
     oceanpic = copy.deepcopy(pic)
     for y in range(len(oceanpic) - 1):
@@ -37,16 +47,23 @@ def blobs(pic):
     islands = solve(islandpic)
     oceans = solve(oceanpic)
 
-    axes[0][0].imshow(pic, cmap='winter_r')
-    axes[0][1].imshow(borderpic, cmap='binary')
-    axes[1][0].imshow(pic, cmap='winter_r')
-    axes[1][0].imshow(borderpic, cmap='binary', alpha=0.8)
-    print("Islands: " + str(islands))
-    print("Oceans: " + str(oceans))
-    plt.show()
+    return islands, oceans
 
 
 if __name__ == "__main__":
     from terraingen import terrain
 
-    blobs(terrain(5, 1, 50, 50))
+    pic = terrain(5, 1, 50, 50)
+    borderpic = border.bordercheck(pic)
+    islands, oceans = blobs(pic)
+
+    print("Islands: " + str(islands))
+    print("Oceans: " + str(oceans))
+
+    fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 6))
+
+    axes[0][0].imshow(pic, cmap='winter_r')
+    axes[0][1].imshow(borderpic, cmap='binary')
+    axes[1][0].imshow(pic, cmap='winter_r')
+    axes[1][0].imshow(borderpic, cmap='binary', alpha=0.8)
+    plt.show()
