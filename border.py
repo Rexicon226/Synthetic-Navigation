@@ -12,8 +12,6 @@ def bordercheck(pic):
         pic[i] = [abs(ele) for ele in pic[i]]
     borderpic = copy.deepcopy(pic)  # create a deep copy so that stuff doesn't get messed up
 
-    for i in range(len(borderpic)):
-        borderpic[i] = [abs(ele) for ele in borderpic[i]]
 
     for x in range(len(pic)):
         for y in range(len(pic)):
