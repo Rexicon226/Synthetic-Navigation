@@ -50,7 +50,7 @@ for x in range(len(pic)):
 
 
         else:
-            pic[x][y] = 0
+            borderpic[x][y] = 0
 
             # borderpic[x][y] = mx-1
 print(pic)
