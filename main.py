@@ -23,7 +23,7 @@ def thresholdedNoise(x: float, y: float, noise_func: PerlinNoise) -> int:
 
 
 pic = [[thresholdedNoise(i / xpix, j / ypix, noise) for j in range(xpix)] for i in range(ypix)]
-borderpic = copy.deepcopy(pic)
+borderpic = copy.deepcopy(pic)  # create a deep copy so that stuff doesn't get messed up
 for x in range(len(pic)):
     for y in range(len(pic)):
         if pic[x][y] == 1:
