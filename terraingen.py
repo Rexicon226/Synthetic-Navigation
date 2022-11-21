@@ -1,23 +1,16 @@
-import random
-import time
-
-import matplotlib.pyplot as plt
 import numpy as np
 from perlin_noise import PerlinNoise
 
 
-def terrain(size):
-    start_time = time.time()
-    randseed = random.randint(1, 100000)
+def terrain(size, randseed):
     noise = PerlinNoise(octaves=size, seed=randseed)
     xpix, ypix = 100, 100
     pic = [[noise([i / xpix, j / ypix]) for j in range(xpix)] for i in range(ypix)]
+    totalblack = 0
     for i in range(xpix):
         for j in range(ypix):
             pic[i][j] = np.floor(pic[i][j])
-    plt.imshow(pic, cmap='gray')
-    print("--- %s seconds ---" % (time.time() - start_time))
-    plt.show()
+            if pic[i][j] == -1:
+                totalblack += 1
+    return pic
 
-
-terrain(10)
