@@ -2,6 +2,8 @@ import terraingen
 import random
 import matplotlib.pyplot as plt
 import sys
+import time
+import numpy as np
 row = 15
 col = 15
 
@@ -25,6 +27,7 @@ def isPath(arr):
     return (arr[row - 1][col - 1] == 1)
 solved = False
 failedSeeds = []
+start_time = time.time()
 while(solved == False):
     seed = random.randint(1, 1000)
     if failedSeeds.count(seed) == 0:
@@ -34,6 +37,7 @@ while(solved == False):
         if solved == True:
             print(f'\nWorking Seed: ' + str(seed))
             print(f'Failed Seeds: ' + str(len(failedSeeds)))
+            print("%s seconds of processing" % np.round(time.time() - start_time, 2))
             plt.imshow(terraingen.terrain(10, seed), cmap='gray')
             plt.show()
         failedSeeds.append(seed)
