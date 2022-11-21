@@ -1,5 +1,6 @@
 import random
 import time
+
 import matplotlib.pyplot as plt
 import numpy as np
 from perlin_noise import PerlinNoise
