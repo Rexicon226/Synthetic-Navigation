@@ -8,6 +8,7 @@ import terraingen
 
 
 def path(size, blob, setseed=0):
+    """TODO: @Rexicon266 add comments and docstring"""
     col = size
     row = size
 
