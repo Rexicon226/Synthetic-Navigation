@@ -46,7 +46,7 @@ def path(size, blob, setseed=0):
                 print(f'\nWorking Seed: ' + str(seed))
                 print(f'Failed Seeds: ' + str(len(failedSeeds)))
                 print("%s seconds of processing" % np.round(time.time() - start_time, 2))
-                print("Done Path Checking")
+                print("--- Done Path Checking ---")
             failedSeeds.append(seed)
     A = terraingen.terrain(blob, seed, size, size)
     for i in range(len(A)):
