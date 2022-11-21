@@ -3,15 +3,23 @@ import time
 import numpy as np
 
 
-def bordercheck(pic):
-    """returns a modified array """
+def bordercheck(pic: list[list[int]]):
+    """Returns a modified array where the borders of the blobs are ``0`` and everything else is ``1``.
+    Parameters
+    ----------
+    pic : list[list[{1,0}]]
+        2 dimensional binary array of the "terrain". Typically generated with perlin noise.
+
+    Returns
+    -------
+    borderpic : list[list[{1,0}]]
+         """
     print('Starting Border Find')
     start_time = time.time()
 
     for i in range(len(pic)):
         pic[i] = [abs(ele) for ele in pic[i]]
     borderpic = copy.deepcopy(pic)  # create a deep copy so that stuff doesn't get messed up
-
 
     for x in range(len(pic)):
         for y in range(len(pic)):
