@@ -1,13 +1,15 @@
 import copy
 import time
-import pathcheck
 import numpy as np
 
-def bordercheck(size, octaves, seed=0):
+
+def bordercheck(pic):
+    """returns a modified array """
     print('Starting Border Find')
     start_time = time.time()
-    pic = pathcheck.path(size, octaves, seed)
 
+    for i in range(len(pic)):
+        pic[i] = [abs(ele) for ele in pic[i]]
     borderpic = copy.deepcopy(pic)  # create a deep copy so that stuff doesn't get messed up
 
     for i in range(len(borderpic)):
@@ -36,14 +38,21 @@ def bordercheck(size, octaves, seed=0):
                 else:
                     borderpic[x][y] = 0
 
-
-
             else:
                 borderpic[x][y] = 0
-
                 # borderpic[x][y] = mx-1
+
     print("Pic: " + str(pic))
     print("Border: " + str(borderpic))
     print("%s seconds of processing" % np.round(time.time() - start_time, 2))
     print("---Done Border Check---")
-    return pic, borderpic
+    return borderpic
+
+
+if __name__ == "__main__":
+    from terraingen import terrain
+    import matplotlib.pyplot as plt
+
+    pic = bordercheck(terrain(5, 1, 100, 100))
+    plt.imshow(pic, cmap="Greys")
+    plt.show()
