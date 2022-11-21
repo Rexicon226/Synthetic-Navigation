@@ -7,10 +7,39 @@ import numpy as np
 import terraingen
 
 
-def path(size: int, octaves: int, setseed=0):
-    """TODO: @Rexicon266 add comments and docstring"""
-    col = size
-    row = size
+def path(x: int, y: int, octaves: int, setseed=0):
+    """
+    Parameters
+    ----------
+    Checks if the generated terrain map has a path
+    from the top left square to the bottom right square
+
+    If no path, a new terrain map will be generated until one is found
+
+    (I know it's not efficient but random perlin noise moment)
+
+    x : int
+        x size of the graph
+
+    y : int
+        y size of the graph
+
+    octaves : int
+        Changes the complexity of the perlin noise.
+        (runtime will increase drastically, don't increase over 7-10)
+
+    setseed : int
+        Forces a seed into the perlin noise generation, useful for debugging.
+        Optional value not needed.
+        DONT PASS 0 AS THE SET SEED WILL NOT RUN
+
+    Returns
+    -------
+    pic : list[list[0,1]]
+        list that has a path from TL (top left) to BR (bottom right)
+    """
+    col = x
+    row = y
 
     def isPath(arr):
         arr[0][0] = 1
@@ -38,9 +67,9 @@ def path(size: int, octaves: int, setseed=0):
         if setseed != 0 and len(failedSeeds) == 0:
             seed = setseed
         else:
-            seed = random.randint(1, 10000000)
+            seed = random.randint(1, x * 1000)
         if failedSeeds.count(seed) == 0:
-            solved = isPath(terraingen.terrain(octaves, seed, size, size))
+            solved = isPath(terraingen.terrain(x, y, octaves, seed))
             sys.stdout.write("\rChecking seed: " + str(seed) + ", Number: " + str(len(failedSeeds) + 1))
             sys.stdout.flush()
             if solved:
@@ -49,7 +78,7 @@ def path(size: int, octaves: int, setseed=0):
                 print("%s seconds of processing" % np.round(time.time() - start_time, 2))
                 print("--- Done Path Checking ---")
             failedSeeds.append(seed)
-    A = terraingen.terrain(octaves, seed, size, size)
+    A = terraingen.terrain(x, y, octaves, seed)
     for i in range(len(A)):
         A[i] = list(map(int, A[i]))
         A[i] = [abs(ele) for ele in A[i]]
@@ -59,6 +88,6 @@ def path(size: int, octaves: int, setseed=0):
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
-    pic = path(10, 2)
+    pic = path(20, 20, 4)
     plt.imshow(pic, cmap="Greys")
     plt.show()
