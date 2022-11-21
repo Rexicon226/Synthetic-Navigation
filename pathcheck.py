@@ -48,4 +48,8 @@ def path(size, blob, setseed=0):
                 print("%s seconds of processing" % np.round(time.time() - start_time, 2))
                 print("Done Path Checking")
             failedSeeds.append(seed)
-    return terraingen.terrain(blob, seed, size, size)
+    A = terraingen.terrain(blob, seed, size, size)
+    for i in range(len(A)):
+        A[i] = list(map(int, A[i]))
+        A[i] = [abs(ele) for ele in A[i]]
+    return A
