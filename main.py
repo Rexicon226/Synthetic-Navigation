@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from perlin_noise import PerlinNoise
 import copy
 
-# define the noise
+# define the noise.
 noise = PerlinNoise(octaves=10, seed=1)
 # define the size
 xpix, ypix = 100, 100
