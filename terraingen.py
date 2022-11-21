@@ -2,9 +2,9 @@ import numpy as np
 from perlin_noise import PerlinNoise
 
 
-def terrain(size, randseed):
+def terrain(size, randseed, x, y):
     noise = PerlinNoise(octaves=size, seed=randseed)
-    xpix, ypix = 15, 15
+    xpix, ypix = x, y
     pic = [[noise([i / xpix, j / ypix]) for j in range(xpix)] for i in range(ypix)]
     totalblack = 0
     for i in range(xpix):
