@@ -41,7 +41,7 @@ def path(size, octaves, setseed=0):
             seed = random.randint(1, 10000000)
         if failedSeeds.count(seed) == 0:
             solved = isPath(terraingen.terrain(octaves, seed, size, size))
-            sys.stdout.write("\rChecking seed: " + str(seed) + ", Number: " + str(len(failedSeeds)))
+            sys.stdout.write("\rChecking seed: " + str(seed) + ", Number: " + str(len(failedSeeds) + 1))
             sys.stdout.flush()
             if solved:
                 print(f'\nWorking Seed: ' + str(seed))
@@ -57,4 +57,8 @@ def path(size, octaves, setseed=0):
 
 
 if __name__ == "__main__":
-    path()
+    import matplotlib.pyplot as plt
+
+    pic = path(10, 2)
+    plt.imshow(pic, cmap="Greys")
+    plt.show()
