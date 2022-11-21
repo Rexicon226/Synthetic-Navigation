@@ -7,7 +7,7 @@ import numpy as np
 import terraingen
 
 
-def path(size, blob):
+def path(size, blob, setseed=0):
     col = size
     row = size
 
@@ -34,7 +34,10 @@ def path(size, blob):
     failedSeeds = []
     start_time = time.time()
     while not solved:
-        seed = random.randint(1, 1000000)
+        if(setseed != 0 and len(failedSeeds) == 0):
+            seed = setseed
+        else:
+            seed = random.randint(1, 1000000)
         if failedSeeds.count(seed) == 0:
             solved = isPath(terraingen.terrain(blob, seed, size, size))
             sys.stdout.write("\rChecking seed: " + str(seed))
