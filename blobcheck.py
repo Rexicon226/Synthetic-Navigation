@@ -1,11 +1,40 @@
 import matplotlib.pyplot as plt
 import border
+import copy
+def blobs(size, octaves, seed=0):
+    pic, borderpic = border.bordercheck(size, octaves, seed)
+    fif, axes = fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 6))
+    islandpic = copy.deepcopy(pic)
+    def solve(matrix):
+        def dfs(i, j):
+            if i < 0 or j < 0 or i >= R or j >= C:
+                return True
+            if matrix[i][j] == 0:
+                return True
+            matrix[i][j] = 0
+            a = dfs(i + 1, j)
+            b = dfs(i - 1, j)
+            c = dfs(i, j + 1)
+            d = dfs(i, j - 1)
+            return a and b and c and d
 
-pic, borderpic = border.bordercheck(100, 5, 375584)
+        R, C = len(matrix), len(matrix[0])
+        ans = 0
+        for i in range(R):
+            for j in range(C):
+                if matrix[i][j] == 1:
+                    if dfs(i, j):
+                        ans += 1
+        return ans
 
-#insert smart code to detect amount of islands here :brain:
+    islands = solve(islandpic)
 
-plt.imshow(pic, cmap='winter_r', alpha=1)
-plt.imshow(borderpic, cmap='binary', alpha=0.8)
-plt.show()
+    axes[0][0].imshow(pic, cmap='winter_r')
+    axes[0][1].imshow(borderpic, cmap='binary')
+    axes[1][0].imshow(pic, cmap='winter_r')
+    axes[1][0].imshow(borderpic, cmap='binary', alpha=0.8)
+    print("Islands: " + str(islands))
+    plt.show()
+
+blobs(50, 5)
 

@@ -3,7 +3,7 @@ import time
 import pathcheck
 import numpy as np
 
-def bordercheck(size, octaves, seed):
+def bordercheck(size, octaves, seed=0):
     print('Starting Border Find')
     start_time = time.time()
     pic = pathcheck.path(size, octaves, seed)
