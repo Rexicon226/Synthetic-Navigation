@@ -7,7 +7,8 @@ import numpy as np
 import terraingen
 
 
-def path(size, blob, setseed=0):
+def path(size: int, octaves: int, setseed=0):
+    """TODO: @Rexicon266 add comments and docstring"""
     col = size
     row = size
 
@@ -34,13 +35,13 @@ def path(size, blob, setseed=0):
     failedSeeds = []
     start_time = time.time()
     while not solved:
-        if(setseed != 0 and len(failedSeeds) == 0):
+        if setseed != 0 and len(failedSeeds) == 0:
             seed = setseed
         else:
             seed = random.randint(1, 10000000)
         if failedSeeds.count(seed) == 0:
-            solved = isPath(terraingen.terrain(blob, seed, size, size))
-            sys.stdout.write("\rChecking seed: " + str(seed) + ", Number: " + str(len(failedSeeds)))
+            solved = isPath(terraingen.terrain(octaves, seed, size, size))
+            sys.stdout.write("\rChecking seed: " + str(seed) + ", Number: " + str(len(failedSeeds) + 1))
             sys.stdout.flush()
             if solved:
                 print(f'\nWorking Seed: ' + str(seed))
@@ -48,8 +49,16 @@ def path(size, blob, setseed=0):
                 print("%s seconds of processing" % np.round(time.time() - start_time, 2))
                 print("--- Done Path Checking ---")
             failedSeeds.append(seed)
-    A = terraingen.terrain(blob, seed, size, size)
+    A = terraingen.terrain(octaves, seed, size, size)
     for i in range(len(A)):
         A[i] = list(map(int, A[i]))
         A[i] = [abs(ele) for ele in A[i]]
     return A
+
+
+if __name__ == "__main__":
+    import matplotlib.pyplot as plt
+
+    pic = path(10, 2)
+    plt.imshow(pic, cmap="Greys")
+    plt.show()
