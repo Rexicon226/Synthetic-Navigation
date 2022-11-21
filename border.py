@@ -55,10 +55,14 @@ def bordercheck(pic: list[list[int]]):
                 borderpic[x][y] = 0
                 # borderpic[x][y] = mx-1
 
-    print("Pic: " + str(pic))
-    print("Border: " + str(borderpic))
+    print("Pic: ")
+    for i in range(len(pic)):
+        print(pic[i])
+    print("Border: ")
+    for i in range(len(borderpic)):
+        print(borderpic[i])
     print("%s seconds of processing" % np.round(time.time() - start_time, 2))
-    print("---Done Border Check---")
+    print("--- Done Border Check ---")
     return borderpic
 
 
