@@ -1,10 +1,13 @@
 import matplotlib.pyplot as plt
 import border
 import copy
-def blobs(size, octaves, seed=0):
-    pic, borderpic = border.bordercheck(size, octaves, seed)
+
+
+def blobs(pic):
+    borderpic = border.bordercheck(pic)
     fif, axes = fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 6))
     islandpic = copy.deepcopy(pic)
+
     def solve(matrix):
         def dfs(i, j):
             if i < 0 or j < 0 or i >= R or j >= C:
