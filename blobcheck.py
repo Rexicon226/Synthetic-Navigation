@@ -30,14 +30,19 @@ def blobs(pic):
     borderpic = border.bordercheck(pic)
     fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 6))
     islandpic = copy.deepcopy(pic)
+    oceanpic = copy.deepcopy(pic)
+    for y in range(len(oceanpic) - 1):
+        oceanpic[y] = [0 if (k == 1) else 1 for k in oceanpic[y]]
 
     islands = solve(islandpic)
+    oceans = solve(oceanpic)
 
     axes[0][0].imshow(pic, cmap='winter_r')
     axes[0][1].imshow(borderpic, cmap='binary')
     axes[1][0].imshow(pic, cmap='winter_r')
     axes[1][0].imshow(borderpic, cmap='binary', alpha=0.8)
-    print("Islands: " + str(islands))
+    print("Islands: " + islands)
+    print("Oceans: " + oceans)
     plt.show()
 
 
