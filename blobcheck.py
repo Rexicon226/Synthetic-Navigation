@@ -5,7 +5,7 @@ import copy
 
 def blobs(pic):
     borderpic = border.bordercheck(pic)
-    fif, axes = fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 6))
+    fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 6))
     islandpic = copy.deepcopy(pic)
 
     def solve(matrix):
