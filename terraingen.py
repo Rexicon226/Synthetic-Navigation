@@ -2,7 +2,7 @@ import numpy as np
 from perlin_noise import PerlinNoise
 
 
-def terrain(octaves: int, seed, x, y):
+def terrain(octaves: int, seed: int, x: int, y: int):
     """generates a random "terrain" map
 
     Parameters

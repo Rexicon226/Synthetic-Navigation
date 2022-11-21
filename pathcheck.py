@@ -7,7 +7,7 @@ import numpy as np
 import terraingen
 
 
-def path(size, octaves, setseed=0):
+def path(size: int, octaves: int, setseed=0):
     """TODO: @Rexicon266 add comments and docstring"""
     col = size
     row = size
