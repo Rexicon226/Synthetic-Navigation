@@ -5,9 +5,10 @@ import matplotlib.pyplot as plt
 import pathcheck
 
 pic = pathcheck.path(40, 4)
-plt.imshow(pic, cmap='gray')
+# plt.imshow(pic, cmap='gray')
 # plt.imshow(borderpic, cmap='Blues')
-plt.show()
+# plt.show()
+print(pic)
 borderpic = copy.deepcopy(pic)  # create a deep copy so that stuff doesn't get messed up
 for x in range(len(pic)):
     for y in range(len(pic)):
@@ -32,8 +33,10 @@ for x in range(len(pic)):
             else:
                 borderpic[x][y] = 0
 
+
+
         else:
-            pic[x][y] = 0
+            borderpic[x][y] = 0
 
             # borderpic[x][y] = mx-1
 print(pic)
