@@ -37,10 +37,10 @@ def path(size, blob, setseed=0):
         if(setseed != 0 and len(failedSeeds) == 0):
             seed = setseed
         else:
-            seed = random.randint(1, 1000000)
+            seed = random.randint(1, 10000000)
         if failedSeeds.count(seed) == 0:
             solved = isPath(terraingen.terrain(blob, seed, size, size))
-            sys.stdout.write("\rChecking seed: " + str(seed))
+            sys.stdout.write("\rChecking seed: " + str(seed) + ", Number: " + str(len(failedSeeds)))
             sys.stdout.flush()
             if solved:
                 print(f'\nWorking Seed: ' + str(seed))
