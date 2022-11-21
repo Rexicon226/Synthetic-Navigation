@@ -1,6 +1,7 @@
 import terraingen
 import random
 import matplotlib.pyplot as plt
+import sys
 row = 15
 col = 15
 
@@ -28,11 +29,11 @@ while(solved == False):
     seed = random.randint(1, 1000)
     if failedSeeds.count(seed) == 0:
         solved = isPath(terraingen.terrain(10, seed))
+        sys.stdout.write("\rChecking seed: " + str(seed))
+        sys.stdout.flush()
         if solved == True:
-            print(seed)
-            print(len(failedSeeds))
-            print(failedSeeds)
+            print(f'\nWorking Seed: ' + str(seed))
+            print(f'Failed Seeds: ' + str(len(failedSeeds)))
             plt.imshow(terraingen.terrain(10, seed), cmap='gray')
             plt.show()
-        print(f'Failed: ' + str(seed))
         failedSeeds.append(seed)
