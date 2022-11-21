@@ -4,7 +4,7 @@ from perlin_noise import PerlinNoise
 
 def terrain(size, randseed):
     noise = PerlinNoise(octaves=size, seed=randseed)
-    xpix, ypix = 100, 100
+    xpix, ypix = 15, 15
     pic = [[noise([i / xpix, j / ypix]) for j in range(xpix)] for i in range(ypix)]
     totalblack = 0
     for i in range(xpix):

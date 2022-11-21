@@ -1,8 +1,8 @@
 import terraingen
 import random
 import matplotlib.pyplot as plt
-row = 5
-col = 3
+row = 15
+col = 15
 
 def isPath(arr):
     arr[0][0] = 1
