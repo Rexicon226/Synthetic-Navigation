@@ -89,7 +89,7 @@ def blobs(pic: list[list[int]]):
 
 
 if __name__ == "__main__":
-    pic = pathcheck.path(100, 100, 4, True)
+    pic = pathcheck.path(1000, 1000, 41, True)
     borderpic = border.bordercheck(pic)
     f = FunctionTimer("Island Check")
     islands, oceans, oceanpic = blobs(pic)

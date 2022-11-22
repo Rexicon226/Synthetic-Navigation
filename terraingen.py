@@ -18,9 +18,7 @@ def terrain(x: int, y: int, octaves: int, progress: bool = False, seed: int = 0)
         True: will display progress bar (not recommended for uses were time is unknown)
         False: Default, will not display progress bar
     seed : int
-        random seed
-
-
+        There are two optional arguments, you need to specify "seed=" in the function
     Returns
     -------
     pic : list[list[0,1]]
@@ -38,6 +36,6 @@ def terrain(x: int, y: int, octaves: int, progress: bool = False, seed: int = 0)
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
-    pic = terrain(100, 100, 4, True, 123)
-    plt.imshow(pic, cmap="Greys")
+    pic = terrain(10, 10, 4, True, seed=12308)
+    plt.imshow(pic, cmap='Greys')
     plt.show()

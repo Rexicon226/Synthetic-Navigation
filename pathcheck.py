@@ -1,3 +1,4 @@
+import os
 import random
 import sys
 
@@ -25,11 +26,14 @@ def path(x: int, y: int, octaves: int, progress: bool = False, setseed: int = 0)
     octaves : int
         Changes the complexity of the perlin noise.
         (runtime will increase drastically, don't increase over 7-10)
-
+    Progress : bool
+        True: will display progress bar (not recommended for uses were time is unknown)
+        False: Default, will not display progress bar
     setseed : int
         Forces a seed into the perlin noise generation, useful for debugging.
         Optional value not needed.
         DONT PASS 0 AS THE SET SEED WILL NOT RUN
+        (setseed needs to be specified in teh function call)
 
     Returns
     -------
@@ -58,6 +62,9 @@ def path(x: int, y: int, octaves: int, progress: bool = False, setseed: int = 0)
 
         return arr[row - 1][col - 1] == 1
 
+    def clear():
+        os.system('cls')
+
     solved = False
     failedSeeds = []
     f = FunctionTimer("Path Processing")
@@ -68,25 +75,27 @@ def path(x: int, y: int, octaves: int, progress: bool = False, setseed: int = 0)
             solved = True
         else:
             seed = random.randint(1, x * y * 1000)
+            clear()
         if failedSeeds.count(seed) == 0 and setseed == 0:
-            solved = isPath(terraingen.terrain(x, y, octaves, seed))
+            solved = isPath(terraingen.terrain(x, y, octaves, True, seed=seed))
             sys.stdout.write("\rChecking seed: " + str(seed) + ", Number: " + str(len(failedSeeds) + 1))
             sys.stdout.flush()
             if solved:
                 print(f'\nWorking Seed: ' + str(seed))
                 print(f'Failed Seeds: ' + str(len(failedSeeds)))
-                f.stop()
             failedSeeds.append(seed)
-    A = terraingen.terrain(x, y, octaves, True, seed)
+    A = terraingen.terrain(x, y, octaves, progress, seed=seed)
     for i in range(len(A)):
         A[i] = list(map(int, A[i]))
         A[i] = [abs(ele) for ele in A[i]]
+    f.stop()
     return A
+
 
 
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
-    pic = path(10, 10, 4)
+    pic = path(100, 100, 10, True)
     plt.imshow(pic, cmap="Greys")
     plt.show()
