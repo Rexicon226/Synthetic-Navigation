@@ -87,9 +87,11 @@ def blobs(pic: list[list[int]]):
 
     return islands, oceans, oceanpic
 
-
-if __name__ == "__main__":
-    pic = pathcheck.path(100, 100, 10, True, 5874286)
+def visualize(x: int, y: int, octaves: int, progress: bool = False, setseed: int = 0):
+    """
+    Simple Function used to quickly visualize multi-view
+    """
+    pic = pathcheck.path(x, y, octaves, progress, setseed)
     borderpic = border.bordercheck(pic)
     f = FunctionTimer("Island Check")
     islands, oceans, oceanpic = blobs(pic)
@@ -106,3 +108,6 @@ if __name__ == "__main__":
     axes[1][0].imshow(borderpic, cmap='binary', alpha=0.8)
     axes[1][1].imshow(oceanpic, cmap='binary')
     plt.show()
+
+if __name__ == "__main__":
+    visualize(10, 10, 4, True, 123)
