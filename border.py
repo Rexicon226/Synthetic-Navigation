@@ -1,9 +1,7 @@
 import copy
-from timers import FunctionTimer
-
-import numpy as np
 
 import terraingen
+from timers import FunctionTimer
 
 
 def bordercheck(pic: list[list[int]]):
@@ -54,12 +52,12 @@ def bordercheck(pic: list[list[int]]):
                 borderpic[x][y] = 0
                 # borderpic[x][y] = mx-1
 
-    print("Pic: ")
+    '''print("Pic: ")
     for i in range(len(pic)):
         print(pic[i])
     print("Border: ")
     for i in range(len(borderpic)):
-        print(borderpic[i])
+        print(borderpic[i])'''
     f.stop()
     return borderpic
 
@@ -67,6 +65,6 @@ def bordercheck(pic: list[list[int]]):
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
-    pic = bordercheck(terraingen.terrain(20, 20, 4))
+    pic = bordercheck(terraingen.terrain(20, 20, 4, True))
     plt.imshow(pic, cmap="Greys")
     plt.show()

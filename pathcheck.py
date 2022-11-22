@@ -1,12 +1,11 @@
 import random
 import sys
-from timers import FunctionTimer
-import numpy as np
 
 import terraingen
+from timers import FunctionTimer
 
 
-def path(x: int, y: int, octaves: int, setseed=0):
+def path(x: int, y: int, octaves: int, progress: bool = False, setseed: int = 0):
     """
     Parameters
     ----------
@@ -63,11 +62,13 @@ def path(x: int, y: int, octaves: int, setseed=0):
     failedSeeds = []
     f = FunctionTimer("Path Processing")
     while not solved:
-        if setseed != 0 and len(failedSeeds) == 0:
+        if setseed != 0:
             seed = setseed
+            print("Set Seed: " + str(seed))
+            solved = True
         else:
-            seed = random.randint(1, x * 1000)
-        if failedSeeds.count(seed) == 0:
+            seed = random.randint(1, x * y * 1000)
+        if failedSeeds.count(seed) == 0 and setseed == 0:
             solved = isPath(terraingen.terrain(x, y, octaves, seed))
             sys.stdout.write("\rChecking seed: " + str(seed) + ", Number: " + str(len(failedSeeds) + 1))
             sys.stdout.flush()
@@ -76,7 +77,7 @@ def path(x: int, y: int, octaves: int, setseed=0):
                 print(f'Failed Seeds: ' + str(len(failedSeeds)))
                 f.stop()
             failedSeeds.append(seed)
-    A = terraingen.terrain(x, y, octaves, seed)
+    A = terraingen.terrain(x, y, octaves, True, seed)
     for i in range(len(A)):
         A[i] = list(map(int, A[i]))
         A[i] = [abs(ele) for ele in A[i]]
@@ -86,6 +87,6 @@ def path(x: int, y: int, octaves: int, setseed=0):
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
-    pic = path(20, 20, 4)
+    pic = path(10, 10, 4)
     plt.imshow(pic, cmap="Greys")
     plt.show()

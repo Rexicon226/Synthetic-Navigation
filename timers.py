@@ -1,4 +1,5 @@
 import time
+from math import *
 
 
 class BaseTimer:
@@ -25,15 +26,20 @@ class BaseTimer:
 class FunctionTimer(BaseTimer):
     def __init__(self, name):
         self.name = name
-        print(f"----- starting \"{self.name}\" -----")
+        print(f"----- Starting \"{self.name}\" -----")
         super().__init__()
 
     def stop(self):
         ts = self.time
-        print(f"----- done. \"{self.name}\" took {ts}s -----")
+
+        def round_sig(x, sig=2):
+            return round(x, sig - int(floor(log10(abs(x)))) - 1)
+
+        ts = round_sig(ts, 5)
+        print(f"----- Done. \"{self.name}\" took {ts}s -----")
 
 
 if __name__ == "__main__":
     x = FunctionTimer("testing")
-    time.sleep(2)
+    time.sleep(1)
     x.stop()
