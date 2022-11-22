@@ -1,4 +1,3 @@
-import os
 import random
 import sys
 
@@ -62,9 +61,6 @@ def path(x: int, y: int, octaves: int, progress: bool = False, setseed: int = 0)
 
         return arr[row - 1][col - 1] == 1
 
-    def clear():
-        os.system('cls')
-
     solved = False
     failedSeeds = []
     f = FunctionTimer("Path Processing")
@@ -75,9 +71,8 @@ def path(x: int, y: int, octaves: int, progress: bool = False, setseed: int = 0)
             solved = True
         else:
             seed = random.randint(1, x * y * 1000)
-            clear()
         if failedSeeds.count(seed) == 0 and setseed == 0:
-            solved = isPath(terraingen.terrain(x, y, octaves, True, seed=seed))
+            solved = isPath(terraingen.terrain(x, y, octaves, seed=seed))
             sys.stdout.write("\rChecking seed: " + str(seed) + ", Number: " + str(len(failedSeeds) + 1))
             sys.stdout.flush()
             if solved:
@@ -96,6 +91,6 @@ def path(x: int, y: int, octaves: int, progress: bool = False, setseed: int = 0)
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
-    pic = path(100, 100, 10, True)
+    pic = path(100, 100, 10)
     plt.imshow(pic, cmap="Greys")
     plt.show()
