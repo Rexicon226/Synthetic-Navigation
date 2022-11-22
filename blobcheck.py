@@ -4,6 +4,7 @@ from collections import deque
 import matplotlib.pyplot as plt
 
 import border
+import noiseadder
 import pathcheck
 from timers import FunctionTimer
 
@@ -85,29 +86,33 @@ def blobs(pic: list[list[int]]):
     islands = countIslands(islandpic)
     oceans = countIslands(oceanpic)
 
-    return islands, oceans, oceanpic
+    return islands
 
-def visualize(x: int, y: int, octaves: int, progress: bool = False, setseed: int = 0):
+
+def visualize(x: int, y: int, octaves: int, noiselevel: int, progress: bool = False, setseed: int = 0):
     """
     Simple Function used to quickly visualize multi-view
     """
     pic = pathcheck.path(x, y, octaves, progress, setseed)
+    noisepic = noiseadder.addnoise(pic, noiselevel)
     borderpic = border.bordercheck(pic)
     f = FunctionTimer("Island Check")
-    islands, oceans, oceanpic = blobs(pic)
-    print("Islands: " + str(islands))
-    print("Oceans: " + str(oceans))
+    islands = blobs(pic)
+    noiseislands = blobs(noisepic)
+    print("Pic Islands: " + str(islands))
+    print("NoisePic Islands: " + str(noiseislands))
 
     f.stop()
 
     fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 6))
 
-    axes[0][0].imshow(pic, cmap='winter_r')
-    axes[0][1].imshow(borderpic, cmap='binary')
+    axes[0][0].imshow(pic, cmap='binary')
+    axes[0][1].imshow(noisepic, cmap='binary')
     axes[1][0].imshow(pic, cmap='winter_r')
     axes[1][0].imshow(borderpic, cmap='binary', alpha=0.8)
-    axes[1][1].imshow(oceanpic, cmap='binary')
+    axes[1][1].imshow(borderpic, cmap='binary')
     plt.show()
 
+
 if __name__ == "__main__":
-    visualize(10, 10, 4, True, 123)
+    visualize(300, 300, 20, 20, True, 120938561)
