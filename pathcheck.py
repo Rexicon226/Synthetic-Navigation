@@ -7,8 +7,6 @@ from timers import FunctionTimer
 
 def path(x: int, y: int, octaves: int, progress: bool = False, setseed: int = 0):
     """
-    Parameters
-    ----------
     Checks if the generated terrain map has a path
     from the top left square to the bottom right square
 
@@ -16,6 +14,8 @@ def path(x: int, y: int, octaves: int, progress: bool = False, setseed: int = 0)
 
     (I know it's not efficient but random perlin noise moment)
 
+    Parameters
+    ----------
     x : int
         x size of the graph
 
