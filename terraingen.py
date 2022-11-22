@@ -2,7 +2,7 @@ import numpy as np
 from perlin_noise import PerlinNoise
 
 
-def terrain(octaves: int, seed: int, x: int, y: int):
+def terrain(x: int, y: int, octaves: int, seed: int = 0):
     """generates a random "terrain" map
 
     Parameters
@@ -19,10 +19,18 @@ def terrain(octaves: int, seed: int, x: int, y: int):
     Returns
     -------
     pic : list[list[0,1]]
-        thresholded list of smooth noise
+        threshold list of smooth noise
     """
+
     noise = PerlinNoise(octaves=octaves, seed=seed)
-    xpix, ypix = x, y
-    pic = [[np.floor(noise([i / xpix, j / ypix])) for j in range(xpix)] for i in range(ypix)]
+    pic = [[np.floor(noise([i / x, j / y])) for j in range(y)] for i in range(x)]
 
     return pic
+
+
+if __name__ == "__main__":
+    import matplotlib.pyplot as plt
+
+    pic = terrain(20, 20, 4)
+    plt.imshow(pic, cmap="Greys")
+    plt.show()

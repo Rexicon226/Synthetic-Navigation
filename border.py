@@ -1,10 +1,17 @@
 import copy
-import time
+from timers import FunctionTimer
+
 import numpy as np
+
+import terraingen
 
 
 def bordercheck(pic: list[list[int]]):
     """Returns a modified array where the borders of the blobs are ``0`` and everything else is ``1``.
+
+    Note: The borders are "Inclusive" the edge pixels of the blobs are counted, nothing that isn't blob
+    is generated. Overlaying the border and pic graphs would result in the same size.
+
     Parameters
     ----------
     pic : list[list[{1,0}]]
@@ -14,8 +21,7 @@ def bordercheck(pic: list[list[int]]):
     -------
     borderpic : list[list[{1,0}]]
          """
-    print('Starting Border Find')
-    start_time = time.time()
+    f = FunctionTimer("Border Check")
 
     for i in range(len(pic)):
         pic[i] = [abs(ele) for ele in pic[i]]
@@ -48,17 +54,19 @@ def bordercheck(pic: list[list[int]]):
                 borderpic[x][y] = 0
                 # borderpic[x][y] = mx-1
 
-    print("Pic: " + str(pic))
-    print("Border: " + str(borderpic))
-    print("%s seconds of processing" % np.round(time.time() - start_time, 2))
-    print("---Done Border Check---")
+    print("Pic: ")
+    for i in range(len(pic)):
+        print(pic[i])
+    print("Border: ")
+    for i in range(len(borderpic)):
+        print(borderpic[i])
+    f.stop()
     return borderpic
 
 
 if __name__ == "__main__":
-    from terraingen import terrain
     import matplotlib.pyplot as plt
 
-    pic = bordercheck(terrain(5, 1, 100, 100))
+    pic = bordercheck(terraingen.terrain(20, 20, 4))
     plt.imshow(pic, cmap="Greys")
     plt.show()
