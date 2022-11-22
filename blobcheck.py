@@ -1,5 +1,5 @@
 import copy
-import time
+from timers import FunctionTimer
 from collections import deque
 
 import matplotlib.pyplot as plt
@@ -92,13 +92,12 @@ def blobs(pic: list[list[int]]):
 if __name__ == "__main__":
     pic = pathcheck.path(10, 10, 4)
     borderpic = border.bordercheck(pic)
-    start_time = time.time()
+    f = FunctionTimer("Island Check")
     islands, oceans, oceanpic = blobs(pic)
-    print("--- Starting Island Check")
     print("Islands: " + str(islands))
     print("Oceans: " + str(oceans))
-    print("%s seconds of processing" % np.round(time.time() - start_time, 2))
-    print("--- Done Island Check ---")
+
+    f.stop()
 
     fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 6))
 

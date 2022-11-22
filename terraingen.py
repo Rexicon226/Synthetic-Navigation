@@ -21,6 +21,7 @@ def terrain(x: int, y: int, octaves: int, seed: int = 0):
     pic : list[list[0,1]]
         threshold list of smooth noise
     """
+
     noise = PerlinNoise(octaves=octaves, seed=seed)
     pic = [[np.floor(noise([i / x, j / y])) for j in range(y)] for i in range(x)]
 
