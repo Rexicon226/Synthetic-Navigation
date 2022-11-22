@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def noiseMaps(x: int, y: int, octaves1, octaves2, difference: float, seed: Optional[int] = 0):
+def noiseMaps(x: int, y: int, octaves1, octaves2, difference: float, seed: Optional[int] = 0,
+              seedDifference: Optional[int] = 1):
     """function that generates two maps with a "difference" in between
     works by generating two perlin noise maps and then adding them and returning both the sum and one individual
 
@@ -21,10 +22,13 @@ def noiseMaps(x: int, y: int, octaves1, octaves2, difference: float, seed: Optio
     difference : float
         percentage difference between the maps (opacity of second layer of second map)
     seed : Optional[int]
-        random seed for number generation"""
+        random seed for number generation
+    seedDifference : Optional[int]
+        difference between the two seeds
+    """
 
     map1 = PerlinNoise(octaves1, seed)
-    map2 = PerlinNoise(octaves2, seed)
+    map2 = PerlinNoise(octaves2, seed + seedDifference)
     discrete1 = [[map1([i / x, j / y]) for j in range(y)] for i in range(x)]
     discrete2 = [[(difference * map2([i / x, j / y])) + (1 - difference) * (discrete1[i][j]) for j in range(y)] for i in
                  range(x)]
@@ -32,9 +36,10 @@ def noiseMaps(x: int, y: int, octaves1, octaves2, difference: float, seed: Optio
     return discrete1, discrete2
 
 
-def thresholdedNoiseMaps(x: int, y: int, octaves1, octaves2, difference: float, seed: Optional[int] = 0):
+def thresholdedNoiseMaps(x: int, y: int, octaves1, octaves2, difference: float, seed: Optional[int] = 0,
+                         seedDifference: Optional[int] = 1):
     """same as noiseMaps only it gets thresholded"""
-    d1, d2 = noiseMaps(x, y, octaves1, octaves2, difference, seed)
+    d1, d2 = noiseMaps(x, y, octaves1, octaves2, difference, seed, seedDifference)
     td1 = [[int(np.floor(x)) for x in d1[y]] for y in range(y)]
     td2 = [[int(np.floor(x)) for x in d2[y]] for y in range(y)]
 
