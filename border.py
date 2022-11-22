@@ -1,5 +1,5 @@
 import copy
-import time
+from timers import FunctionTimer
 
 import numpy as np
 
@@ -21,8 +21,7 @@ def bordercheck(pic: list[list[int]]):
     -------
     borderpic : list[list[{1,0}]]
          """
-    print('--- Starting Border Find ---')
-    start_time = time.time()
+    f = FunctionTimer("Border Check")
 
     for i in range(len(pic)):
         pic[i] = [abs(ele) for ele in pic[i]]
@@ -61,8 +60,7 @@ def bordercheck(pic: list[list[int]]):
     print("Border: ")
     for i in range(len(borderpic)):
         print(borderpic[i])
-    print("%s seconds of processing" % np.round(time.time() - start_time, 2))
-    print("--- Done Border Check ---")
+    f.stop()
     return borderpic
 
 

@@ -1,7 +1,6 @@
 import random
 import sys
-import time
-
+from timers import FunctionTimer
 import numpy as np
 
 import terraingen
@@ -62,7 +61,7 @@ def path(x: int, y: int, octaves: int, setseed=0):
 
     solved = False
     failedSeeds = []
-    start_time = time.time()
+    f = FunctionTimer("Path Processing")
     while not solved:
         if setseed != 0 and len(failedSeeds) == 0:
             seed = setseed
@@ -75,8 +74,7 @@ def path(x: int, y: int, octaves: int, setseed=0):
             if solved:
                 print(f'\nWorking Seed: ' + str(seed))
                 print(f'Failed Seeds: ' + str(len(failedSeeds)))
-                print("%s seconds of processing" % np.round(time.time() - start_time, 2))
-                print("--- Done Path Checking ---")
+                f.stop()
             failedSeeds.append(seed)
     A = terraingen.terrain(x, y, octaves, seed)
     for i in range(len(A)):
