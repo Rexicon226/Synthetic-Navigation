@@ -1,14 +1,14 @@
-from perlin_noise import PerlinNoise
 from typing import Optional
+
 import matplotlib.pyplot as plt
 import numpy as np
+from perlin_noise import PerlinNoise
 
 
 def noiseMaps(x: int, y: int, octaves1, octaves2, difference: float, seed: Optional[int] = 0,
               seedDifference: Optional[int] = 1):
     """function that generates two maps with a "difference" in between
     works by generating two perlin noise maps and then adding them and returning both the sum and one individual
-
     Parameters
     ----------
     x : int

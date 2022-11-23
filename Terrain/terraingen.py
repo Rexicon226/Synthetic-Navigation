@@ -33,6 +33,7 @@ def terrain(x: int, y: int, octaves: int, progress: bool = False, seed: int = 0)
         pic = [[int(np.floor(noise([i / x, j / y]))) for j in range(y)] for i in range(x)]
         return pic
 
+
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
 

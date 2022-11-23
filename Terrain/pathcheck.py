@@ -87,7 +87,6 @@ def path(x: int, y: int, octaves: int, progress: bool = False, setseed: int = 0)
     return A
 
 
-
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
