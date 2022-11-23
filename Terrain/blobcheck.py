@@ -115,4 +115,4 @@ def visualize(x: int, y: int, octaves: int, noiselevel: int, progress: bool = Fa
 
 
 if __name__ == "__main__":
-    visualize(300, 300, 20, 20, True, 120938561)
+    visualize(300, 300, 20, 0.1, True, 120938561)

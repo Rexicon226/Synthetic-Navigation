@@ -52,12 +52,6 @@ def bordercheck(pic: list[list[int]]):
                 borderpic[x][y] = 0
                 # borderpic[x][y] = mx-1
 
-    '''print("Pic: ")
-    for i in range(len(pic)):
-        print(pic[i])
-    print("Border: ")
-    for i in range(len(borderpic)):
-        print(borderpic[i])'''
     f.stop()
     return borderpic
 
@@ -65,6 +59,10 @@ def bordercheck(pic: list[list[int]]):
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
-    pic = bordercheck(terraingen.terrain(20, 20, 4, True))
-    plt.imshow(pic, cmap="Greys")
+    pic = terraingen.terrain(100, 100, 4, True)
+    terrainpic = bordercheck(pic)
+
+    fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 6))
+    axes[0].imshow(pic, cmap="Greys")
+    axes[1].imshow(terrainpic, cmap="binary")
     plt.show()

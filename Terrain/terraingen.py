@@ -37,6 +37,6 @@ def terrain(x: int, y: int, octaves: int, progress: bool = False, seed: int = 0)
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
-    pic = terrain(10, 10, 4, True, seed=12308)
+    pic = terrain(50, 50, 4, True, seed=12308)
     plt.imshow(pic, cmap='Greys')
     plt.show()
