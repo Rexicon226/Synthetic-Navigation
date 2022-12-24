@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import pathcheck
 
 
-def addnoise(pic: list[list[(int)]], weight: int):
+def addnoise(pic: list[list[int]], weight: int):
     """
     This function takes in an array and adds random noise to it depending on the weights set.
 

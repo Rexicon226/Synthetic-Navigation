@@ -14,7 +14,7 @@ def terrain(x: int, y: int, octaves: int, progress: bool = False, seed: int = 0)
         y size of the array
     octaves : int
         octaves for perlin noise
-    Progress : bool
+    progress : bool
         True: will display progress bar (not recommended for uses were time is unknown)
         False: Default, will not display progress bar
     seed : int
@@ -26,17 +26,17 @@ def terrain(x: int, y: int, octaves: int, progress: bool = False, seed: int = 0)
     """
 
     noise = PerlinNoise(octaves=octaves, seed=seed)
-    if progress == True:
-        pic = [[int(np.floor(noise([i / x, j / y]))) for j in range(y)] for i in tqdm(range(x))]
-        return pic
-    if progress == False:
-        pic = [[int(np.floor(noise([i / x, j / y]))) for j in range(y)] for i in range(x)]
-        return pic
+    if progress:
+        picarr = [[int(np.floor(noise([i / x, j / y]))) for j in range(y)] for i in tqdm(range(x))]
+        return picarr
+    if not progress:
+        picarr = [[int(np.floor(noise([i / x, j / y]))) for j in range(y)] for i in range(x)]
+        return picarr
 
 
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
-    pic = terrain(50, 50, 4, True, seed=12308)
+    pic = terrain(256, 256, 4, True, seed=12308)
     plt.imshow(pic, cmap='Greys')
     plt.show()

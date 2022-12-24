@@ -24,6 +24,8 @@ class BaseTimer:
 
 
 class FunctionTimer(BaseTimer):
+    totalTime = 0
+
     def __init__(self, name):
         self.name = name
         print(f"----- Starting \"{self.name}\" -----")
@@ -36,10 +38,16 @@ class FunctionTimer(BaseTimer):
             return round(x, sig - int(floor(log10(abs(x)))) - 1)
 
         ts = round_sig(ts, 5)
+
         print(f"----- Done. \"{self.name}\" took {ts}s -----")
+
+    def final(self):
+        totalTime = 1
+        print(f"----- Code Done. Total Time Spent: {totalTime}")
 
 
 if __name__ == "__main__":
     x = FunctionTimer("testing")
     time.sleep(1)
     x.stop()
+    x.final()
