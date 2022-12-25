@@ -1,12 +1,11 @@
-from Terrain import generator
-from Terrain import reverser
-import numpy as np
-import matplotlib.pyplot as plt
 import random
-from tqdm import tqdm
-import cv2
+
 import PIL
-from skimage import data, io, util
+import numpy as np
+from tqdm import tqdm
+import threading
+from Terrain import generator
+import math
 
 
 def array2image(x, y, octaves, weight, seed: int = 0, iD: int = 0):
@@ -20,22 +19,41 @@ def array2image(x, y, octaves, weight, seed: int = 0, iD: int = 0):
     img.save('./train_images/noise/' + str(iD) + '_image.png', bits=1, optimize=True)
 
 
-image_count = 1000
-
-
-def greyscale():
-    for i in tqdm(range(image_count)):
-        image = cv2.imread('./images/noise/inputs/' + str(i) + '_image.png')
-
-        gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
-
-        plt.imsave('images/noise/inputs/' + str(i) + '_image.png', gray_image, cmap='gray', bits=1)
+image_count = 100000
+threads = 11
+size = 50
+octaves = 4
+weight = 14
 
 
 def generate():
-    for i in tqdm(range(image_count)):
-        seed = random.randint(1, 10000000000)
-        array2image(50, 50, 4, 10, seed, i)
+    current_count = 2090
+
+    array_count = current_count
+    final_count = image_count + current_count
+
+    splitting_array = [0] * threads
+
+    thread_count = math.ceil(image_count / threads)
+
+    print(thread_count)
+
+    for i in range(threads):
+        if (array_count + thread_count) <= final_count:
+            array_count = array_count + thread_count
+            splitting_array[i] = thread_count
+        else:
+            splitting_array[i] = final_count - array_count
+
+    def thread(x):
+        count = current_count + (splitting_array[x] * x)
+        for i in range(splitting_array[x]):
+            seed = random.randint(1, 10000000000)
+            array2image(50, 50, 4, 10, seed, count + i)
+
+    for i in range(threads):
+        x = threading.Thread(target=thread, args=(i,))
+        x.start()
 
 
 generate()

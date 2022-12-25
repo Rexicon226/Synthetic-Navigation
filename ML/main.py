@@ -1,11 +1,9 @@
-import torch
 import torch.nn as nn
 import torch.optim as optim
-import torchvision
 import torch.utils.data
-from torch.utils.data import Subset, TensorDataset, DataLoader
+import torchvision
+from torch.utils.data import DataLoader
 from torchvision.datasets import ImageFolder
-from torch.utils.data import Dataset
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -14,7 +12,8 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 transform = torchvision.transforms.Compose([
     torchvision.transforms.Resize((50, 50)),
     torchvision.transforms.ToTensor(),
-    torchvision.transforms.Grayscale()
+    torchvision.transforms.Grayscale(),
+    torchvision.transforms.Normalize(mean=[0.5], std=[0.5])
 ])
 
 
@@ -22,85 +21,69 @@ transform = torchvision.transforms.Compose([
 class NoiseFilterCNN(nn.Module):
     def __init__(self):
         super(NoiseFilterCNN, self).__init__()
-
-        # Define the convolutional layers
-        self.conv1 = nn.Conv2d(1, 16, kernel_size=3, padding=1)
-        self.conv2 = nn.Conv2d(16, 32, kernel_size=3, padding=1)
-        self.conv3 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
-
-        # Define the max pooling layer
-        self.pool = nn.MaxPool2d(2, 2)
-
-        # Define the fully connected layers
-        self.fc1 = nn.Linear(64 * 48 * 48, 128)
-        print(self.fc1)
-        self.fc2 = nn.Linear(128, 1)
-
-        # Define the activation function
-        self.relu = nn.ReLU()
+        self.conv1 = nn.Conv2d(1, 32, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
+        self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
+        self.fc1 = nn.Linear(128 * 25 * 25, 128)
+        self.fc2 = nn.Linear(128, 50 * 50)
 
     def forward(self, x):
-        # Apply the convolutional layers and max pooling
-        x = self.pool(self.relu(self.conv1(x)))
-        x = self.pool(self.relu(self.conv2(x)))
-        x = self.pool(self.relu(self.conv3(x)))
-
-        print(x.shape)
-
-        # Flatten the output of the convolutional layers
-        x = x.view(-1, 64 * 48 * 48)
-
-        print(x.shape, x)
-        # Apply the fully connected layers
-        x = self.relu(self.fc1(x))
+        x = self.conv1(x)
+        x = nn.functional.relu(x)
+        x = self.conv2(x)
+        x = nn.functional.relu(x)
+        x = self.conv3(x)
+        x = nn.functional.relu(x)
+        x = x.view(-1, 128 * 25 * 25)
+        x = self.fc1(x)
+        x = nn.functional.relu(x)
         x = self.fc2(x)
-
+        x = torch.sigmoid(x)
         return x
 
 
+# Define the loss function and optimizer
 model = NoiseFilterCNN()
 model = model.to(device)
+criterion = nn.L1Loss()
+optimizer = optim.Adam(model.parameters())
 
 train_dataset = ImageFolder('./train_images/', transform=transform)
 val_dataset = ImageFolder('./val_images/', transform=transform)
 train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False)
 
-num_epochs = 100
+# Define the number of epochs and the batch size
+num_epochs = 1000
+batch_size = 32
 
-# Define the loss function and optimizer
-criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters())
-
-# Train the model
+# Loop over the number of epochs
 for epoch in range(num_epochs):
-    # Iterate over the training data
-    for inputs, labels in train_loader:
-        # Move the data to the device
-        inputs = inputs.to(device)
-        labels = labels.to(device)
+
+    # Loop over the training data in batches
+    for i, (inputs, labels) in enumerate(train_loader):
+        if i >= batch_size: break
+
+        # Move the input and label tensors to the GPU
+        inputs, labels = inputs.to(device), labels.to(device)
+
+        # Round the inputs because they are inputted as 0.99 which makes me sad :C
+        inputs = inputs.round()
 
         # Zero the gradients
         optimizer.zero_grad()
 
         # Forward pass
         outputs = model(inputs)
+
+        outputs = outputs.view(-1, 64)
+
         loss = criterion(outputs, labels)
 
-        # Backward pass and optimization
+        # Backward pass
         loss.backward()
         optimizer.step()
 
-    # Evaluate the model on the validation data
-    with torch.no_grad():
-        correct = 0
-        total = 0
-        for inputs, labels in val_loader:
-            inputs = inputs.to(device)
-            labels = labels.to(device)
-            outputs = model(inputs)
-            _, predicted = torch.max(outputs.data, 1)
-            total += labels.size(0)
-            correct += (predicted == labels).sum().item()
-        val_acc = correct / total
-        print(f'Epoch {epoch + 1}: Validation accuracy = {val_acc:.2f}')
+        if (i + 1) % 25 == 0:
+            print("Epoch: {}/{}, Batch: {}/{}, Loss: {:.4f}".format(epoch + 1, num_epochs, i + 1, batch_size,
+                                                                    loss.item()))
