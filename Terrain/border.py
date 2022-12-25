@@ -1,7 +1,7 @@
 import copy
 
-import terraingen
-from timers import FunctionTimer
+import Terrain.terraingen as terraingen
+from Terrain.timers import FunctionTimer
 
 
 def bordercheck(pic: list[list[int]]):

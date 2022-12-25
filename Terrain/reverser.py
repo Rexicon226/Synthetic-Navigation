@@ -1,4 +1,4 @@
-import terraingen
+import Terrain.terraingen as terraingen
 def reverse(pic: list):
     for i in range(len(pic)):
         for j in range(len(pic[i])):

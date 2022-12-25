@@ -4,7 +4,7 @@ from random import choices
 
 import matplotlib.pyplot as plt
 
-import pathcheck
+import Terrain.pathcheck as pathcheck
 
 
 def addnoise(pic: list[list[int]], weight: int):
