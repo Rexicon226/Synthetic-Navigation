@@ -1,9 +1,15 @@
+import os.path
+
 import torch.nn as nn
 import torch.optim as optim
 import torch.utils.data
 import torchvision
 from torch.utils.data import DataLoader
 from torchvision.datasets import ImageFolder
+import matplotlib.pyplot as plt
+from pathlib import Path
+from tqdm import tqdm
+import numpy as np
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -44,6 +50,11 @@ class NoiseFilterCNN(nn.Module):
 
 # Define the loss function and optimizer
 model = NoiseFilterCNN()
+
+if os.path.exists('./models/synthnav-model-0.pth'):
+    print("Loaded Model")
+    model.load_state_dict(torch.load(f='./models/synthnav-model-0.pth'))
+
 model = model.to(device)
 criterion = nn.L1Loss()
 optimizer = optim.Adam(model.parameters())
@@ -54,8 +65,8 @@ train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False)
 
 # Define the number of epochs and the batch size
-num_epochs = 1000
-batch_size = 32
+num_epochs = 1
+batch_size = 20
 
 # Loop over the number of epochs
 for epoch in range(num_epochs):
@@ -87,3 +98,70 @@ for epoch in range(num_epochs):
         if (i + 1) % 25 == 0:
             print("Epoch: {}/{}, Batch: {}/{}, Loss: {:.4f}".format(epoch + 1, num_epochs, i + 1, batch_size,
                                                                     loss.item()))
+
+    if (epoch + 1) % 10 == 0:
+        # 1. Create models directory
+        MODEL_PATH = Path("models")
+        MODEL_PATH.mkdir(parents=True, exist_ok=True)
+
+        # 2. Create model save path
+        MODEL_NAME = "synthnav-model-0.pth"
+        MODEL_SAVE_PATH = MODEL_PATH / MODEL_NAME
+
+        # 3. Save the model state dict
+        print(f"Saving model to: {MODEL_SAVE_PATH}")
+        torch.save(obj=model.state_dict(),  # only saving the state_dict() only saves the models learned parameters
+                   f=MODEL_SAVE_PATH)
+
+model = model.to("cpu")
+
+for i, (inputs, labels) in enumerate(train_loader):
+    inputs = inputs.to("cpu")
+    labels = labels.to("cpu")
+
+# 1. Create models directory
+MODEL_PATH = Path("models")
+MODEL_PATH.mkdir(parents=True, exist_ok=True)
+
+# 2. Create model save path
+MODEL_NAME = "synthnav-model-0.pth"
+MODEL_SAVE_PATH = MODEL_PATH / MODEL_NAME
+
+# 3. Save the model state dict
+print(f"Saving model to: {MODEL_SAVE_PATH}")
+torch.save(obj=model.state_dict(),  # only saving the state_dict() only saves the models learned parameters
+           f=MODEL_SAVE_PATH)
+
+
+def visualize_model(model, test_dataset, num_examples=5):
+    # Get the example images and labels from the test dataset
+    inputs, labels = next(iter(test_dataset))
+
+    # Predict the outputs for the example images
+    outputs = model(inputs)
+    outputs = outputs.detach().numpy()
+    inputs = inputs.detach().numpy()
+    print(outputs, outputs.shape)
+    outputs = np.reshape(outputs, (4, 50, 50))
+    print(outputs, outputs.shape)
+
+    # Loop over the number of examples
+    for i in range(num_examples):
+
+        # Get the input and output for the current example
+        input_example = inputs[i]
+        output_example = outputs[i]
+
+        # Plot the input and output side by side
+        plt.figure()
+        plt.subplot(1, 2, 1)
+        plt.imshow(input_example, cmap='gray')
+        plt.title('Input')
+        plt.subplot(1, 2, 2)
+        plt.imshow(output_example, cmap='gray')
+        plt.title('Output')
+        plt.show()
+
+
+# Test the model visualizer
+visualize_model(model, val_dataset, 3)
