@@ -65,8 +65,10 @@ train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False)
 
 # Define the number of epochs and the batch size
-num_epochs = 1
-batch_size = 20
+num_epochs = 1000
+batch_size = 75
+
+loss_array = list()
 
 # Loop over the number of epochs
 for epoch in range(num_epochs):
@@ -95,6 +97,8 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
 
+        loss_array.append(loss.item())
+
         if (i + 1) % 25 == 0:
             print("Epoch: {}/{}, Batch: {}/{}, Loss: {:.4f}".format(epoch + 1, num_epochs, i + 1, batch_size,
                                                                     loss.item()))
@@ -114,6 +118,8 @@ for epoch in range(num_epochs):
                    f=MODEL_SAVE_PATH)
 
 model = model.to("cpu")
+
+loss_array = np.array(loss_array)
 
 for i, (inputs, labels) in enumerate(train_loader):
     inputs = inputs.to("cpu")
@@ -141,13 +147,10 @@ def visualize_model(model, test_dataset, num_examples=5):
     outputs = model(inputs)
     outputs = outputs.detach().numpy()
     inputs = inputs.detach().numpy()
-    print(outputs, outputs.shape)
     outputs = np.reshape(outputs, (4, 50, 50))
-    print(outputs, outputs.shape)
 
     # Loop over the number of examples
     for i in range(num_examples):
-
         # Get the input and output for the current example
         input_example = inputs[i]
         output_example = outputs[i]
@@ -163,5 +166,17 @@ def visualize_model(model, test_dataset, num_examples=5):
         plt.show()
 
 
+def loss_graph():
+    x = np.arange(0, batch_size * num_epochs)
+    y = loss_array
+
+    plt.title("Loss graph")
+    plt.xlabel("Batches")
+    plt.ylabel("Loss")
+    plt.plot(x, y, color="green")
+    plt.show()
+
+
 # Test the model visualizer
-visualize_model(model, val_dataset, 3)
+visualize_model(model, val_dataset, 1)
+loss_graph()
