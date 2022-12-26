@@ -115,8 +115,8 @@ criterion = CustomMSE()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
 # Define the number of epochs and the batch size
-num_epochs = 1
-batch_size = 40
+num_epochs = 100
+batch_size = 64
 
 loss_array = list()
 
@@ -177,7 +177,7 @@ for epoch in range(num_epochs):
 
         loss_array.append(loss.item())
 
-        if (i + 1) % 20 == 0:
+        if (i + 1) % 32 == 0:
             print("Epoch: {}/{}, Batch: {}/{}, Loss: {:.4f}".format(epoch + 1, num_epochs, i + 1, batch_size,
                                                                     loss.item()))
         i += 1
