@@ -1,17 +1,15 @@
 import os.path
 from pathlib import Path
 
-from torch.nn import *
-from torchsummary import summary
 import matplotlib.pyplot as plt
 import numpy as np
 import torch.nn as nn
-import torch.optim as optim
 import torch.utils.data
 import torchvision
-from torch.utils.data import DataLoader
-from torchvision.datasets import ImageFolder
 from PIL import Image
+from torch.utils.data import DataLoader
+from torchsummary import summary
+from torchvision.datasets import ImageFolder
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print("Device: {}\n".format(device))
@@ -23,6 +21,7 @@ transform = torchvision.transforms.Compose([
     torchvision.transforms.Grayscale(),
     torchvision.transforms.Normalize(mean=[0.5], std=[0.5])
 ])
+
 
 # 2. Define the CNN model
 # Define the encoder
@@ -82,7 +81,7 @@ class CustomMSE(torch.nn.Module):
         super(CustomMSE, self).__init__()
         self.clean_images = clean_images.to(device)
 
-    def forward(self, output, target):
+    def forward(self, output):
         # Calculate MSE loss between output and clean images
         loss = torch.nn.functional.mse_loss(output, self.clean_images)
         return loss
@@ -99,7 +98,6 @@ if os.path.exists('./models/synthnav-model-0.pth'):
 
 train_dataset = ImageFolder('./train_images/', transform=transform)
 train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
-
 
 filenames = os.listdir('./val_images/clean/')
 
@@ -118,7 +116,6 @@ for filename in filenames:
     clean_image_arrays.append(clean_image_array)
     noise_image_arrays.append(noise_image_array)
 
-
 # Convert list of image arrays to a single numpy array
 clean_images_numpy = np.stack(clean_image_arrays, axis=0)
 noise_images_numpy = np.stack(noise_image_arrays, axis=0)
@@ -126,6 +123,9 @@ noise_images_numpy = np.stack(noise_image_arrays, axis=0)
 # Load clean images and convert them to a PyTorch tensor
 clean_images = torch.from_numpy(clean_images_numpy).float()
 noise_images = torch.from_numpy(noise_images_numpy).float()
+
+clean_images = clean_images[:64].view(64, 1, 50, 50)
+noise_images = noise_images[:64].view(64, 1, 50, 50)
 
 # Create an instance of the custom MSE loss function
 loss_fn = CustomMSE(clean_images)
@@ -135,17 +135,18 @@ optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
 # Define the number of epochs and the batch size
 num_epochs = 2
-batch_size = 10
+batch_size = 75
 
 loss_array = list()
 
 # Training loop
 for epoch in range(num_epochs):
-    for i, (input, target) in enumerate(train_loader):
+    for i, (inner_input, target) in enumerate(train_loader):
         if i >= batch_size:
             break
         # Forward pass
-        output = model(input)
+        output = model(inner_input)
+
         # Calculate loss
         loss = criterion(output, target)
         # Backward pass
@@ -201,17 +202,17 @@ def visualize_model(model, clean_images, noisy_images):
     # Predict output for clean and noisy images
     model = model.to(device)
 
-    clean_image = clean_images[0, :, :].view(1, 50, 50).to(device)
-    noise_image = noisy_images[0, :, :].view(1, 50, 50).to(device)
-    clean_output = model(clean_image)
-    noisy_output = model(noise_image)
+    clean_output = model(clean_images)
+    noisy_output = model(noisy_images)
 
     clean_output, noisy_output = clean_output.detach(), noisy_output.detach(),
 
     clean_output, noisy_output, model = clean_output.to("cpu"), noisy_output.to("cpu"), model.to("cpu")
 
-    print(clean_images[0].shape)
-    print(clean_output[0].shape)
+    clean_images = clean_images.squeeze(1)
+    clean_output = clean_output.squeeze(1)
+    noisy_images = noisy_images.squeeze(1)
+    noisy_output = noisy_output.squeeze(1)
 
     # Create a figure with subplots
     fig, axs = plt.subplots(3, 2)
