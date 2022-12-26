@@ -7,9 +7,7 @@ import torch.nn as nn
 import torch.utils.data
 import torchvision
 from PIL import Image
-from torch.utils.data import DataLoader
 from torchsummary import summary
-from torchvision.datasets import ImageFolder
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print("Device: {}\n".format(device))
@@ -37,6 +35,7 @@ class Encoder(nn.Module):
         self.pool = nn.MaxPool2d(2)
 
     def forward(self, x):
+        x = x.to(device)
         x = self.conv1(x)
         x = self.pool(x)
         x = self.conv2(x)
@@ -88,79 +87,87 @@ class EncoderDecoder(nn.Module):
         return x
 
 
-class CustomMSE(torch.nn.Module):
-    def __init__(self, clean_images):
+class CustomMSE(nn.Module):
+    def __init__(self):
         super(CustomMSE, self).__init__()
-        self.clean_images = clean_images.to(device)
 
-    def forward(self, output):
-        # Calculate MSE loss between output and clean images
-        loss = torch.nn.functional.mse_loss(output, self.clean_images)
-        return loss
+    def forward(self, de_noised_image, clean_image):
+        # Calculate the element-wise difference between the clean image and the de-noised image
+        diff = clean_image - de_noised_image
+
+        # Calculate the mean squared error by taking the mean of the squared difference
+        mse = torch.mean(diff ** 2)
+
+        return mse
 
 
 # Define the loss function and optimizer
 model = EncoderDecoder().to(device)
 
-print(summary(model, (1, 50, 50)))
+print(summary(model, (1, 256, 256)))
 
 if os.path.exists('./models/synthnav-model-0.pth'):
     print("Loaded Model")
     model.load_state_dict(torch.load(f='./models/synthnav-model-0.pth'))
 
-train_dataset = ImageFolder('./train_images/', transform=transform)
-train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
-
-filenames = os.listdir('./val_images/clean/')
-
-clean_image_arrays = []
-noise_image_arrays = []
-
-for filename in filenames:
-    # Open image file
-    cleanImage = Image.open('./val_images/clean/' + filename)
-    noiseImage = Image.open('./val_images/noise/' + filename)
-
-    # Convert image to numpy array
-    clean_image_array = np.array(cleanImage)
-    noise_image_array = np.array(noiseImage)
-    # Append image array to list
-    clean_image_arrays.append(clean_image_array)
-    noise_image_arrays.append(noise_image_array)
-
-# Convert list of image arrays to a single numpy array
-clean_images_numpy = np.stack(clean_image_arrays, axis=0)
-noise_images_numpy = np.stack(noise_image_arrays, axis=0)
-
-# Load clean images and convert them to a PyTorch tensor
-clean_images = torch.from_numpy(clean_images_numpy).float()
-noise_images = torch.from_numpy(noise_images_numpy).float()
-
-clean_images = clean_images[:64].view(64, 1, 50, 50)
-noise_images = noise_images[:64].view(64, 1, 50, 50)
-
 # Create an instance of the custom MSE loss function
-loss_fn = CustomMSE(clean_images)
-
-criterion = CustomMSE(clean_images)
+criterion = CustomMSE()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
 # Define the number of epochs and the batch size
-num_epochs = 2
-batch_size = 350
+num_epochs = 1
+batch_size = 40
 
 loss_array = list()
 
+
+def create_synced_dictionary(root_dir):
+    # Create a dictionary to store the clean-noisy image pairs
+    synced_dict = {}
+
+    # Iterate over the files in the root directory
+    for file in os.listdir(root_dir):
+        # Split the file name into the image name and the image type (clean or noisy)
+        name, image_type = file.split('_')
+        # Check if the image type is clean or noisy
+        if image_type == 'clean.png':
+            # Add the clean image to the dictionary
+            synced_dict[name] = file
+        elif image_type == 'noisy.png':
+            # Check if there is already a clean image for this pair in the dictionary
+            if name in synced_dict:
+                # Add the noisy image to the dictionary
+                synced_dict[name] = (synced_dict[name], file)
+            else:
+                # Add the noisy image to the dictionary with a placeholder for the clean image
+                synced_dict[name] = (None, file)
+
+    return synced_dict
+
+
+root_dir = 'train_images'
+sync_dir = create_synced_dictionary(root_dir)
+val_dir = 'val_images'
+val_sync = create_synced_dictionary(val_dir)
+
 # Training loop
 for epoch in range(num_epochs):
-    for i, (inner_input, target) in enumerate(train_loader):
+    i = 0
+    for clean_image, noisy_image in sync_dir.values():
         if i >= batch_size:
             break
+        # Load the clean and noisy images
+        clean = plt.imread(os.path.join(root_dir, clean_image))
+        noisy = plt.imread(os.path.join(root_dir, noisy_image))
+
+        noisy = torch.tensor(noisy).view(1, 1, 256, 256)
+        clean = torch.tensor(clean).view(1, 1, 256, 256).to(device)
+
         # Forward pass
-        output = model(inner_input)
+        output = model(noisy)
 
         # Calculate loss
-        loss = criterion(output, target)
+        loss = criterion(output, clean)
         # Backward pass
         loss.backward()
         # Update weights
@@ -170,9 +177,10 @@ for epoch in range(num_epochs):
 
         loss_array.append(loss.item())
 
-        if (i + 1) % 25 == 0:
+        if (i + 1) % 20 == 0:
             print("Epoch: {}/{}, Batch: {}/{}, Loss: {:.4f}".format(epoch + 1, num_epochs, i + 1, batch_size,
                                                                     loss.item()))
+        i += 1
 
     if (epoch + 1) % 10 == 0:
         # 1. Create models directory
@@ -188,13 +196,9 @@ for epoch in range(num_epochs):
         torch.save(obj=model.state_dict(),  # only saving the state_dict() only saves the models learned parameters
                    f=MODEL_SAVE_PATH)
 
-model = model.to("cpu")
+# model = model.to("cpu")
 
 loss_array = np.array(loss_array)
-
-for i, (inputs, labels) in enumerate(train_loader):
-    inputs = inputs.to("cpu")
-    labels = labels.to("cpu")
 
 # 1. Create models directory
 MODEL_PATH = Path("models")
@@ -243,6 +247,34 @@ def visualize_model(model, clean_images, noisy_images):
     plt.show()
 
 
+def visualize_predictions():
+    # Iterate over the clean-noisy image pairs in the dictionary
+    iter = 0
+    for clean_image, noisy_image in val_sync.values():
+        if iter == 1:
+            break
+        # Load the clean and noisy images
+        clean_image = plt.imread(os.path.join(val_dir, clean_image))
+        noisy_image = plt.imread(os.path.join(val_dir, noisy_image))
+
+        # Use the model to predict the de-noised image
+        de_noised_image = model(torch.tensor(noisy_image).view(1, 1, 256, 256))
+        de_noised_image = de_noised_image.view(256, 256)
+        de_noised_image = de_noised_image.cpu()
+        de_noised_image = de_noised_image.detach().numpy()
+
+        # Visualize the clean, noisy, and de-noised images
+        fig, ax = plt.subplots(1, 3)
+        ax[0].imshow(clean_image)
+        ax[0].set_title('Clean image')
+        ax[1].imshow(noisy_image)
+        ax[1].set_title('Noisy image')
+        ax[2].imshow(de_noised_image)
+        ax[2].set_title('De-noised image')
+        plt.show()
+        iter = 1
+
+
 def loss_graph():
     x = np.arange(0, batch_size * num_epochs)
     y = loss_array
@@ -255,5 +287,6 @@ def loss_graph():
 
 
 # Test the model visualizer
-visualize_model(model, clean_images, noise_images)
+# visualize_model(model, sync_dir[1][0], sync_dir[1][1])
+visualize_predictions()
 loss_graph()

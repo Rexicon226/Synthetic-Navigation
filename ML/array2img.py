@@ -12,22 +12,22 @@ def array2image(x, y, octaves, weight, seed: int = 0, iD: int = 0):
     array = generator.generateClean(x, y, octaves, seed)
     bool_array = np.array(array, dtype=bool)
     img = PIL.Image.fromarray(bool_array)
-    img.save('./train_images/clean/' + str(iD) + '_image.png', bits=1, optimize=True)
+    img.save('./val_images/clean/' + str(iD) + '_image.png', bits=1, optimize=True)
     array = generator.generateNoise(x, y, octaves, weight, seed)
     bool_array = np.array(array, dtype=bool)
     img = PIL.Image.fromarray(bool_array)
-    img.save('./train_images/noise/' + str(iD) + '_image.png', bits=1, optimize=True)
+    img.save('./val_images/noise/' + str(iD) + '_image.png', bits=1, optimize=True)
 
 
-image_count = 10000
-threads = 14
+image_count = 64
+threads = 16
 size = 256
 octaves = 4
 weight = 30
 
 
 def generate():
-    current_count = 0
+    current_count = 62
 
     array_count = current_count
     final_count = image_count + current_count
@@ -51,9 +51,15 @@ def generate():
             seed = random.randint(1, 1000000000000)
             array2image(size, size, octaves, weight, seed, count + i)
 
+    thread_array = []
+
     for i in range(threads):
         x = threading.Thread(target=thread, args=(i,))
+        thread_array.append(x)
         x.start()
+
+    for x in thread_array:
+        x.join()
 
 
 generate()
