@@ -20,14 +20,14 @@ def array2image(x, y, octaves, weight, seed: int = 0, iD: int = 0):
 
 
 image_count = 10000
-threads = 11
-size = 50
+threads = 14
+size = 256
 octaves = 4
-weight = 10
+weight = 30
 
 
 def generate():
-    current_count = 2000
+    current_count = 0
 
     array_count = current_count
     final_count = image_count + current_count
@@ -48,8 +48,8 @@ def generate():
     def thread(x):
         count = current_count + (splitting_array[x] * x)
         for i in range(splitting_array[x]):
-            seed = random.randint(1, 10000000000)
-            array2image(50, 50, 4, 10, seed, count + i)
+            seed = random.randint(1, 1000000000000)
+            array2image(size, size, octaves, weight, seed, count + i)
 
     for i in range(threads):
         x = threading.Thread(target=thread, args=(i,))
