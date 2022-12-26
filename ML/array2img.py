@@ -19,15 +19,15 @@ def array2image(x, y, octaves, weight, seed: int = 0, iD: int = 0):
     img.save('./train_images/noise/' + str(iD) + '_image.png', bits=1, optimize=True)
 
 
-image_count = 100000
+image_count = 10000
 threads = 11
 size = 50
 octaves = 4
-weight = 14
+weight = 10
 
 
 def generate():
-    current_count = 2090
+    current_count = 2000
 
     array_count = current_count
     final_count = image_count + current_count

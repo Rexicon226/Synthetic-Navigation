@@ -1,18 +1,20 @@
 import os.path
+from pathlib import Path
 
+from torch.nn import *
+from torchsummary import summary
+import matplotlib.pyplot as plt
+import numpy as np
 import torch.nn as nn
 import torch.optim as optim
 import torch.utils.data
 import torchvision
 from torch.utils.data import DataLoader
 from torchvision.datasets import ImageFolder
-import matplotlib.pyplot as plt
-from pathlib import Path
-from tqdm import tqdm
-import numpy as np
+from PIL import Image
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
+print("Device: {}\n".format(device))
 # 1. Prepare the data
 # Load the binary images and apply any preprocessing steps as needed
 transform = torchvision.transforms.Compose([
@@ -22,88 +24,140 @@ transform = torchvision.transforms.Compose([
     torchvision.transforms.Normalize(mean=[0.5], std=[0.5])
 ])
 
-
 # 2. Define the CNN model
-class NoiseFilterCNN(nn.Module):
+# Define the encoder
+class Encoder(nn.Module):
     def __init__(self):
-        super(NoiseFilterCNN, self).__init__()
-        self.conv1 = nn.Conv2d(1, 32, kernel_size=3, padding=1)
-        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
-        self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
-        self.fc1 = nn.Linear(128 * 25 * 25, 128)
-        self.fc2 = nn.Linear(128, 50 * 50)
+        super(Encoder, self).__init__()
+        self.conv1 = nn.Conv2d(1, 16, 3, padding=1)
+        self.conv2 = nn.Conv2d(16, 32, 3, padding=1)
+        self.conv3 = nn.Conv2d(32, 64, 3, padding=1)
+        self.pool = nn.MaxPool2d(2)
 
     def forward(self, x):
         x = self.conv1(x)
-        x = nn.functional.relu(x)
+        x = self.pool(x)
         x = self.conv2(x)
-        x = nn.functional.relu(x)
+        x = self.pool(x)
         x = self.conv3(x)
-        x = nn.functional.relu(x)
-        x = x.view(-1, 128 * 25 * 25)
-        x = self.fc1(x)
-        x = nn.functional.relu(x)
-        x = self.fc2(x)
-        x = torch.sigmoid(x)
+        x = self.pool(x)
         return x
 
 
-def clear():
-    os.system( 'cls' )
+# Define the decoder
+class Decoder(nn.Module):
+    def __init__(self):
+        super(Decoder, self).__init__()
+        self.conv4 = nn.Conv2d(64, 32, 3, padding=1)
+        self.conv5 = nn.Conv2d(32, 16, 3, padding=1)
+        self.conv6 = nn.Conv2d(16, 1, 3, padding=2)
+        self.upsample = nn.Upsample(scale_factor=2)
+
+    def forward(self, x):
+        x = self.upsample(x)
+        x = self.conv4(x)
+        x = self.upsample(x)
+        x = self.conv5(x)
+        x = self.upsample(x)
+        x = self.conv6(x)
+        return x
+
+
+# Define the encoder-decoder model
+class EncoderDecoder(nn.Module):
+    def __init__(self):
+        super(EncoderDecoder, self).__init__()
+        self.encoder = Encoder()
+        self.decoder = Decoder()
+
+    def forward(self, x):
+        x = x.to(device)
+        x = self.encoder(x)
+        x = self.decoder(x)
+        return x
+
+
+class CustomMSE(torch.nn.Module):
+    def __init__(self, clean_images):
+        super(CustomMSE, self).__init__()
+        self.clean_images = clean_images.to(device)
+
+    def forward(self, output, target):
+        # Calculate MSE loss between output and clean images
+        loss = torch.nn.functional.mse_loss(output, self.clean_images)
+        return loss
+
 
 # Define the loss function and optimizer
-model = NoiseFilterCNN()
+model = EncoderDecoder().to(device)
+
+print(summary(model, (1, 50, 50)))
 
 if os.path.exists('./models/synthnav-model-0.pth'):
     print("Loaded Model")
     model.load_state_dict(torch.load(f='./models/synthnav-model-0.pth'))
 
-model = model.to(device)
-criterion = nn.MSELoss()
-optimizer = optim.Adam(model.parameters())
-
 train_dataset = ImageFolder('./train_images/', transform=transform)
-val_dataset = ImageFolder('./val_images/', transform=transform)
 train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
-val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False)
+
+
+filenames = os.listdir('./val_images/clean/')
+
+clean_image_arrays = []
+noise_image_arrays = []
+
+for filename in filenames:
+    # Open image file
+    cleanImage = Image.open('./val_images/clean/' + filename)
+    noiseImage = Image.open('./val_images/noise/' + filename)
+
+    # Convert image to numpy array
+    clean_image_array = np.array(cleanImage)
+    noise_image_array = np.array(noiseImage)
+    # Append image array to list
+    clean_image_arrays.append(clean_image_array)
+    noise_image_arrays.append(noise_image_array)
+
+
+# Convert list of image arrays to a single numpy array
+clean_images_numpy = np.stack(clean_image_arrays, axis=0)
+noise_images_numpy = np.stack(noise_image_arrays, axis=0)
+
+# Load clean images and convert them to a PyTorch tensor
+clean_images = torch.from_numpy(clean_images_numpy).float()
+noise_images = torch.from_numpy(noise_images_numpy).float()
+
+# Create an instance of the custom MSE loss function
+loss_fn = CustomMSE(clean_images)
+
+criterion = CustomMSE(clean_images)
+optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
 # Define the number of epochs and the batch size
-num_epochs = 1000
-batch_size = 75
+num_epochs = 2
+batch_size = 10
 
 loss_array = list()
 
-# Loop over the number of epochs
+# Training loop
 for epoch in range(num_epochs):
-
-    # Loop over the training data in batches
-    for i, (inputs, labels) in enumerate(train_loader):
-        if i >= batch_size: break
-
-        # Move the input and label tensors to the GPU
-        inputs, labels = inputs.to(device), labels.to(device)
-
-        # Round the inputs because they are inputted as 0.99 which makes me sad :C
-        inputs = inputs.round()
-
-        # Zero the gradients
-        optimizer.zero_grad()
-
+    for i, (input, target) in enumerate(train_loader):
+        if i >= batch_size:
+            break
         # Forward pass
-        outputs = model(inputs)
-
-        outputs = outputs.view(-1, 64)
-
-        loss = criterion(outputs, labels)
-
+        output = model(input)
+        # Calculate loss
+        loss = criterion(output, target)
         # Backward pass
         loss.backward()
+        # Update weights
         optimizer.step()
+        # Reset gradients
+        optimizer.zero_grad()
 
         loss_array.append(loss.item())
 
         if (i + 1) % 25 == 0:
-            clear()
             print("Epoch: {}/{}, Batch: {}/{}, Loss: {:.4f}".format(epoch + 1, num_epochs, i + 1, batch_size,
                                                                     loss.item()))
 
@@ -143,31 +197,37 @@ torch.save(obj=model.state_dict(),  # only saving the state_dict() only saves th
            f=MODEL_SAVE_PATH)
 
 
-def visualize_model(model, test_dataset, num_examples=5):
-    # Get the example images and labels from the test dataset
-    inputs, labels = next(iter(test_dataset))
+def visualize_model(model, clean_images, noisy_images):
+    # Predict output for clean and noisy images
+    model = model.to(device)
 
-    # Predict the outputs for the example images
-    outputs = model(inputs)
-    outputs = outputs.detach().numpy()
-    inputs = inputs.detach().numpy()
-    outputs = np.reshape(outputs, (4, 50, 50))
+    clean_image = clean_images[0, :, :].view(1, 50, 50).to(device)
+    noise_image = noisy_images[0, :, :].view(1, 50, 50).to(device)
+    clean_output = model(clean_image)
+    noisy_output = model(noise_image)
 
-    # Loop over the number of examples
-    for i in range(num_examples):
-        # Get the input and output for the current example
-        input_example = inputs[i]
-        output_example = outputs[i]
+    clean_output, noisy_output = clean_output.detach(), noisy_output.detach(),
 
-        # Plot the input and output side by side
-        plt.figure()
-        plt.subplot(1, 2, 1)
-        plt.imshow(input_example, cmap='gray')
-        plt.title('Input')
-        plt.subplot(1, 2, 2)
-        plt.imshow(output_example, cmap='gray')
-        plt.title('Output')
-        plt.show()
+    clean_output, noisy_output, model = clean_output.to("cpu"), noisy_output.to("cpu"), model.to("cpu")
+
+    print(clean_images[0].shape)
+    print(clean_output[0].shape)
+
+    # Create a figure with subplots
+    fig, axs = plt.subplots(3, 2)
+    axs[0, 0].imshow(clean_images[0], cmap='gray')
+    axs[0, 0].set_title('Input (Clean)')
+    axs[0, 1].imshow(clean_output[0], cmap='gray')
+    axs[0, 1].set_title('Output (Clean)')
+    axs[1, 0].imshow(noisy_images[0], cmap='gray')
+    axs[1, 0].set_title('Input (Noisy)')
+    axs[1, 1].imshow(noisy_output[0], cmap='gray')
+    axs[1, 1].set_title('Output (Noisy)')
+    axs[2, 0].imshow(clean_images[0] - noisy_images[0], cmap='gray')
+    axs[2, 0].set_title('Input Difference')
+    axs[2, 1].imshow(clean_output[0] - noisy_output[0], cmap='gray')
+    axs[2, 1].set_title('Output Difference')
+    plt.show()
 
 
 def loss_graph():
@@ -182,5 +242,5 @@ def loss_graph():
 
 
 # Test the model visualizer
-visualize_model(model, val_dataset, 1)
+visualize_model(model, clean_images, noise_images)
 loss_graph()
