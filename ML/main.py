@@ -48,6 +48,9 @@ class NoiseFilterCNN(nn.Module):
         return x
 
 
+def clear():
+    os.system( 'cls' )
+
 # Define the loss function and optimizer
 model = NoiseFilterCNN()
 
@@ -56,7 +59,7 @@ if os.path.exists('./models/synthnav-model-0.pth'):
     model.load_state_dict(torch.load(f='./models/synthnav-model-0.pth'))
 
 model = model.to(device)
-criterion = nn.L1Loss()
+criterion = nn.MSELoss()
 optimizer = optim.Adam(model.parameters())
 
 train_dataset = ImageFolder('./train_images/', transform=transform)
@@ -100,6 +103,7 @@ for epoch in range(num_epochs):
         loss_array.append(loss.item())
 
         if (i + 1) % 25 == 0:
+            clear()
             print("Epoch: {}/{}, Batch: {}/{}, Loss: {:.4f}".format(epoch + 1, num_epochs, i + 1, batch_size,
                                                                     loss.item()))
 
