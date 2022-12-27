@@ -1,3 +1,5 @@
+import random
+
 import numpy as np
 
 from Terrain import generator
@@ -5,6 +7,7 @@ import matplotlib.pyplot as plt
 from ML.main import EncoderDecoder as ed
 import torch
 import torch.nn as nn
+from Terrain import reverser
 
 
 class Environment:
@@ -70,18 +73,24 @@ class Visualizer:
         de_noised_image = de_noised_image.cpu()
 
         fig, ax = plt.subplots(1, 2)
-        ax[0].imshow(de_noised_image, cmap='plasma')
+        ax[0].imshow(de_noised_image, cmap='plasma_r')
         ax[0].set_title('De-Noised Image')
-        ax[1].imshow(self.image, cmap='plasma')
+        ax[1].imshow(self.image, cmap='plasma_r')
         ax[1].set_title('Original')
         plt.show()
 
 
 if __name__ == "__main__":
-    seed = 868190740987676311
+    seed = random.randint(1, 100000000000)
+    x = random.randint(50, 200)
+    y = random.randint(50, 200)
+    print("({}, {})".format(x, y))
     pic = np.array(generator.generateClean(256, 256, 5, seed, True))
     noisy_pic = np.array(generator.generateNoise(256, 256, 5, 30, seed, True))
-    ev = Environment(pic, noisy_pic, 50, center=(100, 100))
+    if pic[x][y] == 1:
+        pic = reverser.reverse(pic)
+        noisy_pic = reverser.reverse(noisy_pic)
+    ev = Environment(pic, noisy_pic, 50, center=(x, y))
 
     masked = ev.generate()
 
