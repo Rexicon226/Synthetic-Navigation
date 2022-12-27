@@ -6,9 +6,8 @@ import numpy as np
 import torch.nn as nn
 import torch.utils.data
 import torchvision
-from PIL import Image
-from torchsummary import summary
 from scipy import interpolate
+from torchsummary import summary
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print("Device: {}\n".format(device))
@@ -88,27 +87,22 @@ class EncoderDecoder(nn.Module):
         return x
 
 
-class CustomMSE(nn.Module):
+class MAELoss(nn.Module):
     def __init__(self):
-        super(CustomMSE, self).__init__()
+        super(MAELoss, self).__init__()
+        self.loss_fn = nn.L1Loss()
 
-    def forward(self, de_noised_image, clean_image):
-        # Calculate the element-wise difference between the clean image and the de-noised image
-        diff = clean_image - de_noised_image
+    def forward(self, y_pred, y_true):
+        return self.loss_fn(y_pred, y_true)
 
-        # Calculate the mean squared error by taking the mean of the squared difference
-        mse = torch.mean(diff ** 2)
-
-        return mse
 
 # Define the number of epochs and the batch size
-num_epochs = 1
-batch_size = 64
+num_epochs = 100
+batch_size = 343
 
-loss_array = list()
 
-def main(loss_array):
-
+def main():
+    loss_array = list()
     print(summary(model, (1, 256, 256)))
 
     if os.path.exists('./models/synthnav-model-0.pth'):
@@ -116,7 +110,7 @@ def main(loss_array):
         model.load_state_dict(torch.load(f='./models/synthnav-model-0.pth'))
 
     # Create an instance of the custom MSE loss function
-    criterion = CustomMSE()
+    criterion = MAELoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
     def create_synced_dictionary(root_dir):
@@ -141,7 +135,6 @@ def main(loss_array):
                     synced_dict[name] = (None, file)
 
         return synced_dict
-
 
     dirname = os.path.dirname(__file__)
 
@@ -220,9 +213,9 @@ def main(loss_array):
 
 def visualize_predictions(model, val_sync, loss_array, val_dir):
     # Iterate over the clean-noisy image pairs in the dictionary
-    iter = 0
+    vis_iter = 0
     for clean_image, noisy_image in val_sync.values():
-        if iter == 1:
+        if vis_iter == 1:
             break
         # Load the clean and noisy images
         clean_image = plt.imread(os.path.join(val_dir, clean_image))
@@ -240,10 +233,7 @@ def visualize_predictions(model, val_sync, loss_array, val_dir):
         clean_deionised = clean_deionised.cpu()
         clean_deionised = clean_deionised.detach().numpy()
 
-        x = np.arange(0, batch_size * num_epochs)
-        y = loss_array
-
-        cmap = 'plasma'
+        cmap = 'plasma_r'
 
         # Visualize the clean, noisy, and de-noised images
         fig, axs = plt.subplots(2, 3)
@@ -260,7 +250,7 @@ def visualize_predictions(model, val_sync, loss_array, val_dir):
         axs[1, 2].imshow(clean_deionised - de_noised_image, cmap=cmap)
         axs[1, 2].set_title('Output Difference')
         plt.show()
-        iter = 1
+        vis_iter = 1
 
 
 def loss_graph(loss_array):
@@ -271,11 +261,10 @@ def loss_graph(loss_array):
     plt.xlabel("Batches")
     plt.ylabel("Loss")
     plt.plot(x, y, color="green")
-
-    x_new = np.linspace(0, batch_size * num_epochs, len(loss_array))
+    x_new = np.linspace(0, batch_size * num_epochs, int(len(loss_array) / (batch_size / 2)))
     bspline = interpolate.make_interp_spline(x, y)
     y_new = bspline(x_new)
-    # plt.plot(x_new, y_new, color="red")
+    plt.plot(x_new, y_new, color="red")
 
     plt.show()
 
@@ -284,4 +273,4 @@ if __name__ == "__main__":
     # Define the loss function and optimizer
     model = EncoderDecoder().to(device)
 
-    main(loss_array)
+    main()
