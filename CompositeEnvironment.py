@@ -85,6 +85,6 @@ if __name__ == "__main__":
 
     masked = ev.generate()
 
-    vi = Visualizer('./models/synthnav-model-0.pth', masked)
+    vi = Visualizer('./ML/models/synthnav-model-0.pth', masked)
 
     vi.dNoise()
