@@ -87,9 +87,8 @@ if __name__ == "__main__":
     print("({}, {})".format(x, y))
     pic = np.array(generator.generateClean(256, 256, 5, seed, True))
     noisy_pic = np.array(generator.generateNoise(256, 256, 5, 30, seed, True))
-    if pic[x][y] == 1:
-        pic = reverser.reverse(pic)
-        noisy_pic = reverser.reverse(noisy_pic)
+    pic, noisy_pic = np.abs(pic), np.abs(noisy_pic)
+
     ev = Environment(pic, noisy_pic, 50, center=(x, y))
 
     masked = ev.generate()

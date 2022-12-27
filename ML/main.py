@@ -95,32 +95,6 @@ class MAELoss(nn.Module):
     def forward(self, y_pred, y_true):
         return self.loss_fn(y_pred, y_true)
 
-
-# Define the number of epochs and the batch size
-is_int = False
-while not is_int:
-    try:
-        num_epochs = int(input("How many epochs: "))
-        is_int = True
-    except:
-        is_int = False
-        print("Please provide a integer value")
-
-count = 0
-# Iterate directory
-for path in os.listdir('train_images'):
-    # check if current path is a file
-    if os.path.isfile(os.path.join('train_images', path)):
-        count += 1
-
-# Minus 64 so that there is no chance the batch count is too high.
-# count / 32 because idfk this is black magic
-print(count)
-batch_size = int((count / 32) - 32)
-
-print(batch_size)
-
-
 def main():
     loss_array = list()
     print(summary(model, (1, 256, 256)))
@@ -290,7 +264,30 @@ def loss_graph(loss_array):
 
 
 if __name__ == "__main__":
-    # Define the loss function and optimizer
+    # Define the number of epochs and the batch size
+    is_int = False
+    while not is_int:
+        try:
+            num_epochs = int(input("How many epochs: "))
+            is_int = True
+        except:
+            is_int = False
+            print("Please provide a integer value")
+
+    count = 0
+    # Iterate directory
+    dirname = os.path.dirname(__file__)
+
+    high_quality = os.path.join(dirname, 'train_images')
+
+    for path in os.listdir(high_quality):
+        # check if current path is a file
+        if os.path.isfile(os.path.join('train_images', path)):
+            count += 1
+
+    # Minus 64 so that there is no chance the batch count is too high.
+    # count / 32 because idfk this is black magic
+    batch_size = int((count / 32) - 32)
     model = EncoderDecoder().to(device)
 
     main()
