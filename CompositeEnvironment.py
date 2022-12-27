@@ -43,7 +43,7 @@ def get_visible_image(image, radius, noisy):
             else:
                 masked_img[i][j] = image[i][j]
 
-    return noisy, masked_img
+    return masked_img
 
 
 if __name__ == "__main__":
@@ -52,9 +52,9 @@ if __name__ == "__main__":
     noisy_pic = np.array(generator.generateNoise(256, 256, 5, 30, seed, True))
     vi = Environment(pic, noisy_pic, 16)
 
-    noisy, masked = vi.generate()
+    masked = vi.generate()
 
     fig, axs = plt.subplots(1, 2)
-    axs[0].imshow(noisy)
+    axs[0].imshow(noisy_pic)
     axs[1].imshow(masked)
     plt.show()
