@@ -5,13 +5,14 @@ import matplotlib.pyplot as plt
 
 
 class Environment:
-    def __init__(self, image, noisy, radius):
+    def __init__(self, image, noisy, radius, center=None):
         self.image = image.copy()
         self.radius = radius
         self.noisy_image = noisy.copy()
+        self.center = center
 
     def generate(self):
-        masked = get_visible_image(self.image, self.radius, self.noisy_image)
+        masked = get_visible_image(self.image, self.radius, self.noisy_image, self.center)
         return masked
 
 
@@ -26,12 +27,12 @@ def create_circular_mask(h, w, radius, center=None):
     return mask
 
 
-def get_visible_image(image, radius, noisy):
+def get_visible_image(image, radius, noisy, center):
     # Find the size of the image
     image = np.abs(image)
 
     h, w = image.shape[:2]
-    mask = create_circular_mask(h, w, radius)
+    mask = create_circular_mask(h, w, radius, center)
     masked_img = image.copy()
     mask = np.array(mask, dtype=int)
     print(mask)
@@ -50,7 +51,7 @@ if __name__ == "__main__":
     seed = 868190740987676311
     pic = np.array(generator.generateClean(256, 256, 5, seed, True))
     noisy_pic = np.array(generator.generateNoise(256, 256, 5, 30, seed, True))
-    vi = Environment(pic, noisy_pic, 16)
+    vi = Environment(pic, noisy_pic, 50, center=(100, 100))
 
     masked = vi.generate()
 
