@@ -141,6 +141,7 @@ def main():
     # Training loop
     for epoch in range(num_epochs):
         i = 0
+        sync_dir = {k: v for k, v in sync_dir.items() if len(v) == 2}
         for clean_image, noisy_image in sync_dir.values():
             if i >= batch_size:
                 break

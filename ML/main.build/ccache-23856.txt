@@ -1,0 +1,758 @@
+[2022-12-27T14:53:32.835293 23866] === CCACHE 4.5.1 STARTED =========================================
+[2022-12-27T14:53:32.835293 23866] Config: (default) absolute_paths_in_stderr = false
+[2022-12-27T14:53:32.835293 23866] Config: (default) base_dir = 
+[2022-12-27T14:53:32.835293 23866] Config: (environment) cache_dir = /home/ubuntu/.cache/Nuitka/ccache
+[2022-12-27T14:53:32.835293 23866] Config: (default) compiler = 
+[2022-12-27T14:53:32.835293 23866] Config: (default) compiler_check = mtime
+[2022-12-27T14:53:32.835293 23866] Config: (default) compiler_type = auto
+[2022-12-27T14:53:32.835293 23866] Config: (default) compression = true
+[2022-12-27T14:53:32.835293 23866] Config: (default) compression_level = 0
+[2022-12-27T14:53:32.835293 23866] Config: (default) cpp_extension = 
+[2022-12-27T14:53:32.835293 23866] Config: (default) debug = false
+[2022-12-27T14:53:32.835293 23866] Config: (default) debug_dir = 
+[2022-12-27T14:53:32.835293 23866] Config: (default) depend_mode = false
+[2022-12-27T14:53:32.835293 23866] Config: (default) direct_mode = true
+[2022-12-27T14:53:32.835293 23866] Config: (default) disable = false
+[2022-12-27T14:53:32.835293 23866] Config: (default) extra_files_to_hash = 
+[2022-12-27T14:53:32.835293 23866] Config: (default) file_clone = false
+[2022-12-27T14:53:32.835293 23866] Config: (default) hard_link = false
+[2022-12-27T14:53:32.835293 23866] Config: (default) hash_dir = true
+[2022-12-27T14:53:32.835293 23866] Config: (default) ignore_headers_in_manifest = 
+[2022-12-27T14:53:32.835293 23866] Config: (default) ignore_options = 
+[2022-12-27T14:53:32.835293 23866] Config: (default) inode_cache = false
+[2022-12-27T14:53:32.835293 23866] Config: (default) keep_comments_cpp = false
+[2022-12-27T14:53:32.835293 23866] Config: (default) limit_multiple = 0.8
+[2022-12-27T14:53:32.835293 23866] Config: (environment) log_file = /home/ubuntu/Synthetic-Navigation/ML/main.build/ccache-23856.txt
+[2022-12-27T14:53:32.835293 23866] Config: (default) max_files = 0
+[2022-12-27T14:53:32.835293 23866] Config: (default) max_size = 5.0G
+[2022-12-27T14:53:32.835293 23866] Config: (default) namespace = 
+[2022-12-27T14:53:32.835293 23866] Config: (default) path = 
+[2022-12-27T14:53:32.835293 23866] Config: (default) pch_external_checksum = false
+[2022-12-27T14:53:32.835293 23866] Config: (default) prefix_command = 
+[2022-12-27T14:53:32.835293 23866] Config: (default) prefix_command_cpp = 
+[2022-12-27T14:53:32.835293 23866] Config: (default) read_only = false
+[2022-12-27T14:53:32.835293 23866] Config: (default) read_only_direct = false
+[2022-12-27T14:53:32.835293 23866] Config: (default) recache = false
+[2022-12-27T14:53:32.835293 23866] Config: (default) reshare = false
+[2022-12-27T14:53:32.835293 23866] Config: (default) run_second_cpp = true
+[2022-12-27T14:53:32.835293 23866] Config: (default) secondary_storage = 
+[2022-12-27T14:53:32.835293 23866] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2022-12-27T14:53:32.835293 23866] Config: (default) stats = true
+[2022-12-27T14:53:32.835293 23866] Config: (default) stats_log = 
+[2022-12-27T14:53:32.835293 23866] Config: (default) temporary_dir = /run/user/1000/ccache-tmp
+[2022-12-27T14:53:32.835293 23866] Config: (default) umask = 
+[2022-12-27T14:53:32.835386 23866] Command line: /usr/bin/ccache /usr/bin/gcc -o __constants.o -c -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src __constants.c
+[2022-12-27T14:53:32.835396 23866] Hostname: ip-172-31-20-37
+[2022-12-27T14:53:32.835400 23866] Working directory: /home/ubuntu/Synthetic-Navigation/ML/main.build
+[2022-12-27T14:53:32.835410 23866] Compiler type: gcc
+[2022-12-27T14:53:32.835491 23866] Source file: __constants.c
+[2022-12-27T14:53:32.835497 23866] Object file: __constants.o
+[2022-12-27T14:53:32.835512 23866] Trying direct lookup
+[2022-12-27T14:53:32.835566 23866] No f4e7nbim25kj8thehm4puvfo48ucj55ii in primary storage
+[2022-12-27T14:53:32.835636 23866] Running preprocessor
+[2022-12-27T14:53:32.835646 23866] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -E __constants.c
+[2022-12-27T14:53:32.840684 23871] === CCACHE 4.5.1 STARTED =========================================
+[2022-12-27T14:53:32.840684 23871] Config: (default) absolute_paths_in_stderr = false
+[2022-12-27T14:53:32.840684 23871] Config: (default) base_dir = 
+[2022-12-27T14:53:32.840684 23871] Config: (environment) cache_dir = /home/ubuntu/.cache/Nuitka/ccache
+[2022-12-27T14:53:32.840684 23871] Config: (default) compiler = 
+[2022-12-27T14:53:32.840684 23871] Config: (default) compiler_check = mtime
+[2022-12-27T14:53:32.840684 23871] Config: (default) compiler_type = auto
+[2022-12-27T14:53:32.840684 23871] Config: (default) compression = true
+[2022-12-27T14:53:32.840684 23871] Config: (default) compression_level = 0
+[2022-12-27T14:53:32.840684 23871] Config: (default) cpp_extension = 
+[2022-12-27T14:53:32.840684 23871] Config: (default) debug = false
+[2022-12-27T14:53:32.840684 23871] Config: (default) debug_dir = 
+[2022-12-27T14:53:32.840684 23871] Config: (default) depend_mode = false
+[2022-12-27T14:53:32.840684 23871] Config: (default) direct_mode = true
+[2022-12-27T14:53:32.840684 23871] Config: (environment) disable = true
+[2022-12-27T14:53:32.840684 23871] Config: (default) extra_files_to_hash = 
+[2022-12-27T14:53:32.840684 23871] Config: (default) file_clone = false
+[2022-12-27T14:53:32.840684 23871] Config: (default) hard_link = false
+[2022-12-27T14:53:32.840684 23871] Config: (default) hash_dir = true
+[2022-12-27T14:53:32.840684 23871] Config: (default) ignore_headers_in_manifest = 
+[2022-12-27T14:53:32.840684 23871] Config: (default) ignore_options = 
+[2022-12-27T14:53:32.840684 23871] Config: (default) inode_cache = false
+[2022-12-27T14:53:32.840684 23871] Config: (default) keep_comments_cpp = false
+[2022-12-27T14:53:32.840684 23871] Config: (default) limit_multiple = 0.8
+[2022-12-27T14:53:32.840684 23871] Config: (environment) log_file = /home/ubuntu/Synthetic-Navigation/ML/main.build/ccache-23856.txt
+[2022-12-27T14:53:32.840684 23871] Config: (default) max_files = 0
+[2022-12-27T14:53:32.840684 23871] Config: (default) max_size = 5.0G
+[2022-12-27T14:53:32.840684 23871] Config: (default) namespace = 
+[2022-12-27T14:53:32.840684 23871] Config: (default) path = 
+[2022-12-27T14:53:32.840684 23871] Config: (default) pch_external_checksum = false
+[2022-12-27T14:53:32.840684 23871] Config: (default) prefix_command = 
+[2022-12-27T14:53:32.840684 23871] Config: (default) prefix_command_cpp = 
+[2022-12-27T14:53:32.840684 23871] Config: (default) read_only = false
+[2022-12-27T14:53:32.840684 23871] Config: (default) read_only_direct = false
+[2022-12-27T14:53:32.840684 23871] Config: (default) recache = false
+[2022-12-27T14:53:32.840684 23871] Config: (default) reshare = false
+[2022-12-27T14:53:32.840684 23871] Config: (default) run_second_cpp = true
+[2022-12-27T14:53:32.840684 23871] Config: (default) secondary_storage = 
+[2022-12-27T14:53:32.840684 23871] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2022-12-27T14:53:32.840684 23871] Config: (default) stats = true
+[2022-12-27T14:53:32.840684 23871] Config: (default) stats_log = 
+[2022-12-27T14:53:32.840684 23871] Config: (default) temporary_dir = /run/user/1000/ccache-tmp
+[2022-12-27T14:53:32.840684 23871] Config: (default) umask = 
+[2022-12-27T14:53:32.840790 23871] ccache is disabled
+[2022-12-27T14:53:32.840814 23871] Failed; falling back to running the real compiler
+[2022-12-27T14:53:32.840826 23871] Executing /usr/bin/gcc -o __constants_data.o -c -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src __constants_data.c
+[2022-12-27T14:53:32.840833 23871] Result: disabled
+[2022-12-27T14:53:32.852126 23876] === CCACHE 4.5.1 STARTED =========================================
+[2022-12-27T14:53:32.852126 23876] Config: (default) absolute_paths_in_stderr = false
+[2022-12-27T14:53:32.852126 23876] Config: (default) base_dir = 
+[2022-12-27T14:53:32.852126 23876] Config: (environment) cache_dir = /home/ubuntu/.cache/Nuitka/ccache
+[2022-12-27T14:53:32.852126 23876] Config: (default) compiler = 
+[2022-12-27T14:53:32.852126 23876] Config: (default) compiler_check = mtime
+[2022-12-27T14:53:32.852126 23876] Config: (default) compiler_type = auto
+[2022-12-27T14:53:32.852126 23876] Config: (default) compression = true
+[2022-12-27T14:53:32.852126 23876] Config: (default) compression_level = 0
+[2022-12-27T14:53:32.852126 23876] Config: (default) cpp_extension = 
+[2022-12-27T14:53:32.852126 23876] Config: (default) debug = false
+[2022-12-27T14:53:32.852126 23876] Config: (default) debug_dir = 
+[2022-12-27T14:53:32.852126 23876] Config: (default) depend_mode = false
+[2022-12-27T14:53:32.852126 23876] Config: (default) direct_mode = true
+[2022-12-27T14:53:32.852126 23876] Config: (default) disable = false
+[2022-12-27T14:53:32.852126 23876] Config: (default) extra_files_to_hash = 
+[2022-12-27T14:53:32.852126 23876] Config: (default) file_clone = false
+[2022-12-27T14:53:32.852126 23876] Config: (default) hard_link = false
+[2022-12-27T14:53:32.852126 23876] Config: (default) hash_dir = true
+[2022-12-27T14:53:32.852126 23876] Config: (default) ignore_headers_in_manifest = 
+[2022-12-27T14:53:32.852126 23876] Config: (default) ignore_options = 
+[2022-12-27T14:53:32.852126 23876] Config: (default) inode_cache = false
+[2022-12-27T14:53:32.852126 23876] Config: (default) keep_comments_cpp = false
+[2022-12-27T14:53:32.852126 23876] Config: (default) limit_multiple = 0.8
+[2022-12-27T14:53:32.852126 23876] Config: (environment) log_file = /home/ubuntu/Synthetic-Navigation/ML/main.build/ccache-23856.txt
+[2022-12-27T14:53:32.852126 23876] Config: (default) max_files = 0
+[2022-12-27T14:53:32.852126 23876] Config: (default) max_size = 5.0G
+[2022-12-27T14:53:32.852126 23876] Config: (default) namespace = 
+[2022-12-27T14:53:32.852126 23876] Config: (default) path = 
+[2022-12-27T14:53:32.852126 23876] Config: (default) pch_external_checksum = false
+[2022-12-27T14:53:32.852126 23876] Config: (default) prefix_command = 
+[2022-12-27T14:53:32.852126 23876] Config: (default) prefix_command_cpp = 
+[2022-12-27T14:53:32.852126 23876] Config: (default) read_only = false
+[2022-12-27T14:53:32.852126 23876] Config: (default) read_only_direct = false
+[2022-12-27T14:53:32.852126 23876] Config: (default) recache = false
+[2022-12-27T14:53:32.852126 23876] Config: (default) reshare = false
+[2022-12-27T14:53:32.852126 23876] Config: (default) run_second_cpp = true
+[2022-12-27T14:53:32.852126 23876] Config: (default) secondary_storage = 
+[2022-12-27T14:53:32.852126 23876] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2022-12-27T14:53:32.852126 23876] Config: (default) stats = true
+[2022-12-27T14:53:32.852126 23876] Config: (default) stats_log = 
+[2022-12-27T14:53:32.852126 23876] Config: (default) temporary_dir = /run/user/1000/ccache-tmp
+[2022-12-27T14:53:32.852126 23876] Config: (default) umask = 
+[2022-12-27T14:53:32.852201 23876] Command line: /usr/bin/ccache /usr/bin/gcc -o __helpers.o -c -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src __helpers.c
+[2022-12-27T14:53:32.852215 23876] Hostname: ip-172-31-20-37
+[2022-12-27T14:53:32.852220 23876] Working directory: /home/ubuntu/Synthetic-Navigation/ML/main.build
+[2022-12-27T14:53:32.852224 23876] Compiler type: gcc
+[2022-12-27T14:53:32.852306 23876] Source file: __helpers.c
+[2022-12-27T14:53:32.852313 23876] Object file: __helpers.o
+[2022-12-27T14:53:32.852330 23876] Trying direct lookup
+[2022-12-27T14:53:32.852373 23876] No d071t5rangohc4g9ssen4dhmfbo9d4hac in primary storage
+[2022-12-27T14:53:32.852433 23876] Running preprocessor
+[2022-12-27T14:53:32.852442 23876] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -E __helpers.c
+[2022-12-27T14:53:32.859875 23881] === CCACHE 4.5.1 STARTED =========================================
+[2022-12-27T14:53:32.859875 23881] Config: (default) absolute_paths_in_stderr = false
+[2022-12-27T14:53:32.859875 23881] Config: (default) base_dir = 
+[2022-12-27T14:53:32.859875 23881] Config: (environment) cache_dir = /home/ubuntu/.cache/Nuitka/ccache
+[2022-12-27T14:53:32.859875 23881] Config: (default) compiler = 
+[2022-12-27T14:53:32.859875 23881] Config: (default) compiler_check = mtime
+[2022-12-27T14:53:32.859875 23881] Config: (default) compiler_type = auto
+[2022-12-27T14:53:32.859875 23881] Config: (default) compression = true
+[2022-12-27T14:53:32.859875 23881] Config: (default) compression_level = 0
+[2022-12-27T14:53:32.859875 23881] Config: (default) cpp_extension = 
+[2022-12-27T14:53:32.859875 23881] Config: (default) debug = false
+[2022-12-27T14:53:32.859875 23881] Config: (default) debug_dir = 
+[2022-12-27T14:53:32.859875 23881] Config: (default) depend_mode = false
+[2022-12-27T14:53:32.859875 23881] Config: (default) direct_mode = true
+[2022-12-27T14:53:32.859875 23881] Config: (default) disable = false
+[2022-12-27T14:53:32.859875 23881] Config: (default) extra_files_to_hash = 
+[2022-12-27T14:53:32.859875 23881] Config: (default) file_clone = false
+[2022-12-27T14:53:32.859875 23881] Config: (default) hard_link = false
+[2022-12-27T14:53:32.859875 23881] Config: (default) hash_dir = true
+[2022-12-27T14:53:32.859875 23881] Config: (default) ignore_headers_in_manifest = 
+[2022-12-27T14:53:32.859875 23881] Config: (default) ignore_options = 
+[2022-12-27T14:53:32.859875 23881] Config: (default) inode_cache = false
+[2022-12-27T14:53:32.859875 23881] Config: (default) keep_comments_cpp = false
+[2022-12-27T14:53:32.859875 23881] Config: (default) limit_multiple = 0.8
+[2022-12-27T14:53:32.859875 23881] Config: (environment) log_file = /home/ubuntu/Synthetic-Navigation/ML/main.build/ccache-23856.txt
+[2022-12-27T14:53:32.859875 23881] Config: (default) max_files = 0
+[2022-12-27T14:53:32.859875 23881] Config: (default) max_size = 5.0G
+[2022-12-27T14:53:32.859875 23881] Config: (default) namespace = 
+[2022-12-27T14:53:32.859875 23881] Config: (default) path = 
+[2022-12-27T14:53:32.859875 23881] Config: (default) pch_external_checksum = false
+[2022-12-27T14:53:32.859875 23881] Config: (default) prefix_command = 
+[2022-12-27T14:53:32.859875 23881] Config: (default) prefix_command_cpp = 
+[2022-12-27T14:53:32.859875 23881] Config: (default) read_only = false
+[2022-12-27T14:53:32.859875 23881] Config: (default) read_only_direct = false
+[2022-12-27T14:53:32.859875 23881] Config: (default) recache = false
+[2022-12-27T14:53:32.859875 23881] Config: (default) reshare = false
+[2022-12-27T14:53:32.859875 23881] Config: (default) run_second_cpp = true
+[2022-12-27T14:53:32.859875 23881] Config: (default) secondary_storage = 
+[2022-12-27T14:53:32.859875 23881] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2022-12-27T14:53:32.859875 23881] Config: (default) stats = true
+[2022-12-27T14:53:32.859875 23881] Config: (default) stats_log = 
+[2022-12-27T14:53:32.859875 23881] Config: (default) temporary_dir = /run/user/1000/ccache-tmp
+[2022-12-27T14:53:32.859875 23881] Config: (default) umask = 
+[2022-12-27T14:53:32.859988 23881] Command line: /usr/bin/ccache /usr/bin/gcc -o __loader.o -c -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src __loader.c
+[2022-12-27T14:53:32.860008 23881] Hostname: ip-172-31-20-37
+[2022-12-27T14:53:32.860015 23881] Working directory: /home/ubuntu/Synthetic-Navigation/ML/main.build
+[2022-12-27T14:53:32.860022 23881] Compiler type: gcc
+[2022-12-27T14:53:32.860145 23881] Source file: __loader.c
+[2022-12-27T14:53:32.860153 23881] Object file: __loader.o
+[2022-12-27T14:53:32.860179 23881] Trying direct lookup
+[2022-12-27T14:53:32.860245 23881] No af92a9tgfmk7b23go4936iu018n1fecf0 in primary storage
+[2022-12-27T14:53:32.860331 23881] Running preprocessor
+[2022-12-27T14:53:32.860343 23881] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -E __loader.c
+[2022-12-27T14:53:32.890439 23886] === CCACHE 4.5.1 STARTED =========================================
+[2022-12-27T14:53:32.890439 23886] Config: (default) absolute_paths_in_stderr = false
+[2022-12-27T14:53:32.890439 23886] Config: (default) base_dir = 
+[2022-12-27T14:53:32.890439 23886] Config: (environment) cache_dir = /home/ubuntu/.cache/Nuitka/ccache
+[2022-12-27T14:53:32.890439 23886] Config: (default) compiler = 
+[2022-12-27T14:53:32.890439 23886] Config: (default) compiler_check = mtime
+[2022-12-27T14:53:32.890439 23886] Config: (default) compiler_type = auto
+[2022-12-27T14:53:32.890439 23886] Config: (default) compression = true
+[2022-12-27T14:53:32.890439 23886] Config: (default) compression_level = 0
+[2022-12-27T14:53:32.890439 23886] Config: (default) cpp_extension = 
+[2022-12-27T14:53:32.890439 23886] Config: (default) debug = false
+[2022-12-27T14:53:32.890439 23886] Config: (default) debug_dir = 
+[2022-12-27T14:53:32.890439 23886] Config: (default) depend_mode = false
+[2022-12-27T14:53:32.890439 23886] Config: (default) direct_mode = true
+[2022-12-27T14:53:32.890439 23886] Config: (default) disable = false
+[2022-12-27T14:53:32.890439 23886] Config: (default) extra_files_to_hash = 
+[2022-12-27T14:53:32.890439 23886] Config: (default) file_clone = false
+[2022-12-27T14:53:32.890439 23886] Config: (default) hard_link = false
+[2022-12-27T14:53:32.890439 23886] Config: (default) hash_dir = true
+[2022-12-27T14:53:32.890439 23886] Config: (default) ignore_headers_in_manifest = 
+[2022-12-27T14:53:32.890439 23886] Config: (default) ignore_options = 
+[2022-12-27T14:53:32.890439 23886] Config: (default) inode_cache = false
+[2022-12-27T14:53:32.890439 23886] Config: (default) keep_comments_cpp = false
+[2022-12-27T14:53:32.890439 23886] Config: (default) limit_multiple = 0.8
+[2022-12-27T14:53:32.890439 23886] Config: (environment) log_file = /home/ubuntu/Synthetic-Navigation/ML/main.build/ccache-23856.txt
+[2022-12-27T14:53:32.890439 23886] Config: (default) max_files = 0
+[2022-12-27T14:53:32.890439 23886] Config: (default) max_size = 5.0G
+[2022-12-27T14:53:32.890439 23886] Config: (default) namespace = 
+[2022-12-27T14:53:32.890439 23886] Config: (default) path = 
+[2022-12-27T14:53:32.890439 23886] Config: (default) pch_external_checksum = false
+[2022-12-27T14:53:32.890439 23886] Config: (default) prefix_command = 
+[2022-12-27T14:53:32.890439 23886] Config: (default) prefix_command_cpp = 
+[2022-12-27T14:53:32.890439 23886] Config: (default) read_only = false
+[2022-12-27T14:53:32.890439 23886] Config: (default) read_only_direct = false
+[2022-12-27T14:53:32.890439 23886] Config: (default) recache = false
+[2022-12-27T14:53:32.890439 23886] Config: (default) reshare = false
+[2022-12-27T14:53:32.890439 23886] Config: (default) run_second_cpp = true
+[2022-12-27T14:53:32.890439 23886] Config: (default) secondary_storage = 
+[2022-12-27T14:53:32.890439 23886] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2022-12-27T14:53:32.890439 23886] Config: (default) stats = true
+[2022-12-27T14:53:32.890439 23886] Config: (default) stats_log = 
+[2022-12-27T14:53:32.890439 23886] Config: (default) temporary_dir = /run/user/1000/ccache-tmp
+[2022-12-27T14:53:32.890439 23886] Config: (default) umask = 
+[2022-12-27T14:53:32.890532 23886] Command line: /usr/bin/ccache /usr/bin/gcc -o module.__main__.o -c -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src module.__main__.c
+[2022-12-27T14:53:32.890547 23886] Hostname: ip-172-31-20-37
+[2022-12-27T14:53:32.890552 23886] Working directory: /home/ubuntu/Synthetic-Navigation/ML/main.build
+[2022-12-27T14:53:32.890556 23886] Compiler type: gcc
+[2022-12-27T14:53:32.890636 23886] Source file: module.__main__.c
+[2022-12-27T14:53:32.890643 23886] Object file: module.__main__.o
+[2022-12-27T14:53:32.890661 23886] Trying direct lookup
+[2022-12-27T14:53:32.891481 23886] No 64abq3j813s0a6lagqod1nqps69sb1vsa in primary storage
+[2022-12-27T14:53:32.891549 23886] Running preprocessor
+[2022-12-27T14:53:32.891559 23886] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -E module.__main__.c
+[2022-12-27T14:53:33.046749 23881] Got result key from preprocessor
+[2022-12-27T14:53:33.046793 23881] No 35d88p32sp6b8d5ffvj9brhfbunjej7om in primary storage
+[2022-12-27T14:53:33.046805 23881] Running real compiler
+[2022-12-27T14:53:33.046855 23881] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -c -fdiagnostics-color -o __loader.o __loader.c
+[2022-12-27T14:53:33.078645 23866] Got result key from preprocessor
+[2022-12-27T14:53:33.078689 23866] No ec76nrb5abec4hudpeacefetijbrjridu in primary storage
+[2022-12-27T14:53:33.078703 23866] Running real compiler
+[2022-12-27T14:53:33.078754 23866] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -c -fdiagnostics-color -o __constants.o __constants.c
+[2022-12-27T14:53:33.080678 23876] Got result key from preprocessor
+[2022-12-27T14:53:33.080721 23876] No 125d2b3cr3v8b9mj485utuaqur2lisc80 in primary storage
+[2022-12-27T14:53:33.080732 23876] Running real compiler
+[2022-12-27T14:53:33.080781 23876] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -c -fdiagnostics-color -o __helpers.o __helpers.c
+[2022-12-27T14:53:33.114415 23886] Got result key from preprocessor
+[2022-12-27T14:53:33.114458 23886] No 02d6jvbvmencqtbem4i6ehn9viil78egu in primary storage
+[2022-12-27T14:53:33.114471 23886] Running real compiler
+[2022-12-27T14:53:33.114523 23886] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -c -fdiagnostics-color -o module.__main__.o module.__main__.c
+[2022-12-27T14:53:33.216819 23881] Using default compression level 1
+[2022-12-27T14:53:33.216969 23881] Storing result file __loader.o
+[2022-12-27T14:53:33.216985 23881] Storing embedded file #0 .o (2992 bytes) from __loader.o
+[2022-12-27T14:53:33.217234 23881] Stored 35d88p32sp6b8d5ffvj9brhfbunjej7om in primary storage (/home/ubuntu/.cache/Nuitka/ccache/3/5/d88p32sp6b8d5ffvj9brhfbunjej7omR)
+[2022-12-27T14:53:33.217365 23881] Adding result key to /home/ubuntu/.cache/Nuitka/ccache/a/f/92a9tgfmk7b23go4936iu018n1fecf0M
+[2022-12-27T14:53:33.218233 23881] Using default compression level 1
+[2022-12-27T14:53:33.219000 23881] Stored af92a9tgfmk7b23go4936iu018n1fecf0 in primary storage (/home/ubuntu/.cache/Nuitka/ccache/a/f/92a9tgfmk7b23go4936iu018n1fecf0M)
+[2022-12-27T14:53:33.219085 23881] Result: cache_miss
+[2022-12-27T14:53:33.219097 23881] Result: direct_cache_miss
+[2022-12-27T14:53:33.219103 23881] Result: preprocessed_cache_miss
+[2022-12-27T14:53:33.219108 23881] Result: primary_storage_miss
+[2022-12-27T14:53:33.219164 23881] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/a/stats.lock
+[2022-12-27T14:53:33.219349 23881] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/a/stats.lock
+[2022-12-27T14:53:33.219384 23881] Unlink /home/ubuntu/.cache/Nuitka/ccache/a/stats.lock
+[2022-12-27T14:53:33.219427 23881] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/3/stats.lock
+[2022-12-27T14:53:33.219541 23881] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/3/stats.lock
+[2022-12-27T14:53:33.219572 23881] Unlink /home/ubuntu/.cache/Nuitka/ccache/3/stats.lock
+[2022-12-27T14:53:33.219595 23881] Unlink /run/user/1000/ccache-tmp/tmp.stderr.XFYcgO
+[2022-12-27T14:53:33.219609 23881] Unlink /run/user/1000/ccache-tmp/tmp.stdout.oarRCl
+[2022-12-27T14:53:33.219621 23881] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stderr.xxHl9b
+[2022-12-27T14:53:33.219631 23881] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.pO35v5.i
+[2022-12-27T14:53:33.219764 23881] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.pO35v5
+[2022-12-27T14:53:33.238605 23903] === CCACHE 4.5.1 STARTED =========================================
+[2022-12-27T14:53:33.238605 23903] Config: (default) absolute_paths_in_stderr = false
+[2022-12-27T14:53:33.238605 23903] Config: (default) base_dir = 
+[2022-12-27T14:53:33.238605 23903] Config: (environment) cache_dir = /home/ubuntu/.cache/Nuitka/ccache
+[2022-12-27T14:53:33.238605 23903] Config: (default) compiler = 
+[2022-12-27T14:53:33.238605 23903] Config: (default) compiler_check = mtime
+[2022-12-27T14:53:33.238605 23903] Config: (default) compiler_type = auto
+[2022-12-27T14:53:33.238605 23903] Config: (default) compression = true
+[2022-12-27T14:53:33.238605 23903] Config: (default) compression_level = 0
+[2022-12-27T14:53:33.238605 23903] Config: (default) cpp_extension = 
+[2022-12-27T14:53:33.238605 23903] Config: (default) debug = false
+[2022-12-27T14:53:33.238605 23903] Config: (default) debug_dir = 
+[2022-12-27T14:53:33.238605 23903] Config: (default) depend_mode = false
+[2022-12-27T14:53:33.238605 23903] Config: (default) direct_mode = true
+[2022-12-27T14:53:33.238605 23903] Config: (default) disable = false
+[2022-12-27T14:53:33.238605 23903] Config: (default) extra_files_to_hash = 
+[2022-12-27T14:53:33.238605 23903] Config: (default) file_clone = false
+[2022-12-27T14:53:33.238605 23903] Config: (default) hard_link = false
+[2022-12-27T14:53:33.238605 23903] Config: (default) hash_dir = true
+[2022-12-27T14:53:33.238605 23903] Config: (default) ignore_headers_in_manifest = 
+[2022-12-27T14:53:33.238605 23903] Config: (default) ignore_options = 
+[2022-12-27T14:53:33.238605 23903] Config: (default) inode_cache = false
+[2022-12-27T14:53:33.238605 23903] Config: (default) keep_comments_cpp = false
+[2022-12-27T14:53:33.238605 23903] Config: (default) limit_multiple = 0.8
+[2022-12-27T14:53:33.238605 23903] Config: (environment) log_file = /home/ubuntu/Synthetic-Navigation/ML/main.build/ccache-23856.txt
+[2022-12-27T14:53:33.238605 23903] Config: (default) max_files = 0
+[2022-12-27T14:53:33.238605 23903] Config: (default) max_size = 5.0G
+[2022-12-27T14:53:33.238605 23903] Config: (default) namespace = 
+[2022-12-27T14:53:33.238605 23903] Config: (default) path = 
+[2022-12-27T14:53:33.238605 23903] Config: (default) pch_external_checksum = false
+[2022-12-27T14:53:33.238605 23903] Config: (default) prefix_command = 
+[2022-12-27T14:53:33.238605 23903] Config: (default) prefix_command_cpp = 
+[2022-12-27T14:53:33.238605 23903] Config: (default) read_only = false
+[2022-12-27T14:53:33.238605 23903] Config: (default) read_only_direct = false
+[2022-12-27T14:53:33.238605 23903] Config: (default) recache = false
+[2022-12-27T14:53:33.238605 23903] Config: (default) reshare = false
+[2022-12-27T14:53:33.238605 23903] Config: (default) run_second_cpp = true
+[2022-12-27T14:53:33.238605 23903] Config: (default) secondary_storage = 
+[2022-12-27T14:53:33.238605 23903] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2022-12-27T14:53:33.238605 23903] Config: (default) stats = true
+[2022-12-27T14:53:33.238605 23903] Config: (default) stats_log = 
+[2022-12-27T14:53:33.238605 23903] Config: (default) temporary_dir = /run/user/1000/ccache-tmp
+[2022-12-27T14:53:33.238605 23903] Config: (default) umask = 
+[2022-12-27T14:53:33.238717 23903] Command line: /usr/bin/ccache /usr/bin/gcc -o static_src/MainProgram.o -c -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src static_src/MainProgram.c
+[2022-12-27T14:53:33.238741 23903] Hostname: ip-172-31-20-37
+[2022-12-27T14:53:33.238749 23903] Working directory: /home/ubuntu/Synthetic-Navigation/ML/main.build
+[2022-12-27T14:53:33.238755 23903] Compiler type: gcc
+[2022-12-27T14:53:33.238953 23903] Source file: static_src/MainProgram.c
+[2022-12-27T14:53:33.238969 23903] Object file: static_src/MainProgram.o
+[2022-12-27T14:53:33.238994 23903] Trying direct lookup
+[2022-12-27T14:53:33.239156 23903] No ee92uu6ovj3sqdqvql4konbqu735e92to in primary storage
+[2022-12-27T14:53:33.239258 23903] Running preprocessor
+[2022-12-27T14:53:33.239275 23903] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -E static_src/MainProgram.c
+[2022-12-27T14:53:33.272429 23876] Using default compression level 1
+[2022-12-27T14:53:33.272574 23876] Storing result file __helpers.o
+[2022-12-27T14:53:33.272590 23876] Storing embedded file #0 .o (936 bytes) from __helpers.o
+[2022-12-27T14:53:33.272806 23876] Stored 125d2b3cr3v8b9mj485utuaqur2lisc80 in primary storage (/home/ubuntu/.cache/Nuitka/ccache/1/2/5d2b3cr3v8b9mj485utuaqur2lisc80R)
+[2022-12-27T14:53:33.272936 23876] Adding result key to /home/ubuntu/.cache/Nuitka/ccache/d/0/71t5rangohc4g9ssen4dhmfbo9d4hacM
+[2022-12-27T14:53:33.274177 23876] Using default compression level 1
+[2022-12-27T14:53:33.275237 23876] Stored d071t5rangohc4g9ssen4dhmfbo9d4hac in primary storage (/home/ubuntu/.cache/Nuitka/ccache/d/0/71t5rangohc4g9ssen4dhmfbo9d4hacM)
+[2022-12-27T14:53:33.275316 23876] Result: cache_miss
+[2022-12-27T14:53:33.275326 23876] Result: direct_cache_miss
+[2022-12-27T14:53:33.275333 23876] Result: preprocessed_cache_miss
+[2022-12-27T14:53:33.275338 23876] Result: primary_storage_miss
+[2022-12-27T14:53:33.275393 23876] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/d/stats.lock
+[2022-12-27T14:53:33.275560 23876] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/d/stats.lock
+[2022-12-27T14:53:33.275590 23876] Unlink /home/ubuntu/.cache/Nuitka/ccache/d/stats.lock
+[2022-12-27T14:53:33.275629 23876] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/1/stats.lock
+[2022-12-27T14:53:33.275729 23876] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/1/stats.lock
+[2022-12-27T14:53:33.275754 23876] Unlink /home/ubuntu/.cache/Nuitka/ccache/1/stats.lock
+[2022-12-27T14:53:33.275774 23876] Unlink /run/user/1000/ccache-tmp/tmp.stderr.TxGWvL
+[2022-12-27T14:53:33.275786 23876] Unlink /run/user/1000/ccache-tmp/tmp.stdout.pq6HRj
+[2022-12-27T14:53:33.275797 23876] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stderr.Ma4LSs
+[2022-12-27T14:53:33.275807 23876] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.RkmNAx.i
+[2022-12-27T14:53:33.275995 23876] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.RkmNAx
+[2022-12-27T14:53:33.285082 23866] Using default compression level 1
+[2022-12-27T14:53:33.285221 23866] Storing result file __constants.o
+[2022-12-27T14:53:33.285239 23866] Storing embedded file #0 .o (4952 bytes) from __constants.o
+[2022-12-27T14:53:33.285504 23866] Stored ec76nrb5abec4hudpeacefetijbrjridu in primary storage (/home/ubuntu/.cache/Nuitka/ccache/e/c/76nrb5abec4hudpeacefetijbrjriduR)
+[2022-12-27T14:53:33.285638 23866] Adding result key to /home/ubuntu/.cache/Nuitka/ccache/f/4/e7nbim25kj8thehm4puvfo48ucj55iiM
+[2022-12-27T14:53:33.286913 23866] Using default compression level 1
+[2022-12-27T14:53:33.287887 23866] Stored f4e7nbim25kj8thehm4puvfo48ucj55ii in primary storage (/home/ubuntu/.cache/Nuitka/ccache/f/4/e7nbim25kj8thehm4puvfo48ucj55iiM)
+[2022-12-27T14:53:33.287965 23866] Result: cache_miss
+[2022-12-27T14:53:33.287976 23866] Result: direct_cache_miss
+[2022-12-27T14:53:33.287982 23866] Result: preprocessed_cache_miss
+[2022-12-27T14:53:33.287988 23866] Result: primary_storage_miss
+[2022-12-27T14:53:33.288035 23866] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/f/stats.lock
+[2022-12-27T14:53:33.288183 23866] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/f/stats.lock
+[2022-12-27T14:53:33.288213 23866] Unlink /home/ubuntu/.cache/Nuitka/ccache/f/stats.lock
+[2022-12-27T14:53:33.288251 23866] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/e/stats.lock
+[2022-12-27T14:53:33.288367 23866] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/e/stats.lock
+[2022-12-27T14:53:33.288393 23866] Unlink /home/ubuntu/.cache/Nuitka/ccache/e/stats.lock
+[2022-12-27T14:53:33.288412 23866] Unlink /run/user/1000/ccache-tmp/tmp.stderr.iSVX9P
+[2022-12-27T14:53:33.288425 23866] Unlink /run/user/1000/ccache-tmp/tmp.stdout.PziB3H
+[2022-12-27T14:53:33.288438 23866] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stderr.YZJTcO
+[2022-12-27T14:53:33.288447 23866] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.0CG0fi.i
+[2022-12-27T14:53:33.288628 23866] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.0CG0fi
+[2022-12-27T14:53:33.292788 23908] === CCACHE 4.5.1 STARTED =========================================
+[2022-12-27T14:53:33.292788 23908] Config: (default) absolute_paths_in_stderr = false
+[2022-12-27T14:53:33.292788 23908] Config: (default) base_dir = 
+[2022-12-27T14:53:33.292788 23908] Config: (environment) cache_dir = /home/ubuntu/.cache/Nuitka/ccache
+[2022-12-27T14:53:33.292788 23908] Config: (default) compiler = 
+[2022-12-27T14:53:33.292788 23908] Config: (default) compiler_check = mtime
+[2022-12-27T14:53:33.292788 23908] Config: (default) compiler_type = auto
+[2022-12-27T14:53:33.292788 23908] Config: (default) compression = true
+[2022-12-27T14:53:33.292788 23908] Config: (default) compression_level = 0
+[2022-12-27T14:53:33.292788 23908] Config: (default) cpp_extension = 
+[2022-12-27T14:53:33.292788 23908] Config: (default) debug = false
+[2022-12-27T14:53:33.292788 23908] Config: (default) debug_dir = 
+[2022-12-27T14:53:33.292788 23908] Config: (default) depend_mode = false
+[2022-12-27T14:53:33.292788 23908] Config: (default) direct_mode = true
+[2022-12-27T14:53:33.292788 23908] Config: (default) disable = false
+[2022-12-27T14:53:33.292788 23908] Config: (default) extra_files_to_hash = 
+[2022-12-27T14:53:33.292788 23908] Config: (default) file_clone = false
+[2022-12-27T14:53:33.292788 23908] Config: (default) hard_link = false
+[2022-12-27T14:53:33.292788 23908] Config: (default) hash_dir = true
+[2022-12-27T14:53:33.292788 23908] Config: (default) ignore_headers_in_manifest = 
+[2022-12-27T14:53:33.292788 23908] Config: (default) ignore_options = 
+[2022-12-27T14:53:33.292788 23908] Config: (default) inode_cache = false
+[2022-12-27T14:53:33.292788 23908] Config: (default) keep_comments_cpp = false
+[2022-12-27T14:53:33.292788 23908] Config: (default) limit_multiple = 0.8
+[2022-12-27T14:53:33.292788 23908] Config: (environment) log_file = /home/ubuntu/Synthetic-Navigation/ML/main.build/ccache-23856.txt
+[2022-12-27T14:53:33.292788 23908] Config: (default) max_files = 0
+[2022-12-27T14:53:33.292788 23908] Config: (default) max_size = 5.0G
+[2022-12-27T14:53:33.292788 23908] Config: (default) namespace = 
+[2022-12-27T14:53:33.292788 23908] Config: (default) path = 
+[2022-12-27T14:53:33.292788 23908] Config: (default) pch_external_checksum = false
+[2022-12-27T14:53:33.292788 23908] Config: (default) prefix_command = 
+[2022-12-27T14:53:33.292788 23908] Config: (default) prefix_command_cpp = 
+[2022-12-27T14:53:33.292788 23908] Config: (default) read_only = false
+[2022-12-27T14:53:33.292788 23908] Config: (default) read_only_direct = false
+[2022-12-27T14:53:33.292788 23908] Config: (default) recache = false
+[2022-12-27T14:53:33.292788 23908] Config: (default) reshare = false
+[2022-12-27T14:53:33.292788 23908] Config: (default) run_second_cpp = true
+[2022-12-27T14:53:33.292788 23908] Config: (default) secondary_storage = 
+[2022-12-27T14:53:33.292788 23908] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2022-12-27T14:53:33.292788 23908] Config: (default) stats = true
+[2022-12-27T14:53:33.292788 23908] Config: (default) stats_log = 
+[2022-12-27T14:53:33.292788 23908] Config: (default) temporary_dir = /run/user/1000/ccache-tmp
+[2022-12-27T14:53:33.292788 23908] Config: (default) umask = 
+[2022-12-27T14:53:33.292896 23908] Command line: /usr/bin/ccache /usr/bin/gcc -o static_src/CompiledCellType.o -c -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src static_src/CompiledCellType.c
+[2022-12-27T14:53:33.292921 23908] Hostname: ip-172-31-20-37
+[2022-12-27T14:53:33.292928 23908] Working directory: /home/ubuntu/Synthetic-Navigation/ML/main.build
+[2022-12-27T14:53:33.292934 23908] Compiler type: gcc
+[2022-12-27T14:53:33.293075 23908] Source file: static_src/CompiledCellType.c
+[2022-12-27T14:53:33.293086 23908] Object file: static_src/CompiledCellType.o
+[2022-12-27T14:53:33.293114 23908] Trying direct lookup
+[2022-12-27T14:53:33.293199 23908] No 00f7l5gdiu3gj39ia8eot3m61ru37ru5i in primary storage
+[2022-12-27T14:53:33.293291 23908] Running preprocessor
+[2022-12-27T14:53:33.293308 23908] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -E static_src/CompiledCellType.c
+[2022-12-27T14:53:33.377798 23903] Got result key from preprocessor
+[2022-12-27T14:53:33.377846 23903] No 2885vjjll1evoac9rk534lhiej0nql0ve in primary storage
+[2022-12-27T14:53:33.377864 23903] Running real compiler
+[2022-12-27T14:53:33.377923 23903] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -c -fdiagnostics-color -o static_src/MainProgram.o static_src/MainProgram.c
+[2022-12-27T14:53:33.429174 23908] Got result key from preprocessor
+[2022-12-27T14:53:33.429218 23908] No 960bme57uirmitbvqsjku60e2joqlbhmi in primary storage
+[2022-12-27T14:53:33.429232 23908] Running real compiler
+[2022-12-27T14:53:33.429286 23908] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -c -fdiagnostics-color -o static_src/CompiledCellType.o static_src/CompiledCellType.c
+[2022-12-27T14:53:33.484556 23919] === CCACHE 4.5.1 STARTED =========================================
+[2022-12-27T14:53:33.484556 23919] Config: (default) absolute_paths_in_stderr = false
+[2022-12-27T14:53:33.484556 23919] Config: (default) base_dir = 
+[2022-12-27T14:53:33.484556 23919] Config: (environment) cache_dir = /home/ubuntu/.cache/Nuitka/ccache
+[2022-12-27T14:53:33.484556 23919] Config: (default) compiler = 
+[2022-12-27T14:53:33.484556 23919] Config: (default) compiler_check = mtime
+[2022-12-27T14:53:33.484556 23919] Config: (default) compiler_type = auto
+[2022-12-27T14:53:33.484556 23919] Config: (default) compression = true
+[2022-12-27T14:53:33.484556 23919] Config: (default) compression_level = 0
+[2022-12-27T14:53:33.484556 23919] Config: (default) cpp_extension = 
+[2022-12-27T14:53:33.484556 23919] Config: (default) debug = false
+[2022-12-27T14:53:33.484556 23919] Config: (default) debug_dir = 
+[2022-12-27T14:53:33.484556 23919] Config: (default) depend_mode = false
+[2022-12-27T14:53:33.484556 23919] Config: (default) direct_mode = true
+[2022-12-27T14:53:33.484556 23919] Config: (default) disable = false
+[2022-12-27T14:53:33.484556 23919] Config: (default) extra_files_to_hash = 
+[2022-12-27T14:53:33.484556 23919] Config: (default) file_clone = false
+[2022-12-27T14:53:33.484556 23919] Config: (default) hard_link = false
+[2022-12-27T14:53:33.484556 23919] Config: (default) hash_dir = true
+[2022-12-27T14:53:33.484556 23919] Config: (default) ignore_headers_in_manifest = 
+[2022-12-27T14:53:33.484556 23919] Config: (default) ignore_options = 
+[2022-12-27T14:53:33.484556 23919] Config: (default) inode_cache = false
+[2022-12-27T14:53:33.484556 23919] Config: (default) keep_comments_cpp = false
+[2022-12-27T14:53:33.484556 23919] Config: (default) limit_multiple = 0.8
+[2022-12-27T14:53:33.484556 23919] Config: (environment) log_file = /home/ubuntu/Synthetic-Navigation/ML/main.build/ccache-23856.txt
+[2022-12-27T14:53:33.484556 23919] Config: (default) max_files = 0
+[2022-12-27T14:53:33.484556 23919] Config: (default) max_size = 5.0G
+[2022-12-27T14:53:33.484556 23919] Config: (default) namespace = 
+[2022-12-27T14:53:33.484556 23919] Config: (default) path = 
+[2022-12-27T14:53:33.484556 23919] Config: (default) pch_external_checksum = false
+[2022-12-27T14:53:33.484556 23919] Config: (default) prefix_command = 
+[2022-12-27T14:53:33.484556 23919] Config: (default) prefix_command_cpp = 
+[2022-12-27T14:53:33.484556 23919] Config: (default) read_only = false
+[2022-12-27T14:53:33.484556 23919] Config: (default) read_only_direct = false
+[2022-12-27T14:53:33.484556 23919] Config: (default) recache = false
+[2022-12-27T14:53:33.484556 23919] Config: (default) reshare = false
+[2022-12-27T14:53:33.484556 23919] Config: (default) run_second_cpp = true
+[2022-12-27T14:53:33.484556 23919] Config: (default) secondary_storage = 
+[2022-12-27T14:53:33.484556 23919] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2022-12-27T14:53:33.484556 23919] Config: (default) stats = true
+[2022-12-27T14:53:33.484556 23919] Config: (default) stats_log = 
+[2022-12-27T14:53:33.484556 23919] Config: (default) temporary_dir = /run/user/1000/ccache-tmp
+[2022-12-27T14:53:33.484556 23919] Config: (default) umask = 
+[2022-12-27T14:53:33.484673 23919] Command line: /usr/bin/ccache /usr/bin/gcc -o static_src/CompiledFunctionType.o -c -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src static_src/CompiledFunctionType.c
+[2022-12-27T14:53:33.484701 23919] Hostname: ip-172-31-20-37
+[2022-12-27T14:53:33.484709 23919] Working directory: /home/ubuntu/Synthetic-Navigation/ML/main.build
+[2022-12-27T14:53:33.484715 23919] Compiler type: gcc
+[2022-12-27T14:53:33.484859 23919] Source file: static_src/CompiledFunctionType.c
+[2022-12-27T14:53:33.484870 23919] Object file: static_src/CompiledFunctionType.o
+[2022-12-27T14:53:33.484900 23919] Trying direct lookup
+[2022-12-27T14:53:33.485169 23919] No 8e0er7qllqpdif6nur4dhd0gn8j0b4j0i in primary storage
+[2022-12-27T14:53:33.485271 23919] Running preprocessor
+[2022-12-27T14:53:33.485287 23919] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -E static_src/CompiledFunctionType.c
+[2022-12-27T14:53:33.627198 23903] Using default compression level 1
+[2022-12-27T14:53:33.627342 23903] Storing result file static_src/MainProgram.o
+[2022-12-27T14:53:33.627358 23903] Storing embedded file #0 .o (7936 bytes) from static_src/MainProgram.o
+[2022-12-27T14:53:33.627648 23903] Stored 2885vjjll1evoac9rk534lhiej0nql0ve in primary storage (/home/ubuntu/.cache/Nuitka/ccache/2/8/85vjjll1evoac9rk534lhiej0nql0veR)
+[2022-12-27T14:53:33.627796 23903] Adding result key to /home/ubuntu/.cache/Nuitka/ccache/e/e/92uu6ovj3sqdqvql4konbqu735e92toM
+[2022-12-27T14:53:33.629050 23903] Using default compression level 1
+[2022-12-27T14:53:33.630042 23903] Stored ee92uu6ovj3sqdqvql4konbqu735e92to in primary storage (/home/ubuntu/.cache/Nuitka/ccache/e/e/92uu6ovj3sqdqvql4konbqu735e92toM)
+[2022-12-27T14:53:33.630073 23903] Result: cache_miss
+[2022-12-27T14:53:33.630081 23903] Result: direct_cache_miss
+[2022-12-27T14:53:33.630094 23903] Result: preprocessed_cache_miss
+[2022-12-27T14:53:33.630100 23903] Result: primary_storage_miss
+[2022-12-27T14:53:33.630153 23903] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/e/stats.lock
+[2022-12-27T14:53:33.630373 23903] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/e/stats.lock
+[2022-12-27T14:53:33.630405 23903] Unlink /home/ubuntu/.cache/Nuitka/ccache/e/stats.lock
+[2022-12-27T14:53:33.630445 23903] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/2/stats.lock
+[2022-12-27T14:53:33.630625 23903] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/2/stats.lock
+[2022-12-27T14:53:33.630652 23903] Unlink /home/ubuntu/.cache/Nuitka/ccache/2/stats.lock
+[2022-12-27T14:53:33.630674 23903] Unlink /run/user/1000/ccache-tmp/tmp.stderr.PD2cLc
+[2022-12-27T14:53:33.630685 23903] Unlink /run/user/1000/ccache-tmp/tmp.stdout.UjHXSy
+[2022-12-27T14:53:33.630696 23903] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stderr.GcalhH
+[2022-12-27T14:53:33.630706 23903] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.qcNPUe.i
+[2022-12-27T14:53:33.630929 23903] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.qcNPUe
+[2022-12-27T14:53:33.651392 23924] === CCACHE 4.5.1 STARTED =========================================
+[2022-12-27T14:53:33.651392 23924] Config: (default) absolute_paths_in_stderr = false
+[2022-12-27T14:53:33.651392 23924] Config: (default) base_dir = 
+[2022-12-27T14:53:33.651392 23924] Config: (environment) cache_dir = /home/ubuntu/.cache/Nuitka/ccache
+[2022-12-27T14:53:33.651392 23924] Config: (default) compiler = 
+[2022-12-27T14:53:33.651392 23924] Config: (default) compiler_check = mtime
+[2022-12-27T14:53:33.651392 23924] Config: (default) compiler_type = auto
+[2022-12-27T14:53:33.651392 23924] Config: (default) compression = true
+[2022-12-27T14:53:33.651392 23924] Config: (default) compression_level = 0
+[2022-12-27T14:53:33.651392 23924] Config: (default) cpp_extension = 
+[2022-12-27T14:53:33.651392 23924] Config: (default) debug = false
+[2022-12-27T14:53:33.651392 23924] Config: (default) debug_dir = 
+[2022-12-27T14:53:33.651392 23924] Config: (default) depend_mode = false
+[2022-12-27T14:53:33.651392 23924] Config: (default) direct_mode = true
+[2022-12-27T14:53:33.651392 23924] Config: (default) disable = false
+[2022-12-27T14:53:33.651392 23924] Config: (default) extra_files_to_hash = 
+[2022-12-27T14:53:33.651392 23924] Config: (default) file_clone = false
+[2022-12-27T14:53:33.651392 23924] Config: (default) hard_link = false
+[2022-12-27T14:53:33.651392 23924] Config: (default) hash_dir = true
+[2022-12-27T14:53:33.651392 23924] Config: (default) ignore_headers_in_manifest = 
+[2022-12-27T14:53:33.651392 23924] Config: (default) ignore_options = 
+[2022-12-27T14:53:33.651392 23924] Config: (default) inode_cache = false
+[2022-12-27T14:53:33.651392 23924] Config: (default) keep_comments_cpp = false
+[2022-12-27T14:53:33.651392 23924] Config: (default) limit_multiple = 0.8
+[2022-12-27T14:53:33.651392 23924] Config: (environment) log_file = /home/ubuntu/Synthetic-Navigation/ML/main.build/ccache-23856.txt
+[2022-12-27T14:53:33.651392 23924] Config: (default) max_files = 0
+[2022-12-27T14:53:33.651392 23924] Config: (default) max_size = 5.0G
+[2022-12-27T14:53:33.651392 23924] Config: (default) namespace = 
+[2022-12-27T14:53:33.651392 23924] Config: (default) path = 
+[2022-12-27T14:53:33.651392 23924] Config: (default) pch_external_checksum = false
+[2022-12-27T14:53:33.651392 23924] Config: (default) prefix_command = 
+[2022-12-27T14:53:33.651392 23924] Config: (default) prefix_command_cpp = 
+[2022-12-27T14:53:33.651392 23924] Config: (default) read_only = false
+[2022-12-27T14:53:33.651392 23924] Config: (default) read_only_direct = false
+[2022-12-27T14:53:33.651392 23924] Config: (default) recache = false
+[2022-12-27T14:53:33.651392 23924] Config: (default) reshare = false
+[2022-12-27T14:53:33.651392 23924] Config: (default) run_second_cpp = true
+[2022-12-27T14:53:33.651392 23924] Config: (default) secondary_storage = 
+[2022-12-27T14:53:33.651392 23924] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2022-12-27T14:53:33.651392 23924] Config: (default) stats = true
+[2022-12-27T14:53:33.651392 23924] Config: (default) stats_log = 
+[2022-12-27T14:53:33.651392 23924] Config: (default) temporary_dir = /run/user/1000/ccache-tmp
+[2022-12-27T14:53:33.651392 23924] Config: (default) umask = 
+[2022-12-27T14:53:33.651467 23924] Command line: /usr/bin/ccache /usr/bin/gcc -o static_src/CompiledGeneratorType.o -c -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src static_src/CompiledGeneratorType.c
+[2022-12-27T14:53:33.651481 23924] Hostname: ip-172-31-20-37
+[2022-12-27T14:53:33.651485 23924] Working directory: /home/ubuntu/Synthetic-Navigation/ML/main.build
+[2022-12-27T14:53:33.651489 23924] Compiler type: gcc
+[2022-12-27T14:53:33.651573 23924] Source file: static_src/CompiledGeneratorType.c
+[2022-12-27T14:53:33.651580 23924] Object file: static_src/CompiledGeneratorType.o
+[2022-12-27T14:53:33.651601 23924] Trying direct lookup
+[2022-12-27T14:53:33.651739 23924] No febf2arfb1d336oo32sieve7mbktdmlm6 in primary storage
+[2022-12-27T14:53:33.651803 23924] Running preprocessor
+[2022-12-27T14:53:33.651814 23924] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -E static_src/CompiledGeneratorType.c
+[2022-12-27T14:53:33.722731 23908] Using default compression level 1
+[2022-12-27T14:53:33.722899 23908] Storing result file static_src/CompiledCellType.o
+[2022-12-27T14:53:33.722918 23908] Storing embedded file #0 .o (8400 bytes) from static_src/CompiledCellType.o
+[2022-12-27T14:53:33.723212 23908] Stored 960bme57uirmitbvqsjku60e2joqlbhmi in primary storage (/home/ubuntu/.cache/Nuitka/ccache/9/6/0bme57uirmitbvqsjku60e2joqlbhmiR)
+[2022-12-27T14:53:33.723346 23908] Adding result key to /home/ubuntu/.cache/Nuitka/ccache/0/0/f7l5gdiu3gj39ia8eot3m61ru37ru5iM
+[2022-12-27T14:53:33.724634 23908] Using default compression level 1
+[2022-12-27T14:53:33.725604 23908] Stored 00f7l5gdiu3gj39ia8eot3m61ru37ru5i in primary storage (/home/ubuntu/.cache/Nuitka/ccache/0/0/f7l5gdiu3gj39ia8eot3m61ru37ru5iM)
+[2022-12-27T14:53:33.725682 23908] Result: cache_miss
+[2022-12-27T14:53:33.725693 23908] Result: direct_cache_miss
+[2022-12-27T14:53:33.725699 23908] Result: preprocessed_cache_miss
+[2022-12-27T14:53:33.725705 23908] Result: primary_storage_miss
+[2022-12-27T14:53:33.725754 23908] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/0/stats.lock
+[2022-12-27T14:53:33.725919 23908] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/0/stats.lock
+[2022-12-27T14:53:33.725950 23908] Unlink /home/ubuntu/.cache/Nuitka/ccache/0/stats.lock
+[2022-12-27T14:53:33.725990 23908] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/9/stats.lock
+[2022-12-27T14:53:33.726092 23908] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/9/stats.lock
+[2022-12-27T14:53:33.726118 23908] Unlink /home/ubuntu/.cache/Nuitka/ccache/9/stats.lock
+[2022-12-27T14:53:33.726139 23908] Unlink /run/user/1000/ccache-tmp/tmp.stderr.IEPyNY
+[2022-12-27T14:53:33.726152 23908] Unlink /run/user/1000/ccache-tmp/tmp.stdout.00JnLM
+[2022-12-27T14:53:33.726172 23908] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stderr.jCHVpO
+[2022-12-27T14:53:33.726183 23908] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.glgnFB.i
+[2022-12-27T14:53:33.726357 23908] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.glgnFB
+[2022-12-27T14:53:33.742195 23929] === CCACHE 4.5.1 STARTED =========================================
+[2022-12-27T14:53:33.742195 23929] Config: (default) absolute_paths_in_stderr = false
+[2022-12-27T14:53:33.742195 23929] Config: (default) base_dir = 
+[2022-12-27T14:53:33.742195 23929] Config: (environment) cache_dir = /home/ubuntu/.cache/Nuitka/ccache
+[2022-12-27T14:53:33.742195 23929] Config: (default) compiler = 
+[2022-12-27T14:53:33.742195 23929] Config: (default) compiler_check = mtime
+[2022-12-27T14:53:33.742195 23929] Config: (default) compiler_type = auto
+[2022-12-27T14:53:33.742195 23929] Config: (default) compression = true
+[2022-12-27T14:53:33.742195 23929] Config: (default) compression_level = 0
+[2022-12-27T14:53:33.742195 23929] Config: (default) cpp_extension = 
+[2022-12-27T14:53:33.742195 23929] Config: (default) debug = false
+[2022-12-27T14:53:33.742195 23929] Config: (default) debug_dir = 
+[2022-12-27T14:53:33.742195 23929] Config: (default) depend_mode = false
+[2022-12-27T14:53:33.742195 23929] Config: (default) direct_mode = true
+[2022-12-27T14:53:33.742195 23929] Config: (default) disable = false
+[2022-12-27T14:53:33.742195 23929] Config: (default) extra_files_to_hash = 
+[2022-12-27T14:53:33.742195 23929] Config: (default) file_clone = false
+[2022-12-27T14:53:33.742195 23929] Config: (default) hard_link = false
+[2022-12-27T14:53:33.742195 23929] Config: (default) hash_dir = true
+[2022-12-27T14:53:33.742195 23929] Config: (default) ignore_headers_in_manifest = 
+[2022-12-27T14:53:33.742195 23929] Config: (default) ignore_options = 
+[2022-12-27T14:53:33.742195 23929] Config: (default) inode_cache = false
+[2022-12-27T14:53:33.742195 23929] Config: (default) keep_comments_cpp = false
+[2022-12-27T14:53:33.742195 23929] Config: (default) limit_multiple = 0.8
+[2022-12-27T14:53:33.742195 23929] Config: (environment) log_file = /home/ubuntu/Synthetic-Navigation/ML/main.build/ccache-23856.txt
+[2022-12-27T14:53:33.742195 23929] Config: (default) max_files = 0
+[2022-12-27T14:53:33.742195 23929] Config: (default) max_size = 5.0G
+[2022-12-27T14:53:33.742195 23929] Config: (default) namespace = 
+[2022-12-27T14:53:33.742195 23929] Config: (default) path = 
+[2022-12-27T14:53:33.742195 23929] Config: (default) pch_external_checksum = false
+[2022-12-27T14:53:33.742195 23929] Config: (default) prefix_command = 
+[2022-12-27T14:53:33.742195 23929] Config: (default) prefix_command_cpp = 
+[2022-12-27T14:53:33.742195 23929] Config: (default) read_only = false
+[2022-12-27T14:53:33.742195 23929] Config: (default) read_only_direct = false
+[2022-12-27T14:53:33.742195 23929] Config: (default) recache = false
+[2022-12-27T14:53:33.742195 23929] Config: (default) reshare = false
+[2022-12-27T14:53:33.742195 23929] Config: (default) run_second_cpp = true
+[2022-12-27T14:53:33.742195 23929] Config: (default) secondary_storage = 
+[2022-12-27T14:53:33.742195 23929] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2022-12-27T14:53:33.742195 23929] Config: (default) stats = true
+[2022-12-27T14:53:33.742195 23929] Config: (default) stats_log = 
+[2022-12-27T14:53:33.742195 23929] Config: (default) temporary_dir = /run/user/1000/ccache-tmp
+[2022-12-27T14:53:33.742195 23929] Config: (default) umask = 
+[2022-12-27T14:53:33.742304 23929] Command line: /usr/bin/ccache /usr/bin/gcc -o static_src/InspectPatcher.o -c -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src static_src/InspectPatcher.c
+[2022-12-27T14:53:33.742325 23929] Hostname: ip-172-31-20-37
+[2022-12-27T14:53:33.742331 23929] Working directory: /home/ubuntu/Synthetic-Navigation/ML/main.build
+[2022-12-27T14:53:33.742337 23929] Compiler type: gcc
+[2022-12-27T14:53:33.742481 23929] Source file: static_src/InspectPatcher.c
+[2022-12-27T14:53:33.742492 23929] Object file: static_src/InspectPatcher.o
+[2022-12-27T14:53:33.742520 23929] Trying direct lookup
+[2022-12-27T14:53:33.742619 23929] No cc6de5pp69mtsm1njoi5pa1u6lp7e7qsk in primary storage
+[2022-12-27T14:53:33.742715 23929] Running preprocessor
+[2022-12-27T14:53:33.742731 23929] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -E static_src/InspectPatcher.c
+[2022-12-27T14:53:33.800838 23924] Got result key from preprocessor
+[2022-12-27T14:53:33.800883 23924] No 1d8c67h0l1sc37jdpjmaojlnr93t9id2c in primary storage
+[2022-12-27T14:53:33.800897 23924] Running real compiler
+[2022-12-27T14:53:33.800949 23924] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -c -fdiagnostics-color -o static_src/CompiledGeneratorType.o static_src/CompiledGeneratorType.c
+[2022-12-27T14:53:33.878930 23929] Got result key from preprocessor
+[2022-12-27T14:53:33.878981 23929] No e6b7ovhgaqlhippuji2de8vvo2vemplqu in primary storage
+[2022-12-27T14:53:33.878995 23929] Running real compiler
+[2022-12-27T14:53:33.879050 23929] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -c -fdiagnostics-color -o static_src/InspectPatcher.o static_src/InspectPatcher.c
+[2022-12-27T14:53:33.916043 23919] Got result key from preprocessor
+[2022-12-27T14:53:33.916090 23919] No 5ae46bjm7k3d8o6hh04n4aasvn22d76ag in primary storage
+[2022-12-27T14:53:33.916104 23919] Running real compiler
+[2022-12-27T14:53:33.916157 23919] Executing /usr/bin/gcc -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -fno-lto -O2 -D__NUITKA_NO_ASSERT__ -DPy_NO_ENABLE_SHARED -D_NUITKA_STATIC_LIBPYTHON -D_NUITKA_USE_UNEXPOSED_API -D_NUITKA_CONSTANTS_FROM_INCBIN -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -I/home/ubuntu/miniconda3/envs/venv/include/python3.10 -I. -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/include -I/home/ubuntu/miniconda3/envs/venv/lib/python3.10/site-packages/nuitka/build/static_src -c -fdiagnostics-color -o static_src/CompiledFunctionType.o static_src/CompiledFunctionType.c
+[2022-12-27T14:53:34.189749 23929] Using default compression level 1
+[2022-12-27T14:53:34.189896 23929] Storing result file static_src/InspectPatcher.o
+[2022-12-27T14:53:34.189911 23929] Storing embedded file #0 .o (12056 bytes) from static_src/InspectPatcher.o
+[2022-12-27T14:53:34.190252 23929] Stored e6b7ovhgaqlhippuji2de8vvo2vemplqu in primary storage (/home/ubuntu/.cache/Nuitka/ccache/e/6/b7ovhgaqlhippuji2de8vvo2vemplquR)
+[2022-12-27T14:53:34.190303 23929] Adding result key to /home/ubuntu/.cache/Nuitka/ccache/c/c/6de5pp69mtsm1njoi5pa1u6lp7e7qskM
+[2022-12-27T14:53:34.191675 23929] Using default compression level 1
+[2022-12-27T14:53:34.192742 23929] Stored cc6de5pp69mtsm1njoi5pa1u6lp7e7qsk in primary storage (/home/ubuntu/.cache/Nuitka/ccache/c/c/6de5pp69mtsm1njoi5pa1u6lp7e7qskM)
+[2022-12-27T14:53:34.192862 23929] Result: cache_miss
+[2022-12-27T14:53:34.192873 23929] Result: direct_cache_miss
+[2022-12-27T14:53:34.192879 23929] Result: preprocessed_cache_miss
+[2022-12-27T14:53:34.192885 23929] Result: primary_storage_miss
+[2022-12-27T14:53:34.192937 23929] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/c/stats.lock
+[2022-12-27T14:53:34.193107 23929] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/c/stats.lock
+[2022-12-27T14:53:34.193139 23929] Unlink /home/ubuntu/.cache/Nuitka/ccache/c/stats.lock
+[2022-12-27T14:53:34.193175 23929] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/e/stats.lock
+[2022-12-27T14:53:34.193385 23929] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/e/stats.lock
+[2022-12-27T14:53:34.193414 23929] Unlink /home/ubuntu/.cache/Nuitka/ccache/e/stats.lock
+[2022-12-27T14:53:34.193437 23929] Unlink /run/user/1000/ccache-tmp/tmp.stderr.Ep7HXi
+[2022-12-27T14:53:34.193449 23929] Unlink /run/user/1000/ccache-tmp/tmp.stdout.Rtw5ji
+[2022-12-27T14:53:34.193461 23929] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stderr.TqwAPA
+[2022-12-27T14:53:34.193470 23929] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.8Whxdx.i
+[2022-12-27T14:53:34.193684 23929] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.8Whxdx
+[2022-12-27T14:53:35.937974 23924] Using default compression level 1
+[2022-12-27T14:53:35.938185 23924] Storing result file static_src/CompiledGeneratorType.o
+[2022-12-27T14:53:35.938203 23924] Storing embedded file #0 .o (117544 bytes) from static_src/CompiledGeneratorType.o
+[2022-12-27T14:53:35.939584 23924] Stored 1d8c67h0l1sc37jdpjmaojlnr93t9id2c in primary storage (/home/ubuntu/.cache/Nuitka/ccache/1/d/8c67h0l1sc37jdpjmaojlnr93t9id2cR)
+[2022-12-27T14:53:35.939638 23924] Adding result key to /home/ubuntu/.cache/Nuitka/ccache/f/e/bf2arfb1d336oo32sieve7mbktdmlm6M
+[2022-12-27T14:53:35.940978 23924] Using default compression level 1
+[2022-12-27T14:53:35.941939 23924] Stored febf2arfb1d336oo32sieve7mbktdmlm6 in primary storage (/home/ubuntu/.cache/Nuitka/ccache/f/e/bf2arfb1d336oo32sieve7mbktdmlm6M)
+[2022-12-27T14:53:35.941972 23924] Result: cache_miss
+[2022-12-27T14:53:35.941981 23924] Result: direct_cache_miss
+[2022-12-27T14:53:35.941987 23924] Result: preprocessed_cache_miss
+[2022-12-27T14:53:35.941993 23924] Result: primary_storage_miss
+[2022-12-27T14:53:35.942071 23924] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/f/stats.lock
+[2022-12-27T14:53:35.942290 23924] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/f/stats.lock
+[2022-12-27T14:53:35.942322 23924] Unlink /home/ubuntu/.cache/Nuitka/ccache/f/stats.lock
+[2022-12-27T14:53:35.942362 23924] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/1/stats.lock
+[2022-12-27T14:53:35.942536 23924] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/1/stats.lock
+[2022-12-27T14:53:35.942565 23924] Unlink /home/ubuntu/.cache/Nuitka/ccache/1/stats.lock
+[2022-12-27T14:53:35.942588 23924] Unlink /run/user/1000/ccache-tmp/tmp.stderr.pASBCZ
+[2022-12-27T14:53:35.942601 23924] Unlink /run/user/1000/ccache-tmp/tmp.stdout.kguzc3
+[2022-12-27T14:53:35.942621 23924] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stderr.paGLEp
+[2022-12-27T14:53:35.942633 23924] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.MGIEkB.i
+[2022-12-27T14:53:35.942838 23924] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.MGIEkB
+[2022-12-27T14:53:36.152237 23886] Using default compression level 1
+[2022-12-27T14:53:36.152358 23886] Storing result file module.__main__.o
+[2022-12-27T14:53:36.152368 23886] Storing embedded file #0 .o (173904 bytes) from module.__main__.o
+[2022-12-27T14:53:36.153629 23886] Stored 02d6jvbvmencqtbem4i6ehn9viil78egu in primary storage (/home/ubuntu/.cache/Nuitka/ccache/0/2/d6jvbvmencqtbem4i6ehn9viil78eguR)
+[2022-12-27T14:53:36.153661 23886] Adding result key to /home/ubuntu/.cache/Nuitka/ccache/6/4/abq3j813s0a6lagqod1nqps69sb1vsaM
+[2022-12-27T14:53:36.154490 23886] Using default compression level 1
+[2022-12-27T14:53:36.155158 23886] Stored 64abq3j813s0a6lagqod1nqps69sb1vsa in primary storage (/home/ubuntu/.cache/Nuitka/ccache/6/4/abq3j813s0a6lagqod1nqps69sb1vsaM)
+[2022-12-27T14:53:36.155247 23886] Result: cache_miss
+[2022-12-27T14:53:36.155254 23886] Result: direct_cache_miss
+[2022-12-27T14:53:36.155258 23886] Result: preprocessed_cache_miss
+[2022-12-27T14:53:36.155262 23886] Result: primary_storage_miss
+[2022-12-27T14:53:36.155299 23886] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/6/stats.lock
+[2022-12-27T14:53:36.155417 23886] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/6/stats.lock
+[2022-12-27T14:53:36.155440 23886] Unlink /home/ubuntu/.cache/Nuitka/ccache/6/stats.lock
+[2022-12-27T14:53:36.155465 23886] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/0/stats.lock
+[2022-12-27T14:53:36.155591 23886] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/0/stats.lock
+[2022-12-27T14:53:36.155611 23886] Unlink /home/ubuntu/.cache/Nuitka/ccache/0/stats.lock
+[2022-12-27T14:53:36.155625 23886] Unlink /run/user/1000/ccache-tmp/tmp.stderr.EhYUP6
+[2022-12-27T14:53:36.155633 23886] Unlink /run/user/1000/ccache-tmp/tmp.stdout.bSipIb
+[2022-12-27T14:53:36.155641 23886] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stderr.Kymkeb
+[2022-12-27T14:53:36.155647 23886] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.LGZbSf.i
+[2022-12-27T14:53:36.155792 23886] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.LGZbSf
+[2022-12-27T14:53:47.920748 23919] Using default compression level 1
+[2022-12-27T14:53:47.920855 23919] Storing result file static_src/CompiledFunctionType.o
+[2022-12-27T14:53:47.920865 23919] Storing embedded file #0 .o (1028256 bytes) from static_src/CompiledFunctionType.o
+[2022-12-27T14:53:47.925458 23919] Stored 5ae46bjm7k3d8o6hh04n4aasvn22d76ag in primary storage (/home/ubuntu/.cache/Nuitka/ccache/5/a/e46bjm7k3d8o6hh04n4aasvn22d76agR)
+[2022-12-27T14:53:47.925566 23919] Adding result key to /home/ubuntu/.cache/Nuitka/ccache/8/e/0er7qllqpdif6nur4dhd0gn8j0b4j0iM
+[2022-12-27T14:53:47.926610 23919] Using default compression level 1
+[2022-12-27T14:53:47.927504 23919] Stored 8e0er7qllqpdif6nur4dhd0gn8j0b4j0i in primary storage (/home/ubuntu/.cache/Nuitka/ccache/8/e/0er7qllqpdif6nur4dhd0gn8j0b4j0iM)
+[2022-12-27T14:53:47.927564 23919] Result: cache_miss
+[2022-12-27T14:53:47.927571 23919] Result: direct_cache_miss
+[2022-12-27T14:53:47.927575 23919] Result: preprocessed_cache_miss
+[2022-12-27T14:53:47.927578 23919] Result: primary_storage_miss
+[2022-12-27T14:53:47.927618 23919] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/8/stats.lock
+[2022-12-27T14:53:47.927745 23919] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/8/stats.lock
+[2022-12-27T14:53:47.927769 23919] Unlink /home/ubuntu/.cache/Nuitka/ccache/8/stats.lock
+[2022-12-27T14:53:47.927795 23919] Acquired lock /home/ubuntu/.cache/Nuitka/ccache/5/stats.lock
+[2022-12-27T14:53:47.927862 23919] Releasing lock /home/ubuntu/.cache/Nuitka/ccache/5/stats.lock
+[2022-12-27T14:53:47.927878 23919] Unlink /home/ubuntu/.cache/Nuitka/ccache/5/stats.lock
+[2022-12-27T14:53:47.927893 23919] Unlink /run/user/1000/ccache-tmp/tmp.stderr.So4NRB
+[2022-12-27T14:53:47.927901 23919] Unlink /run/user/1000/ccache-tmp/tmp.stdout.DgI4Y0
+[2022-12-27T14:53:47.927913 23919] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stderr.MtkJwm
+[2022-12-27T14:53:47.927919 23919] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.szLnr5.i
+[2022-12-27T14:53:47.928222 23919] Unlink /run/user/1000/ccache-tmp/tmp.cpp_stdout.szLnr5
