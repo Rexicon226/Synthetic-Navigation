@@ -2,6 +2,9 @@ import numpy as np
 
 from Terrain import generator
 import matplotlib.pyplot as plt
+from ML.main import EncoderDecoder as ed
+import torch
+import torch.nn as nn
 
 
 class Environment:
@@ -35,7 +38,6 @@ def get_visible_image(image, radius, noisy, center):
     mask = create_circular_mask(h, w, radius, center)
     masked_img = image.copy()
     mask = np.array(mask, dtype=int)
-    print(mask)
 
     for i in range(len(mask)):
         for j in range(len(mask[i])):
@@ -47,15 +49,42 @@ def get_visible_image(image, radius, noisy, center):
     return masked_img
 
 
+class Visualizer:
+
+    def __init__(self, model_path, image):
+
+        image = np.array(image, dtype=float)
+
+        self.model_path = model_path
+        self.image = image.copy()
+        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        print("Device: {}\n".format(self.device))
+
+    def dNoise(self):
+        print("Loaded Model")
+        model = ed().to(self.device)
+        model.load_state_dict(torch.load(f=self.model_path))
+        de_noised_image = model(torch.tensor(self.image, dtype=torch.float32).view(1, 1, 256, 256)).view(256, 256)
+
+        de_noised_image = de_noised_image.detach()
+        de_noised_image = de_noised_image.cpu()
+
+        fig, ax = plt.subplots(1, 2)
+        ax[0].imshow(de_noised_image, cmap='plasma')
+        ax[0].set_title('De-Noised Image')
+        ax[1].imshow(self.image, cmap='plasma')
+        ax[1].set_title('Original')
+        plt.show()
+
+
 if __name__ == "__main__":
     seed = 868190740987676311
     pic = np.array(generator.generateClean(256, 256, 5, seed, True))
     noisy_pic = np.array(generator.generateNoise(256, 256, 5, 30, seed, True))
-    vi = Environment(pic, noisy_pic, 50, center=(100, 100))
+    ev = Environment(pic, noisy_pic, 50, center=(100, 100))
 
-    masked = vi.generate()
+    masked = ev.generate()
 
-    fig, axs = plt.subplots(1, 2)
-    axs[0].imshow(noisy_pic)
-    axs[1].imshow(masked)
-    plt.show()
+    vi = Visualizer('./models/synthnav-model-0.pth', masked)
+
+    vi.dNoise()
