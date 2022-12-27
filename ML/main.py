@@ -97,8 +97,25 @@ class MAELoss(nn.Module):
 
 
 # Define the number of epochs and the batch size
-num_epochs = 100
-batch_size = 343
+is_int = False
+while not is_int:
+    try:
+        num_epochs = int(input("How many epochs: "))
+        is_int = True
+    except:
+        is_int = False
+        print("Please provide a integer value")
+
+count = 0
+# Iterate directory
+for path in os.listdir('train_images'):
+    # check if current path is a file
+    if os.path.isfile(os.path.join('train_images', path)):
+        count += 1
+
+# Minus 64 so that there is no chance the batch count is too high.
+# count / 64 (batch size) / 2 (noise and clean images)
+batch_size = (count / 128) - 64
 
 
 def main():
@@ -111,7 +128,7 @@ def main():
 
     # Create an instance of the custom MSE loss function
     criterion = MAELoss()
-    optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+    optimizer = torch.optim.SGD(model.parameters(), lr=0.02)
 
     def create_synced_dictionary(root_dir):
         # Create a dictionary to store the clean-noisy image pairs
