@@ -114,8 +114,11 @@ for path in os.listdir('train_images'):
         count += 1
 
 # Minus 64 so that there is no chance the batch count is too high.
-# count / 64 (batch size) / 2 (noise and clean images)
-batch_size = (count / 128) - 64
+# count / 32 because idfk this is black magic
+print(count)
+batch_size = int((count / 32) - 32)
+
+print(batch_size)
 
 
 def main():
