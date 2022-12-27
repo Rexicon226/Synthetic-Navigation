@@ -8,6 +8,7 @@ import torch.utils.data
 import torchvision
 from PIL import Image
 from torchsummary import summary
+from scipy import interpolate
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print("Device: {}\n".format(device))
@@ -115,7 +116,7 @@ criterion = CustomMSE()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
 # Define the number of epochs and the batch size
-num_epochs = 100
+num_epochs = 1
 batch_size = 64
 
 loss_array = list()
@@ -145,8 +146,9 @@ def create_synced_dictionary(root_dir):
     return synced_dict
 
 
-root_dir = 'train_images'
-sync_dir = create_synced_dictionary(root_dir)
+high_quality = 'train_images'
+sync_dir = create_synced_dictionary(high_quality)
+
 val_dir = 'val_images'
 val_sync = create_synced_dictionary(val_dir)
 
@@ -157,8 +159,8 @@ for epoch in range(num_epochs):
         if i >= batch_size:
             break
         # Load the clean and noisy images
-        clean = plt.imread(os.path.join(root_dir, clean_image))
-        noisy = plt.imread(os.path.join(root_dir, noisy_image))
+        clean = plt.imread(os.path.join(high_quality, clean_image))
+        noisy = plt.imread(os.path.join(high_quality, noisy_image))
 
         noisy = torch.tensor(noisy).view(1, 1, 256, 256)
         clean = torch.tensor(clean).view(1, 1, 256, 256).to(device)
@@ -214,39 +216,6 @@ torch.save(obj=model.state_dict(),  # only saving the state_dict() only saves th
            f=MODEL_SAVE_PATH)
 
 
-def visualize_model(model, clean_images, noisy_images):
-    # Predict output for clean and noisy images
-    model = model.to(device)
-
-    clean_output = model(clean_images)
-    noisy_output = model(noisy_images)
-
-    clean_output, noisy_output = clean_output.detach(), noisy_output.detach(),
-
-    clean_output, noisy_output, model = clean_output.to("cpu"), noisy_output.to("cpu"), model.to("cpu")
-
-    clean_images = clean_images.squeeze(1)
-    clean_output = clean_output.squeeze(1)
-    noisy_images = noisy_images.squeeze(1)
-    noisy_output = noisy_output.squeeze(1)
-
-    # Create a figure with subplots
-    fig, axs = plt.subplots(3, 2)
-    axs[0, 0].imshow(clean_images[0], cmap='gray')
-    axs[0, 0].set_title('Input (Clean)')
-    axs[0, 1].imshow(clean_output[0], cmap='gray')
-    axs[0, 1].set_title('Output (Clean)')
-    axs[1, 0].imshow(noisy_images[0], cmap='gray')
-    axs[1, 0].set_title('Input (Noisy)')
-    axs[1, 1].imshow(noisy_output[0], cmap='gray')
-    axs[1, 1].set_title('Output (Noisy)')
-    axs[2, 0].imshow(clean_images[0] - noisy_images[0], cmap='gray')
-    axs[2, 0].set_title('Input Difference')
-    axs[2, 1].imshow(clean_output[0] - noisy_output[0], cmap='gray')
-    axs[2, 1].set_title('Output Difference')
-    plt.show()
-
-
 def visualize_predictions():
     # Iterate over the clean-noisy image pairs in the dictionary
     iter = 0
@@ -263,14 +232,31 @@ def visualize_predictions():
         de_noised_image = de_noised_image.cpu()
         de_noised_image = de_noised_image.detach().numpy()
 
+        # Use the model on the clean image
+        clean_deionised = model(torch.tensor(clean_image).view(1, 1, 256, 256))
+        clean_deionised = clean_deionised.view(256, 256)
+        clean_deionised = clean_deionised.cpu()
+        clean_deionised = clean_deionised.detach().numpy()
+
+        x = np.arange(0, batch_size * num_epochs)
+        y = loss_array
+
+        cmap = 'gray'
+
         # Visualize the clean, noisy, and de-noised images
-        fig, ax = plt.subplots(1, 3)
-        ax[0].imshow(clean_image)
-        ax[0].set_title('Clean image')
-        ax[1].imshow(noisy_image)
-        ax[1].set_title('Noisy image')
-        ax[2].imshow(de_noised_image)
-        ax[2].set_title('De-noised image')
+        fig, axs = plt.subplots(3, 2)
+        axs[0, 0].imshow(clean_image, cmap=cmap)
+        axs[0, 0].set_title('Input (Clean)')
+        axs[0, 1].imshow(clean_deionised, cmap=cmap)
+        axs[0, 1].set_title('Output (Clean)')
+        axs[1, 0].imshow(noisy_image, cmap=cmap)
+        axs[1, 0].set_title('Input (Noisy)')
+        axs[1, 1].imshow(de_noised_image, cmap=cmap)
+        axs[1, 1].set_title('Output (Noisy)')
+        axs[2, 0].imshow(clean_image - noisy_image, cmap=cmap)
+        axs[2, 0].set_title('Input Difference')
+        axs[2, 1].imshow(clean_deionised - de_noised_image, cmap=cmap)
+        axs[2, 1].set_title('Output Difference')
         plt.show()
         iter = 1
 
@@ -285,8 +271,14 @@ def loss_graph():
     plt.plot(x, y, color="green")
     plt.show()
 
+    x_new = np.linspace(0, batch_size * num_epochs, len(loss_array))
+    bspline = interpolate.make_interp_spline(x, y)
+    y_new = bspline(x_new)
+    plt.plot(x_new, y_new, color="red")
+
+    plt.show()
+
 
 # Test the model visualizer
-# visualize_model(model, sync_dir[1][0], sync_dir[1][1])
 visualize_predictions()
 loss_graph()
