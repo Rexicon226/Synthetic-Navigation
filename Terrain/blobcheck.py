@@ -1,8 +1,10 @@
 import copy
 from collections import deque
+import Terrain.generator as generator
+import matplotlib.pyplot as plt
 
 
-def blobs(pic: list[list[int]]):
+def blobs(array: list[list[int]]):
     """
     Calculates the number of "islands" in the given array
 
@@ -12,71 +14,59 @@ def blobs(pic: list[list[int]]):
 
     Parameters
     ----------
-    pic : list[list[1,0]]
+    array : list[list[1,0]]
         2 dimensional binary array of the "terrain". Typically generated with perlin noise.
 
     Returns
     -------
     islands, oceans : int,int
         number of regions with a value of 0, number of regions with a value of 1"""
+    # Create a copy of the array to mark visited cells
+    visited = [[False for _ in row] for row in array]
 
-    row = [-1, -1, -1, 0, 1, 0, 1, 1]
-    col = [-1, 1, 0, -1, -1, 1, 0, 1]
+    # Initialize the island count to 0
+    island_count = 0
 
-    def isSafe(mat, x, k, processed):
-        return (0 <= x < len(processed)) and (0 <= k < len(processed[0])) and \
-               mat[x][k] == 1 and not processed[x][k]
+    # Iterate through each cell in the array
+    for i in range(len(array)):
+        for j in range(len(array[i])):
+            # If the cell is land and has not been visited yet, it's part of a new island
+            if array[i][j] == 1 and not visited[i][j]:
+                island_count += 1
+                # Mark all cells in the island as visited
+                mark_island(array, visited, i, j)
 
-    def BFS(mat, processed, i, j):
-        # create an empty queue and enqueue source node
-        q = deque()
-        q.append((i, j))
+    return island_count
 
-        # mark source node as processed
-        processed[i][j] = True
 
-        # loop till queue is empty
-        while q:
-            # dequeue front node and process it
-            x, h = q.popleft()
+def mark_island(array, visited, i, j):
+    # Mark the current cell as visited
+    visited[i][j] = True
 
-            # check for all eight possible movements from the current cell
-            # and enqueue each valid movement
-            for k in range(len(row)):
-                # skip if the location is invalid, or already processed, or has water
-                if isSafe(mat, x + row[k], h + col[k], processed):
-                    # skip if the location is invalid, or it is already
-                    # processed, or consists of water
-                    processed[x + row[k]][h + col[k]] = True
-                    q.append((x + row[k], h + col[k]))
+    # Check the cells adjacent to the current cell
+    neighbors = [(i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)]
+    for x, y in neighbors:
+        # If the adjacent cell is land and has not been visited yet, it's part of the same island
+        if x >= 0 and x < len(array) and y >= 0 and y < len(array[i]) and array[x][y] == 1 and not visited[x][y]:
+            mark_island(array, visited, x, y)
 
-    def countIslands(mat):
-        # base case
-        if not mat or not len(mat):
-            return 0
 
-        # `M × N` matrix
-        (M, N) = (len(mat), len(mat[0]))
+if __name__ == '__main__':
+    size = 256
+    octaves = 5
+    weight = 30
+    noisepic = generator.generateNoise(size, size, octaves, weight, True)
+    pic = generator.generateClean(size, size, octaves, True)
 
-        # stores if a cell is processed or not
-        processed = [[False for _ in range(N)] for _ in range(M)]
+    pic_islands = blobs(pic)
+    noisepic_islands = blobs(noisepic)
 
-        island = 0
-        for i in range(M):
-            for j in range(N):
-                # start BFS from each unprocessed node and increment island count
-                if mat[i][j] == 1 and not processed[i][j]:
-                    BFS(mat, processed, i, j)
-                    island = island + 1
+    fig, axes = plt.subplots(1, 2)
+    axes[0].imshow(pic)
+    axes[0].set_title("Clean")
+    axes[1].imshow(noisepic)
+    axes[1].set_title("Noisy")
 
-        return island
+    print("Clean pic islands: {}, Noisy pic islands: {}".format(pic_islands, noisepic_islands))
 
-    islandpic = copy.deepcopy(pic)
-    oceanpic = copy.deepcopy(pic)
-    for y in range(len(oceanpic) - 1):
-        oceanpic[y] = [0 if (k == 1) else 1 for k in oceanpic[y]]
-
-    islands = countIslands(islandpic)
-    countIslands(oceanpic)
-
-    return islands
+    plt.show()

@@ -9,6 +9,8 @@ import torchvision
 from scipy import interpolate
 from torchsummary import summary
 
+from Terrain import blobcheck
+
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print("Device: {}\n".format(device))
 
@@ -95,6 +97,7 @@ class MAELoss(nn.Module):
     def forward(self, y_pred, y_true):
         return self.loss_fn(y_pred, y_true)
 
+
 def main():
     loss_array = list()
     print(summary(model, (1, 256, 256)))
@@ -105,35 +108,32 @@ def main():
 
     # Create an instance of the custom MSE loss function
     criterion = MAELoss()
-    optimizer = torch.optim.SGD(model.parameters(), lr=0.02)
+    optimizer = torch.optim.SGD(model.parameters(), lr=0.03)
 
-    def create_synced_dictionary(root_dir):
-        # Create a dictionary to store the clean-noisy image pairs
-        synced_dict = {}
+    def create_synced_dictionary(folder_name):
+        sync_dir = {}
 
-        # Iterate over the files in the root directory
-        for file in os.listdir(root_dir):
-            # Split the file name into the image name and the image type (clean or noisy)
-            name, image_type = file.split('_')
-            # Check if the image type is clean or noisy
-            if image_type == 'clean.png':
-                # Add the clean image to the dictionary
-                synced_dict[name] = file
-            elif image_type == 'noisy.png':
-                # Check if there is already a clean image for this pair in the dictionary
-                if name in synced_dict:
-                    # Add the noisy image to the dictionary
-                    synced_dict[name] = (synced_dict[name], file)
-                else:
-                    # Add the noisy image to the dictionary with a placeholder for the clean image
-                    synced_dict[name] = (None, file)
+        for dirname, subdirs, files in os.walk(folder_name):
+            for file in files:
+                name, image_type = file.split('_')
+                if image_type == 'clean.png':
+                    # Add the clean image to the dictionary
+                    sync_dir[name] = file
+                elif image_type == 'noisy.png':
+                    # Check if there is already a clean image for this pair in the dictionary
+                    if name in sync_dir:
+                        # Add the noisy image to the dictionary
+                        sync_dir[name] = (sync_dir[name], file)
+                    else:
+                        # Add the noisy image to the dictionary with a placeholder for the clean image
+                        sync_dir[name] = (None, file)
 
-        return synced_dict
+        return sync_dir
 
     dirname = os.path.dirname(__file__)
 
     high_quality = os.path.join(dirname, 'train_images')
-    sync_dir = create_synced_dictionary(high_quality)
+    sync_dir = create_synced_dictionary('train_images')
 
     val_dir = os.path.join(dirname, 'val_images')
     val_sync = create_synced_dictionary(val_dir)
@@ -145,8 +145,8 @@ def main():
             if i >= batch_size:
                 break
             # Load the clean and noisy images
-            clean = plt.imread(os.path.join(high_quality, clean_image))
-            noisy = plt.imread(os.path.join(high_quality, noisy_image))
+            clean = plt.imread(os.path.join((high_quality + "/clean/"), clean_image))
+            noisy = plt.imread(os.path.join((high_quality + "/noisy/"), noisy_image))
 
             noisy = torch.tensor(noisy).view(1, 1, 256, 256)
             clean = torch.tensor(clean).view(1, 1, 256, 256).to(device)
@@ -165,12 +165,12 @@ def main():
 
             loss_array.append(loss.item())
 
-            if (i + 1) % 32 == 0:
+            if (i + 1) % batch_size == 0:
                 print("Epoch: {}/{}, Batch: {}/{}, Loss: {:.4f}".format(epoch + 1, num_epochs, i + 1, batch_size,
                                                                         loss.item()))
             i += 1
 
-        if (epoch + 1) % 10 == 0:
+        if (epoch + 1) % 20 == 0:
             # 1. Create models directory
             MODEL_PATH = Path("models")
             MODEL_PATH.mkdir(parents=True, exist_ok=True)
@@ -255,12 +255,6 @@ def loss_graph(loss_array):
     plt.xlabel("Batches")
     plt.ylabel("Loss")
     plt.plot(x, y, color="green")
-    x_new = np.linspace(0, batch_size * num_epochs, int(len(loss_array) / (batch_size / 2)))
-    bspline = interpolate.make_interp_spline(x, y)
-    y_new = bspline(x_new)
-    plt.plot(x_new, y_new, color="red")
-
-    plt.show()
 
 
 if __name__ == "__main__":
@@ -278,16 +272,16 @@ if __name__ == "__main__":
     # Iterate directory
     dirname = os.path.dirname(__file__)
 
-    high_quality = os.path.join(dirname, 'train_images')
+    high_quality = os.path.join(dirname, 'train_images/clean')
 
     for path in os.listdir(high_quality):
         # check if current path is a file
-        if os.path.isfile(os.path.join('train_images', path)):
+        if os.path.isfile(os.path.join('train_images/clean', path)):
             count += 1
 
     # Minus 64 so that there is no chance the batch count is too high.
     # count / 32 because idfk this is black magic
-    batch_size = int((count / 32) - 32)
+    batch_size = int((count / 16) - 32)
     model = EncoderDecoder().to(device)
 
     main()
