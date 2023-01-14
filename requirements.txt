@@ -1,7 +1,7 @@
 matplotlib~=3.6.2
 numpy~=1.23.5
-torch~=1.13.0+cu117
-torchvision~=0.14.0+cu117
+# torch~=1.13.0+cu117
+# torchvision~=0.14.0+cu117
 Pillow~=9.3.0
 torchsummary~=1.5.1
 scipy~=1.9.3
