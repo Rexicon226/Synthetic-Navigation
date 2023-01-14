@@ -6,6 +6,7 @@ import numpy as np
 import torch.nn as nn
 import torch.utils.data
 import torchvision
+import pandas as pd
 from scipy import interpolate
 from torchsummary import summary
 
@@ -13,15 +14,6 @@ from Terrain import blobcheck
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print("Device: {}\n".format(device))
-
-# 1. Prepare the data
-# Load the binary images and apply any preprocessing steps as needed
-transform = torchvision.transforms.Compose([
-    torchvision.transforms.Resize((50, 50)),
-    torchvision.transforms.ToTensor(),
-    torchvision.transforms.Grayscale(),
-    torchvision.transforms.Normalize(mean=[0.5], std=[0.5])
-])
 
 
 # 2. Define the CNN model
@@ -100,7 +92,7 @@ class MAELoss(nn.Module):
 
 def main():
     loss_array = list()
-    print(summary(model, (1, 256, 256)))
+    # print(summary(model, (1, 1, 256, 256)))
 
     if os.path.exists('./models/synthnav-model-0.pth'):
         print("Loaded Model")
@@ -112,21 +104,24 @@ def main():
 
     def create_synced_dictionary(folder_name):
         sync_dir = {}
-
-        for dirname, subdirs, files in os.walk(folder_name):
-            for file in files:
-                name, image_type = file.split('_')
-                if image_type == 'clean.png':
-                    # Add the clean image to the dictionary
-                    sync_dir[name] = file
-                elif image_type == 'noisy.png':
-                    # Check if there is already a clean image for this pair in the dictionary
-                    if name in sync_dir:
-                        # Add the noisy image to the dictionary
-                        sync_dir[name] = (sync_dir[name], file)
-                    else:
-                        # Add the noisy image to the dictionary with a placeholder for the clean image
-                        sync_dir[name] = (None, file)
+        for files in os.walk(os.path.join(folder_name, 'clean')):
+                for file in files:
+                    try:
+                        name, image_type = file.split('_')
+                    except:
+                        return
+                    print()
+                    if image_type == 'clean.jpeg':
+                        # Add the clean image to the dictionary
+                        sync_dir[name] = file
+                    elif image_type == 'noisy.jpeg':
+                            # Check if there is already a clean image for this pair in the dictionary
+                        if name in sync_dir:
+                            # Add the noisy image to the dictionary
+                            sync_dir[name] = (sync_dir[name], file)
+                        else:
+                            # Add the noisy image to the dictionary with a placeholder for the clean image
+                            sync_dir[name] = (None, file)
 
         return sync_dir
 
@@ -150,7 +145,6 @@ def main():
 
             noisy = torch.tensor(noisy).view(1, 1, 256, 256)
             clean = torch.tensor(clean).view(1, 1, 256, 256).to(device)
-
             # Forward pass
             output = model(noisy)
 
@@ -272,16 +266,16 @@ if __name__ == "__main__":
     # Iterate directory
     dirname = os.path.dirname(__file__)
 
-    high_quality = os.path.join(dirname, 'train_images/clean')
+    high_quality = os.path.join(dirname, 'train_images/noisy')
 
     for path in os.listdir(high_quality):
         # check if current path is a file
-        if os.path.isfile(os.path.join('train_images/clean', path)):
+        if os.path.isfile(os.path.join('train_images/noisy', path)):
             count += 1
 
     # Minus 64 so that there is no chance the batch count is too high.
     # count / 32 because idfk this is black magic
-    batch_size = int((count / 16) - 32)
+    batch_size = 2
     model = EncoderDecoder().to(device)
 
     main()
