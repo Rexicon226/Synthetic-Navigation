@@ -200,7 +200,8 @@ def main():
     print(f"Saving model to: {MODEL_SAVE_PATH}")
     torch.save(obj=model.state_dict(),  # only saving the state_dict() only saves the models learned parameters
                f=MODEL_SAVE_PATH)
-
+    print("----- Training Done -----")
+    print("----- Visual Starting -----")
     visualize_predictions(model, val_sync, loss_array, val_dir)
     loss_graph(loss_array)
 
@@ -212,20 +213,36 @@ def visualize_predictions(model, val_sync, loss_array, val_dir):
         if vis_iter == 1:
             break
         # Load the clean and noisy images
-        clean_image = plt.imread(os.path.join(val_dir, clean_image))
-        noisy_image = plt.imread(os.path.join(val_dir, noisy_image))
+        clean = plt.imread(os.path.join((val_dir + "/clean/"), clean_image))
+        clean = np.where(clean >= 128, 1.0, 0.0)
+        noisy = plt.imread(os.path.join((val_dir + "/noisy/"), noisy_image))
+        noisy = np.where(noisy >= 128, 1.0, 0.0)
+
+        noisy = torch.tensor(noisy).view(1, 1, 256, 256)
+        clean = torch.tensor(clean).view(1, 1, 256, 256).to(device)
+
+        noisy_image = noisy.type(torch.cuda.FloatTensor)
+        clean_image = clean.type(torch.cuda.FloatTensor)
 
         # Use the model to predict the de-noised image
-        de_noised_image = model(torch.tensor(noisy_image).view(1, 1, 256, 256))
+        de_noised_image = model(noisy_image)
         de_noised_image = de_noised_image.view(256, 256)
         de_noised_image = de_noised_image.cpu()
         de_noised_image = de_noised_image.detach().numpy()
 
         # Use the model on the clean image
-        clean_deionised = model(torch.tensor(clean_image).view(1, 1, 256, 256))
+        clean_deionised = model(clean_image)
         clean_deionised = clean_deionised.view(256, 256)
         clean_deionised = clean_deionised.cpu()
         clean_deionised = clean_deionised.detach().numpy()
+
+        clean_image = clean_image.view(256, 256)
+        clean_image = clean_image.cpu()
+        clean_image = clean_image.detach().numpy()
+
+        noisy_image = noisy_image.view(256, 256)
+        noisy_image = noisy_image.cpu()
+        noisy_image = noisy_image.detach().numpy()
 
         cmap = 'plasma_r'
 
@@ -280,8 +297,6 @@ if __name__ == "__main__":
         if os.path.isfile(os.path.join('train_images/noisy', path)):
             count += 1
 
-    # Minus 64 so that there is no chance the batch count is too high.
-    # count / 32 because idfk this is black magic
     batch_size = 2
     model = EncoderDecoder().to(device)
 
