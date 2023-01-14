@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch.nn as nn
 import torch.utils.data
+import torchsummary
 import torchvision
 import pandas as pd
 from scipy import interpolate
@@ -29,7 +30,6 @@ class Encoder(nn.Module):
         self.pool = nn.MaxPool2d(2)
 
     def forward(self, x):
-        x = x.to(device)
         x = self.conv1(x)
         x = self.pool(x)
         x = self.conv2(x)
@@ -72,8 +72,24 @@ class Decoder(nn.Module):
 class EncoderDecoder(nn.Module):
     def __init__(self):
         super(EncoderDecoder, self).__init__()
-        self.encoder = Encoder()
-        self.decoder = Decoder()
+
+        self.encoder = nn.Sequential(
+            nn.Conv2d(1, 32, 3, padding=1),
+            nn.ReLU(),
+            nn.Conv2d(32, 64, 3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2),
+            nn.Conv2d(64, 128, 3, padding=1),
+            nn.ReLU()
+        )
+
+        self.decoder = nn.Sequential(
+            nn.Conv2d(128, 64, 3, padding=1),
+            nn.ReLU(),
+            nn.ConvTranspose2d(64, 32, kernel_size=4, stride=2, padding=1),
+            nn.ReLU(),
+            nn.Conv2d(32, 1, 3, padding=1)
+        )
 
     def forward(self, x):
         x = self.encoder(x)
@@ -153,9 +169,9 @@ def main():
 
             # Forward pass
             output = model(noisy)
-
             # Calculate loss
             loss = criterion(output, clean)
+
             # Backward pass
             loss.backward()
             # Update weights
@@ -203,7 +219,6 @@ def main():
     print("----- Training Done -----")
     print("----- Visual Starting -----")
     visualize_predictions(model, val_sync, loss_array, val_dir)
-    loss_graph(loss_array)
 
 
 def visualize_predictions(model, val_sync, loss_array, val_dir):
@@ -229,6 +244,8 @@ def visualize_predictions(model, val_sync, loss_array, val_dir):
         de_noised_image = de_noised_image.view(256, 256)
         de_noised_image = de_noised_image.cpu()
         de_noised_image = de_noised_image.detach().numpy()
+
+        print(clean_image)
 
         # Use the model on the clean image
         clean_deionised = model(clean_image)
@@ -297,7 +314,7 @@ if __name__ == "__main__":
         if os.path.isfile(os.path.join('train_images/noisy', path)):
             count += 1
 
-    batch_size = 2
+    batch_size = 128
     model = EncoderDecoder().to(device)
-
+    print(torchsummary.summary(model, (1, 256, 256)))
     main()

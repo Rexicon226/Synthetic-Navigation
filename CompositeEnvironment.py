@@ -61,13 +61,15 @@ class Visualizer:
         self.model_path = model_path
         self.image = image.copy()
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        print("Device: {}\n".format(self.device))
 
     def dNoise(self):
         print("Loaded Model")
         model = ed().to(self.device)
         model.load_state_dict(torch.load(f=self.model_path))
-        de_noised_image = model(torch.tensor(self.image, dtype=torch.float32).view(1, 1, 256, 256)).view(256, 256)
+        image = torch.tensor(self.image, dtype=torch.float32).view(1, 1, 256, 256)
+        image = image.type(torch.cuda.FloatTensor)
+
+        de_noised_image = model(image).view(256, 256)
 
         de_noised_image = de_noised_image.detach()
         de_noised_image = de_noised_image.cpu()
