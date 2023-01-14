@@ -4,7 +4,7 @@ import numpy as np
 
 from Terrain import generator
 import matplotlib.pyplot as plt
-from ML.main import EncoderDecoder as ed
+from ML.dnoise import EncoderDecoder as ed
 import torch
 import torch.nn as nn
 from Terrain import reverser
@@ -54,12 +54,13 @@ def get_visible_image(image, radius, noisy, center):
 
 class Visualizer:
 
-    def __init__(self, model_path, image):
+    def __init__(self, model_path, image, original):
 
         image = np.array(image, dtype=float)
 
         self.model_path = model_path
         self.image = image.copy()
+        self.original = original.copy()
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     def dNoise(self):
@@ -74,11 +75,14 @@ class Visualizer:
         de_noised_image = de_noised_image.detach()
         de_noised_image = de_noised_image.cpu()
 
-        fig, ax = plt.subplots(1, 2)
+        fig, ax = plt.subplots(1, 3)
         ax[0].imshow(de_noised_image, cmap='plasma_r')
         ax[0].set_title('De-Noised Image')
         ax[1].imshow(self.image, cmap='plasma_r')
         ax[1].set_title('Original')
+        ax[2].imshow(self.original, cmap='plasma_r')
+        ax[2].set_title('Clean Image')
+
         plt.show()
 
 
@@ -88,13 +92,13 @@ if __name__ == "__main__":
     y = random.randint(50, 200)
     print("({}, {})".format(x, y))
     pic = np.array(generator.generateClean(256, 256, 5, seed, True))
-    noisy_pic = np.array(generator.generateNoise(256, 256, 5, 30, seed, True))
+    noisy_pic = np.array(generator.generateNoise(256, 256, 5, 80, seed, True))
     pic, noisy_pic = np.abs(pic), np.abs(noisy_pic)
 
     ev = Environment(pic, noisy_pic, 50, center=(x, y))
 
     masked = ev.generate()
 
-    vi = Visualizer('./ML/models/synthnav-model-0.pth', masked)
+    vi = Visualizer('./ML/models/synthnav-model-0.pth', masked, pic)
 
     vi.dNoise()
