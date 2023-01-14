@@ -18,56 +18,6 @@ print("Device: {}\n".format(device))
 
 
 # 2. Define the CNN model
-# Define the encoder
-class Encoder(nn.Module):
-    def __init__(self):
-        super(Encoder, self).__init__()
-        self.conv1 = nn.Conv2d(1, 16, 3, padding=1)
-        self.conv2 = nn.Conv2d(16, 32, 3, padding=1)
-        self.conv3 = nn.Conv2d(32, 64, 3, padding=1)
-        self.conv4 = nn.Conv2d(64, 128, 3, padding=1)
-        self.conv5 = nn.Conv2d(128, 256, 3, padding=1)
-        self.pool = nn.MaxPool2d(2)
-
-    def forward(self, x):
-        x = self.conv1(x)
-        x = self.pool(x)
-        x = self.conv2(x)
-        x = self.pool(x)
-        x = self.conv3(x)
-        x = self.pool(x)
-        x = self.conv4(x)
-        x = self.pool(x)
-        x = self.conv5(x)
-        x = self.pool(x)
-        return x
-
-
-# Define the decoder
-class Decoder(nn.Module):
-    def __init__(self):
-        super(Decoder, self).__init__()
-        self.conv6 = nn.Conv2d(256, 128, 3, padding=1)
-        self.conv7 = nn.Conv2d(128, 64, 3, padding=1)
-        self.conv8 = nn.Conv2d(64, 32, 3, padding=1)
-        self.conv9 = nn.Conv2d(32, 16, 3, padding=1)
-        self.conv10 = nn.Conv2d(16, 1, 3, padding=1)
-        self.upsample = nn.Upsample(scale_factor=2)
-
-    def forward(self, x):
-        x = self.upsample(x)
-        x = self.conv6(x)
-        x = self.upsample(x)
-        x = self.conv7(x)
-        x = self.upsample(x)
-        x = self.conv8(x)
-        x = self.upsample(x)
-        x = self.conv9(x)
-        x = self.upsample(x)
-        x = self.conv10(x)
-        return x
-
-
 # Define the encoder-decoder model
 class EncoderDecoder(nn.Module):
     def __init__(self):
