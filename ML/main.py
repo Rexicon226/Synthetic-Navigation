@@ -104,13 +104,13 @@ def main():
 
     def create_synced_dictionary(folder_name):
         sync_dir = {}
-        for files in os.walk(os.path.join(folder_name, 'clean')):
-                for file in files:
+        for folder in os.walk(folder_name):
+            for sub_folder in folder[1]:
+                for file in os.listdir(os.path.join(folder_name, sub_folder)):
                     try:
                         name, image_type = file.split('_')
                     except:
                         return
-                    print()
                     if image_type == 'clean.jpeg':
                         # Add the clean image to the dictionary
                         sync_dir[name] = file
@@ -141,10 +141,16 @@ def main():
                 break
             # Load the clean and noisy images
             clean = plt.imread(os.path.join((high_quality + "/clean/"), clean_image))
+            clean = np.where(clean >= 128, 1.0, 0.0)
             noisy = plt.imread(os.path.join((high_quality + "/noisy/"), noisy_image))
+            noisy = np.where(noisy >= 128, 1.0, 0.0)
 
             noisy = torch.tensor(noisy).view(1, 1, 256, 256)
             clean = torch.tensor(clean).view(1, 1, 256, 256).to(device)
+
+            noisy = noisy.type(torch.cuda.FloatTensor)
+            clean = clean.type(torch.cuda.FloatTensor)
+
             # Forward pass
             output = model(noisy)
 
@@ -263,6 +269,7 @@ if __name__ == "__main__":
             print("Please provide a integer value")
 
     count = 0
+
     # Iterate directory
     dirname = os.path.dirname(__file__)
 
