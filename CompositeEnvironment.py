@@ -55,7 +55,6 @@ def get_visible_image(image, radius, noisy, center):
 class Visualizer:
 
     def __init__(self, model_path, image, original):
-
         image = np.array(image, dtype=float)
 
         self.model_path = model_path
@@ -73,15 +72,20 @@ class Visualizer:
         de_noised_image = model(image).view(256, 256)
 
         de_noised_image = de_noised_image.detach()
-        de_noised_image = de_noised_image.cpu()
+        de_noised_image = de_noised_image.cpu().numpy()
 
-        fig, ax = plt.subplots(1, 3)
-        ax[0].imshow(de_noised_image, cmap='plasma_r')
-        ax[0].set_title('De-Noised Image')
-        ax[1].imshow(self.image, cmap='plasma_r')
-        ax[1].set_title('Original')
-        ax[2].imshow(self.original, cmap='plasma_r')
-        ax[2].set_title('Clean Image')
+
+        fig, ax = plt.subplots(2, 2)
+        ax[0][0].imshow(de_noised_image, cmap='plasma_r')
+        ax[0][0].set_title('De-Noised Image')
+        ax[0][1].imshow(self.image, cmap='plasma_r')
+        ax[0][1].set_title('Original')
+        ax[1][0].imshow(self.original, cmap='plasma_r')
+        ax[1][0].set_title('Clean Image')
+        ax[1][1].hist(de_noised_image, bins=50)
+        ax[1][1].set_title('De-Noised Image Histogram')
+
+        fig.suptitle("Terrain Reversal\n256 x 256\nNoise Level: 7.5%", fontsize=16, y=0.9)
 
         plt.show()
 
@@ -92,7 +96,7 @@ if __name__ == "__main__":
     y = random.randint(50, 200)
     print("({}, {})".format(x, y))
     pic = np.array(generator.generateClean(256, 256, 5, seed, True))
-    noisy_pic = np.array(generator.generateNoise(256, 256, 5, 80, seed, True))
+    noisy_pic = np.array(generator.generateNoise(256, 256, 5, 7.5, seed, True))
     pic, noisy_pic = np.abs(pic), np.abs(noisy_pic)
 
     ev = Environment(pic, noisy_pic, 50, center=(x, y))
