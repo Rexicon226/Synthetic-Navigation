@@ -38,7 +38,6 @@ def noiseMaps(x: int, y: int, octaves1, difference: float, seed: Optional[int] =
 
 def thresholdedNoiseMaps(x: int, y: int, octaves1, difference: float, seed: Optional[int] = 0,
                          seedDifference: Optional[int] = 1):
-
     d1, d2 = noiseMaps(x, y, octaves1, difference, seed, seedDifference)
     td1 = [[-int(np.floor(x)) for x in d1[y]] for y in range(y)]
     td2 = [[-int(np.floor(x)) for x in d2[y]] for y in range(y)]
@@ -46,9 +45,28 @@ def thresholdedNoiseMaps(x: int, y: int, octaves1, difference: float, seed: Opti
     return np.array(td1), np.array(td2)
 
 
+def correctNoiseMaps(x: int, y: int, octaves1, difference: float, seed: Optional[int] = 0,
+                     seedDifference: Optional[int] = 1):
+    """same as noiseMaps only it gets threshold"""
+
+    d1, d2 = noiseMaps(x, y, octaves1, difference, seed, seedDifference)
+    td1 = [[-int(np.floor(x)) for x in d1[y]] for y in range(y)]
+    td2 = [[-int(np.floor(x)) for x in d2[y]] for y in range(y)]
+
+    return td1
+
+
 if __name__ == "__main__":
     fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 6))
-    d1,d2 = thresholdedNoiseMaps(100, 100, 8, 0.3)
+    d1, d2 = correctNoiseMaps(100, 100, 8, 0.3)
+    axes[0].imshow(d1, cmap="Greys")
+    axes[1].imshow(d2, cmap="Greys")
+
+    plt.show()
+
+if __name__ == "__main__":
+    fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 6))
+    d1, d2 = correctNoiseMaps(100, 100, 8, 0.3)
     axes[0].imshow(d1, cmap="Greys")
     axes[1].imshow(d2, cmap="Greys")
     plt.show()

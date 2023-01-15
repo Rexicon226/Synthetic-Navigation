@@ -56,7 +56,6 @@ def convert_to_1bit(input_dir, output_dir):
             img.save('./train_images/noisy/' + file, bits=1, optimize=True)
 
 
-
 threshold = 128
 image_count = 128
 threads = 14

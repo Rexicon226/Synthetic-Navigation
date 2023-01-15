@@ -6,9 +6,6 @@ from Terrain import generator
 import matplotlib.pyplot as plt
 from ML.dnoise import EncoderDecoder as ed
 import torch
-import torch.nn as nn
-from Terrain import reverser
-
 
 class Environment:
     def __init__(self, image, noisy, radius, center=None):
@@ -94,7 +91,7 @@ if __name__ == "__main__":
     seed = random.randint(1, 100000000000)
     x = random.randint(50, 200)
     y = random.randint(50, 200)
-    noise_level = 10
+    noise_level = 80
     print("({}, {})".format(x, y))
     pic = np.array(generator.generateClean(256, 256, 5, seed, True))
     noisy_pic = np.array(generator.generateNoise(256, 256, 5, noise_level, seed, True))
