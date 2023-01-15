@@ -6,6 +6,19 @@ from Terrain import generator
 import matplotlib.pyplot as plt
 from ML.dnoise import EncoderDecoder as ed
 import torch
+from torch import nn
+
+
+class MAELoss(nn.Module):
+    def __init__(self):
+        super(MAELoss, self).__init__()
+        self.loss_fn = nn.L1Loss()
+
+    def forward(self, y_pred, y_true):
+        return self.loss_fn(y_pred, y_true)
+
+
+loss_fn = MAELoss()
 
 
 class Environment:
@@ -68,10 +81,14 @@ class Visualizer:
         image = torch.tensor(self.image, dtype=torch.float32).view(1, 1, 256, 256)
         image = image.type(torch.cuda.FloatTensor)
 
-        de_noised_image = model(image).view(256, 256)
+        de_noised_image = model(image)
+        # loss = nn.L1Loss(de_noised_image, image) Make this work
+
+        de_noised_image = de_noised_image.view(256, 256)
 
         de_noised_image = de_noised_image.detach()
         de_noised_image = de_noised_image.cpu().numpy()
+
 
         fig, ax = plt.subplots(2, 2)
         ax[0][0].imshow(de_noised_image, cmap='plasma_r')
@@ -83,7 +100,8 @@ class Visualizer:
         ax[1][1].hist(de_noised_image, bins=50)
         ax[1][1].set_title('De-Noised Image Histogram')
 
-        fig.suptitle("Image Size: 256 x 256\nNoise Level: {}%".format(noise_level), fontsize=16, y=0.9)
+        fig.suptitle("Image Size: 256 x 256\nNoise Level: {}%\nLoss: {}".format(noise_level, '''(loss.item() * 100)'''),
+                     fontsize=16, y=0.9)
 
         plt.show()
 
