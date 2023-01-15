@@ -94,7 +94,7 @@ if __name__ == "__main__":
     seed = random.randint(1, 100000000000)
     x = random.randint(50, 200)
     y = random.randint(50, 200)
-    noise_level = 50
+    noise_level = 10
     print("({}, {})".format(x, y))
     pic = np.array(generator.generateClean(256, 256, 5, seed, True))
     noisy_pic = np.array(generator.generateNoise(256, 256, 5, noise_level, seed, True))
