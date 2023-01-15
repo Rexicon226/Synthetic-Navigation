@@ -8,6 +8,7 @@ from math import sqrt
 import random
 
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 
 import sys
 
@@ -74,7 +75,6 @@ class Environment:
         self.is_won = False
 
     def viewing_state(self):
-        fig, axes = plt.subplots(1, 3)
         axes[0].imshow(self.pmap)
         axes[1].imshow(self.amap)
         vmap = copy.deepcopy(self.intmap)
@@ -104,17 +104,20 @@ class Environment:
             self.is_won = True
 
 
-if __name__ == '__main__':
-    p = 0
-    import Terrain.pathcheck as pathcheck
-    amap = pathcheck.path(256,256,3)
-    pmap = pathcheck.path(256,256,3,False,1)
-    # amap, pmap = sumPerlin.thresholdedNoiseMaps(256,256,3,0.40)
-    env = Environment(np.array(pmap),np.array(amap), 16)
-    for x in range(4000):
-        act = random.choice([ACTS.U, ACTS.D, ACTS.L, ACTS.R])
-        env.move(act)
-        env.viewing_state()
-        p += env.penalty
-        print(env.penalty, p)
+def update(i):
+    act = random.choice([ACTS.U, ACTS.D, ACTS.L, ACTS.R])
+    env.move(act)
+    env.viewing_state()
 
+
+if __name__ == '__main__':
+    import Terrain.pathcheck as pathcheck
+
+    amap = pathcheck.path(256, 256, 3)
+    pmap = pathcheck.path(256, 256, 3, False, 1)
+    # amap, pmap = sumPerlin.thresholdedNoiseMaps(256,256,3,0.40)
+    env = Environment(np.array(pmap), np.array(amap), 16)
+    fig, axes = plt.subplots(1, 3)
+    anim = FuncAnimation(fig, update, frames=20, interval=50)
+    plt.show()
+    print("done")
