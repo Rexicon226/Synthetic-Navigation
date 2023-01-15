@@ -85,7 +85,7 @@ class Visualizer:
         ax[1][1].hist(de_noised_image, bins=50)
         ax[1][1].set_title('De-Noised Image Histogram')
 
-        fig.suptitle("Terrain Reversal\n256 x 256\nNoise Level: 7.5%", fontsize=16, y=0.9)
+        fig.suptitle("Terrain Reversal\n256 x 256\nNoise Level: {}%".format(noise_level), fontsize=16, y=0.9)
 
         plt.show()
 
@@ -94,9 +94,10 @@ if __name__ == "__main__":
     seed = random.randint(1, 100000000000)
     x = random.randint(50, 200)
     y = random.randint(50, 200)
+    noise_level = 50
     print("({}, {})".format(x, y))
     pic = np.array(generator.generateClean(256, 256, 5, seed, True))
-    noisy_pic = np.array(generator.generateNoise(256, 256, 5, 7.5, seed, True))
+    noisy_pic = np.array(generator.generateNoise(256, 256, 5, noise_level, seed, True))
     pic, noisy_pic = np.abs(pic), np.abs(noisy_pic)
 
     ev = Environment(pic, noisy_pic, 50, center=(x, y))

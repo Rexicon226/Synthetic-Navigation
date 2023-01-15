@@ -11,5 +11,5 @@ def generateClean(x, y, octaves, seed, progress: bool = False):
 def generateNoise(x, y, octaves, weight, seed, progress: bool = False):
     array = terraingen.terrain(x, y, octaves, progress, seed)
     array = sumPerlin.thresholdedNoiseMaps(x, y, octaves, weight / 100, seed)
-    array = noiseadder.addnoise(array, weight)
+    array = noiseadder.addnoise(array, weight / 2)
     return array
