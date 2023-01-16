@@ -68,7 +68,7 @@ if __name__ == '__main__':
 
     print("({}, {})".format(x, y))
 
-    pic, seed = pathcheck.path(256, 256, 5)
+    pic, seed = pathcheck.path(256, 256, 5, setseed=3455838)
     noisy_pic = generator.generateNoise(256, 256, 5, noise_level, seed, True)
 
     pic, noisy_pic = np.abs(pic), np.abs(noisy_pic)
@@ -82,7 +82,7 @@ if __name__ == '__main__':
     de_noised_original, loss = vi.dNoise(masked)
     de_noised = vi.thresholdDNoise(de_noised_original, 0.5)
 
-    print("Processed Model Loss: {}".format(loss))
+    print("Processed Model Loss: {:.4}".format(loss))
 
     pathfinder = AStarPathfinder(pic)
     f = FunctionTimer("Path Finding")
