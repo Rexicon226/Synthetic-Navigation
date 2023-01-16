@@ -5,7 +5,7 @@ import Terrain.noiseadder as noiseadder
 
 def generateClean(x, y, octaves, seed, progress: bool = False):
     array = terraingen.terrain(x, y, octaves, progress, seed)
-    return array
+    return array, seed
 
 
 def generateNoise(x, y, octaves, weight, seed, progress: bool = False):

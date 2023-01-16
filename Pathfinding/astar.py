@@ -2,10 +2,20 @@ from CompositeEnvironment import Visualizer, Environment
 import matplotlib.pyplot as plt
 import random
 import numpy as np
-from Terrain import generator
+from Terrain import generator, pathcheck
+
+
+class AStar:
+    def __init__(self):
+        self.open = []
+        self.closed = []
+        self.path = []
+        self.grid = []
+        self.start = ()
+        self.end = ()
+
 
 if __name__ == '__main__':
-    seed = random.randint(1, 100000000000)
 
     x = random.randint(50, 200)
     y = random.randint(50, 200)
@@ -14,8 +24,8 @@ if __name__ == '__main__':
 
     print("({}, {})".format(x, y))
 
-    pic = np.array(generator.generateClean(256, 256, 5, seed, True))
-    noisy_pic = np.array(generator.generateNoise(256, 256, 5, noise_level, seed, True))
+    pic, seed = pathcheck.path(256, 256, 4, setseed=58895290)
+    noisy_pic = generator.generateNoise(256, 256, 4, noise_level, seed, True)
 
     pic, noisy_pic = np.abs(pic), np.abs(noisy_pic)
 

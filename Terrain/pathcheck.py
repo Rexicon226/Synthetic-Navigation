@@ -84,12 +84,12 @@ def path(x: int, y: int, octaves: int, progress: bool = False, setseed: int = 0)
         A[i] = list(map(int, A[i]))
         A[i] = [abs(ele) for ele in A[i]]
     f.stop()
-    return A
+    return A, seed
 
 
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
-    pic = path(100, 100, 10)
+    pic, _ = path(100, 100, 10)
     plt.imshow(pic, cmap="Greys")
     plt.show()
