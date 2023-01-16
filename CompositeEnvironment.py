@@ -103,7 +103,7 @@ class Visualizer:
         ax[1][1].hist(de_noised_image, bins=25)
         ax[1][1].set_title('De-Noised Image Histogram')
 
-        fig.suptitle("Image Size: 256 x 256\nNoise Level: {}%\nLoss: {:.4f}%".format(noise_level, loss),
+        fig.suptitle("Image Size: 256 x 256\nNoise Level: {}%\nAccuracy: {:.2f}%".format(noise_level, loss),
                      fontsize=16, y=0.9)
         plt.show()
 
