@@ -4,7 +4,7 @@ import matplotlib.animation as animation
 from queue import PriorityQueue
 import time
 import random
-
+from Terrain.timers import FunctionTimer
 from CompositeEnvironment import Visualizer, Environment
 from Terrain import pathcheck, generator
 
@@ -13,7 +13,7 @@ class AStarPathfinder:
     def __init__(self, terrain):
         self.terrain = terrain
         self.start = (0, 0)
-        self.end = (31, 31)
+        self.end = (255, 255)
         self.visited = set()
         self.path = []
         self.fig, self.ax = plt.subplots()
@@ -25,24 +25,23 @@ class AStarPathfinder:
 
     def a_star(self):
         queue = PriorityQueue()
-        queue.put((0, self.start))
+        queue.put((self.heuristic(self.start, self.end), self.start))
         while not queue.empty():
             current = queue.get()[1]
             self.visited.add(current)
 
-            if queue.qsize() != 0:
-                print('Visited: {} - Queue: {}, {:.4f}%'.format(len(self.visited), queue.qsize(),
-                                                                (len(self.visited) / queue.qsize())))
+            print(f'Visited: {len(self.visited)} - Queue: {queue.qsize()}')
 
             if current == self.end:
                 break
 
-            neighbors = [(current[0] + x, current[1] + y) for x, y in [(1, 0), (-1, 0), (0, 1), (0, -1)]]
-            for neighbor in neighbors:
-                if (0 <= neighbor[0] < 32) and (0 <= neighbor[1] < 32):
+            for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                x, y = current
+                neighbor = (x + dx, y + dy)
+                if (0 <= neighbor[0] < 256) and (0 <= neighbor[1] < 256):
                     if self.terrain[neighbor[0], neighbor[1]] == 0 and neighbor not in self.visited:
+                        queue.put((self.heuristic(neighbor, self.end), neighbor))
                         self.path.append(neighbor)
-                        queue.put((self.heuristic(self.end, neighbor) + self.heuristic(neighbor, self.start), neighbor))
 
     def animate(self):
         im = self.ax.imshow(self.terrain, animated=True)
@@ -65,13 +64,12 @@ class AStarPathfinder:
 if __name__ == '__main__':
     x = random.randint(50, 200)
     y = random.randint(50, 200)
-
     noise_level = 30
 
     print("({}, {})".format(x, y))
 
-    pic, seed = pathcheck.path(32, 32, 2)
-    noisy_pic = generator.generateNoise(256, 256, 4, noise_level, seed, True)
+    pic, seed = pathcheck.path(256, 256, 5)
+    noisy_pic = generator.generateNoise(256, 256, 5, noise_level, seed, True)
 
     pic, noisy_pic = np.abs(pic), np.abs(noisy_pic)
 
@@ -81,14 +79,15 @@ if __name__ == '__main__':
 
     vi = Visualizer('../ML/models/synthnav-model-0.pth', noisy_pic)
 
-    # de_noised_original, loss = vi.dNoise(masked)
-    # de_noised = vi.thresholdDNoise(de_noised_original, 0.5)
+    de_noised_original, loss = vi.dNoise(masked)
+    de_noised = vi.thresholdDNoise(de_noised_original, 0.5)
 
-    # print("Processed Model Loss: {}".format(loss))
+    print("Processed Model Loss: {}".format(loss))
 
-    print("Path Finding Start")
     pathfinder = AStarPathfinder(pic)
+    f = FunctionTimer("Path Finding")
     pathfinder.a_star()
+    f.stop()
     pathfinder.animate()
 
     print("done")
