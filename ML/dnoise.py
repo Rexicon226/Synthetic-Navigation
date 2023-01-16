@@ -63,8 +63,9 @@ def main():
     criterion = MAELoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=0.03)
 
+    # noinspection PyTypeChecker
     def create_synced_dictionary(folder_name):
-        sync_dir = {}
+        sync_dir_inner = {}
         for folder in os.walk(folder_name):
             for sub_folder in folder[1]:
                 for file in os.listdir(os.path.join(folder_name, sub_folder)):
@@ -75,17 +76,17 @@ def main():
                         return
                     if image_type == 'clean.jpeg':
                         # Add the clean image to the dictionary
-                        sync_dir[name] = file
+                        sync_dir_inner[name] = file
                     elif image_type == 'noisy.jpeg':
                         # Check if there is already a clean image for this pair in the dictionary
-                        if name in sync_dir:
+                        if name in sync_dir_inner:
                             # Add the noisy image to the dictionary
-                            sync_dir[name] = (sync_dir[name], file)
+                            sync_dir_inner[name] = (sync_dir_inner[name], file)
                         else:
                             # Add the noisy image to the dictionary with a placeholder for the clean image
-                            sync_dir[name] = (None, file)
+                            sync_dir_inner[name] = (None, file)
 
-        return sync_dir
+        return sync_dir_inner
 
     dirname = os.path.dirname(__file__)
 
@@ -129,8 +130,8 @@ def main():
             loss_array.append(loss.item())
 
             if (i + 1) % batch_size == 0:
-                print("Epoch: {}/{}, Batch: {}/{}, Loss: {:.4f}".format(epoch + 1, num_epochs, i + 1, batch_size,
-                                                                        loss.item()))
+                print("Epoch: {}/{}, Batch: {}/{}, Loss: {:.4f}%".format(epoch + 1, num_epochs, i + 1, batch_size,
+                                                                         (1 - loss.item()) * 100))
             i += 1
 
         if (epoch + 1) % 20 == 0:

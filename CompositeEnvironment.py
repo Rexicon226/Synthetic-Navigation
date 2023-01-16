@@ -65,45 +65,76 @@ def get_visible_image(image, radius, noisy, center):
 
 class Visualizer:
 
-    def __init__(self, model_path, image, original):
-        image = np.array(image, dtype=float)
+    def __init__(self, model_path, original):
 
         self.model_path = model_path
-        self.image = image.copy()
         self.original = original.copy()
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    def dNoise(self):
+    def dNoiseVis(self, inputpic):
         print("Loaded Model")
         model = ed().to(self.device)
         model.eval()
         model.load_state_dict(torch.load(f=self.model_path))
-        image = torch.tensor(self.image, dtype=torch.float32).view(1, 1, 256, 256)
+
+        inputpic = np.array(inputpic, dtype=float)
+        inputpic = torch.tensor(inputpic, dtype=torch.float32).view(1, 1, 256, 256)
+        inputpic = inputpic.type(torch.cuda.FloatTensor)
+
+        de_noised_image = model(inputpic)
+        loss = loss_fn(de_noised_image, inputpic)
+
+        loss = (1 - loss.item()) * 100
+
+        de_noised_image = de_noised_image.view(256, 256)
+
+        inputpic = inputpic.view(256, 256).cpu()
+
+        de_noised_image = de_noised_image.detach()
+        de_noised_image = de_noised_image.cpu().numpy()
+        print("Processed Image")
+        fig, ax = plt.subplots(2, 2)
+        ax[0][0].imshow(de_noised_image, cmap='plasma_r')
+        ax[0][0].set_title('De-Noised Image')
+        ax[0][1].imshow(inputpic, cmap='plasma_r')
+        ax[0][1].set_title('Input')
+        ax[1][0].imshow(self.original, cmap='plasma_r')
+        ax[1][0].set_title('Clean Image')
+        ax[1][1].hist(de_noised_image, bins=25)
+        ax[1][1].set_title('De-Noised Image Histogram')
+
+        fig.suptitle("Image Size: 256 x 256\nNoise Level: {}%\nLoss: {:.4f}%".format(noise_level, loss),
+                     fontsize=16, y=0.9)
+        plt.show()
+
+    def dNoise(self, image):
+        print("Loaded Model")
+        model = ed().to(self.device)
+        model.eval()
+        model.load_state_dict(torch.load(f=self.model_path))
+
+        image = np.array(image, dtype=float)
+        image = torch.tensor(image, dtype=torch.float32).view(1, 1, 256, 256)
         image = image.type(torch.cuda.FloatTensor)
 
         de_noised_image = model(image)
-        # loss = nn.L1Loss(de_noised_image, image) Make this work
+        loss = loss_fn(de_noised_image, image)
+
+        loss = (1 - loss.item()) * 100
 
         de_noised_image = de_noised_image.view(256, 256)
 
         de_noised_image = de_noised_image.detach()
         de_noised_image = de_noised_image.cpu().numpy()
 
+        return de_noised_image, loss
 
-        fig, ax = plt.subplots(2, 2)
-        ax[0][0].imshow(de_noised_image, cmap='plasma_r')
-        ax[0][0].set_title('De-Noised Image')
-        ax[0][1].imshow(self.image, cmap='plasma_r')
-        ax[0][1].set_title('Original')
-        ax[1][0].imshow(self.original, cmap='plasma_r')
-        ax[1][0].set_title('Clean Image')
-        ax[1][1].hist(de_noised_image, bins=50)
-        ax[1][1].set_title('De-Noised Image Histogram')
-
-        fig.suptitle("Image Size: 256 x 256\nNoise Level: {}%\nLoss: {}".format(noise_level, '''(loss.item() * 100)'''),
-                     fontsize=16, y=0.9)
-
-        plt.show()
+    @staticmethod
+    def thresholdDNoise(input, x):
+        output_image = np.clip(input, 0, 1)
+        output_image[output_image < x] = 0
+        output_image[output_image >= x] = 1
+        return output_image
 
 
 if __name__ == "__main__":
@@ -120,6 +151,6 @@ if __name__ == "__main__":
 
     masked = ev.generate()
 
-    vi = Visualizer('./ML/models/synthnav-model-0.pth', masked, pic)
+    vi = Visualizer('./ML/models/synthnav-model-0.pth', pic)
 
-    vi.dNoise()
+    vi.dNoiseVis(masked)
