@@ -51,6 +51,12 @@ class MAELoss(nn.Module):
         return self.loss_fn(y_pred, y_true)
 
 
+def saveModel(model, model_name):
+    torch.save(model.state_dict(), './models/{}'.format(model_name))
+    model_scripted = torch.jit.script(model) # Export to TorchScript
+    model_scripted.save('./models/synthnav-model-script.pt')
+
+
 def main():
     loss_array = list()
     # print(summary(model, (1, 1, 256, 256)))
@@ -61,7 +67,7 @@ def main():
 
     # Create an instance of the custom MSE loss function
     criterion = MAELoss()
-    optimizer = torch.optim.SGD(model.parameters(), lr=0.03)
+    optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
     # noinspection PyTypeChecker
     def create_synced_dictionary(folder_name):
@@ -135,35 +141,11 @@ def main():
             i += 1
 
         if (epoch + 1) % 20 == 0:
-            # 1. Create models directory
-            MODEL_PATH = Path("models")
-            MODEL_PATH.mkdir(parents=True, exist_ok=True)
-
-            # 2. Create model save path
-            MODEL_NAME = model_name
-            MODEL_SAVE_PATH = MODEL_PATH / MODEL_NAME
-
-            # 3. Save the model state dict
-            print(f"Saving model to: {MODEL_SAVE_PATH}")
-            torch.save(obj=model.state_dict(),  # only saving the state_dict() only saves the models learned parameters
-                       f=MODEL_SAVE_PATH)
-
-    # model = model.to("cpu")
+            saveModel(model, model_name)
 
     loss_array = np.array(loss_array)
 
-    # 1. Create models directory
-    MODEL_PATH = Path("models")
-    MODEL_PATH.mkdir(parents=True, exist_ok=True)
-
-    # 2. Create model save path
-    MODEL_NAME = model_name
-    MODEL_SAVE_PATH = MODEL_PATH / MODEL_NAME
-
-    # 3. Save the model state dict
-    print(f"Saving model to: {MODEL_SAVE_PATH}")
-    torch.save(obj=model.state_dict(),  # only saving the state_dict() only saves the models learned parameters
-               f=MODEL_SAVE_PATH)
+    saveModel(model, model_name)
     print("----- Training Done -----")
     print("----- Visual Starting -----")
     visualize_predictions(model, val_sync, val_dir)
@@ -194,8 +176,6 @@ def visualize_predictions(model, val_sync, val_dir):
         de_noised_image = de_noised_image.view(256, 256)
         de_noised_image = de_noised_image.cpu()
         de_noised_image = de_noised_image.detach().numpy()
-
-        print(clean_image)
 
         # Use the model on the clean image
         clean_deionised = model(clean_image)
@@ -253,7 +233,7 @@ if __name__ == "__main__":
         try:
             num_epochs = int(input("How many epochs: "))
             is_int = True
-        except:
+        except ValueError:
             is_int = False
             print("Please provide a integer value")
 

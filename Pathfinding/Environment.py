@@ -84,8 +84,6 @@ class Environment:
 
         axes[2].imshow(vmap)
 
-        plt.show()
-
     def move(self, action: ACTS):
         self.penalty = 0
         self.takenPath.append(self.pos)
@@ -110,10 +108,11 @@ def update(i):
     env.viewing_state()
 
 
+
 if __name__ == '__main__':
     import Terrain.pathcheck as pathcheck
 
-    amap = pathcheck.path(256, 256, 3)
+    amap = pathcheck.path(256, 256, 3, setseed=1239082)
     pmap = pathcheck.path(256, 256, 3, False, 1)
     # amap, pmap = sumPerlin.thresholdedNoiseMaps(256,256,3,0.40)
     env = Environment(np.array(pmap), np.array(amap), 16)

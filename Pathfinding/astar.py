@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 import heapq
 
 import random
@@ -17,7 +16,7 @@ class AStarPathfinder:
         self.end = (255, 255)
         self.visited = set()
         self.path = []
-        self.fig, self.ax = plt.subplots(1, 2)
+        self.fig, self.ax = plt.subplots(2, 2)
 
     @staticmethod
     def heuristic(a, b):
@@ -51,29 +50,42 @@ class AStarPathfinder:
                         heapq.heappush(queue, (distance, neighbor))
                         self.path.append(neighbor)
                         visited.add(neighbor)
+        return self.path
+
+    @staticmethod
+    def overlay_path(path_matrix, terrain_matrix):
+        overlay_matrix = np.maximum(path_matrix, terrain_matrix)
+        return overlay_matrix
+
+    @staticmethod
+    def path2matrix(path):
+        matrix = np.zeros((256, 256))
+        for x, y in path:
+            matrix[x][y] = 2
+        return matrix
 
     def animate(self):
-        im = self.ax[0].imshow(self.terrain, animated=True)
-        self.ax[1].imshow(masked, animated=False)
-        self.ax[0].set_title("A* Pathfinding")
-        self.ax[1].set_title("Input")
+        self.ax[1][0].imshow(self.terrain, cmap='plasma')
+        path_matrix = self.path2matrix(path)
+        # overlay_matrix = self.overlay_path(path_matrix, self.terrain)
+        self.ax[1][0].imshow(path_matrix, cmap='Reds')
 
-        self.fig.suptitle("Image Size: 256 x 256\nNoise Level: {}%\nAccuracy: {:.2f}%".format(noise_level, loss),
-                          fontsize=16, y=0.9)
+        self.ax[0][1].imshow(masked)
+        self.ax[1][0].set_title("Path")
+        self.ax[0][1].set_title("Input")
 
-        def updatefig(*args):
-            if self.path:
-                x, y = self.path.pop(0)
-                im.set_array(self.terrain)
-                self.ax[0].scatter(y, x, c='r', marker='x', s=1)
+        self.ax[1][1].hist(de_noised_original, bins=25)
+        self.ax[1][1].set_title("De-Noised Image Histogram")
 
-            else:
-                im.set_array(self.terrain)
-                self.ax[0].scatter(self.end[1], self.end[0], c='g', marker='x', s=1)
-                return [im]
+        self.ax[0][0].imshow(de_noised_original, cmap='plasma')
+        self.ax[0][0].set_title("De-Noised Image")
 
-        ani = animation.FuncAnimation(self.fig, updatefig, interval=1)
-        ani.save('astar.mp4', writer='ffmpeg', fps=480, dpi=1000)
+        self.fig.suptitle("A* Pathfinding Example"
+                          "\nImage Size: 256 x 256\n"
+                          "Noise Level: {}%\nAccuracy: {:.2f}%".format(noise_level, loss),
+                          fontsize=16)
+
+        self.fig.set_size_inches(18.5, 10.5)
         plt.show()
 
 
@@ -102,7 +114,7 @@ if __name__ == '__main__':
 
     pathfinder = AStarPathfinder(de_noised)
     f = FunctionTimer("Path Finding")
-    pathfinder.a_star()
+    path = pathfinder.a_star()
     f.stop()
     pathfinder.animate()
 
