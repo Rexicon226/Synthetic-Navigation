@@ -2,9 +2,9 @@ import copy
 
 import Terrain.terraingen as terraingen
 from Terrain.timers import FunctionTimer
-
-
-def bordercheck(pic: list[list[int]]):
+from typing import Union
+import numpy as np
+def bordercheck(pic: Union[list[list[int]], np.ndarray]):
     """Returns a modified array where the borders of the blobs are ``0`` and everything else is ``1``.
 
     Note: The borders are "Inclusive" the edge pixels of the blobs are counted, nothing that isn't blob

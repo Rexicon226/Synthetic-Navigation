@@ -2,9 +2,11 @@ import copy
 from collections import deque
 import Terrain.generator as generator
 import matplotlib.pyplot as plt
+import numpy as np
+from typing import Union
 
 
-def blobs(array: list[list[int]]):
+def blobs(array: Union[list[list[int]], np.ndarray]) -> int:
     """
     Calculates the number of "islands" in the given array
 

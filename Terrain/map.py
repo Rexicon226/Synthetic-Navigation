@@ -3,6 +3,9 @@ import random
 
 import numpy as np
 import terraingen
+import blobcheck
+from Terrain import border
+
 
 class Map:
     """Map class"""
@@ -79,4 +82,22 @@ class Map:
     def set(self, x, y, value):
         """Set the value at a given position"""
         self.map[y][x] = value
+
+    @property
+    def blobs(self):
+        """Returns the number of blobs in the map
+        SeeAlso
+        -------
+        blobcheck.check
+        """
+        return blobcheck.blobs(self.thresholded)
+
+    @property
+    def border(self):
+        """Returns a map with the borders highlighted
+        SeeAlso
+        -------
+        border.bordercheck
+        """
+        return border.bordercheck(self.thresholded)
 
