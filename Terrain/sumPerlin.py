@@ -63,10 +63,3 @@ if __name__ == "__main__":
     axes[1].imshow(d2, cmap="Greys")
 
     plt.show()
-
-if __name__ == "__main__":
-    fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 6))
-    d1, d2 = correctNoiseMaps(100, 100, 8, 0.3)
-    axes[0].imshow(d1, cmap="Greys")
-    axes[1].imshow(d2, cmap="Greys")
-    plt.show()
