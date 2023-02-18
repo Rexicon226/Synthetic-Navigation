@@ -2,12 +2,17 @@
 import random
 import numpy as np
 import matplotlib.pyplot as plt
-import Terrain.pathcheck
+from Terrain.map import Map
+import asyncio
 class Generator():
-    def __init__(self, width, height):
+    def __init__(self, width, height, octaves=1):
         self.width = width
         self.height = height
+        self.octaves = octaves
 
-    def generate_solveable_pair(self, x,y, octaves):
+    def generate_solveable_pair(self ):
         """Generates a map pair that is solveable"""
-        map1 = Terrain.pathcheck.path(x,y,octaves=octaves)
+        real = Map.solveable_map(self.width, self.height, self.octaves)
+        predicted = real + Map.built(self.width, self.height, self.octaves)
+
+

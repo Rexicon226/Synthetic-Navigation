@@ -4,13 +4,12 @@ import random
 import numpy as np
 import terraingen
 import blobcheck
-from Terrain import border
+from Terrain import border, pathcheck
 
 
 class Map:
     """Map class"""
     def __init__(self, width, height,threshold=0.5):
-        self.__slots__= ("width", "height", "map", "thresholdedMap")
         self.width = width
         self.height = height
         self.map = np.array([[0 for x in range(width)] for y in range(height)])
@@ -48,6 +47,18 @@ class Map:
     def thresholdedNegative(self):
         """Get the thresholded negative of the map"""
         return self.negative.thresholded
+
+    @classmethod
+    def solveable_map(cls, width, height, octaves):
+        """Generate a solveable map"""
+        return cls.from_array(pathcheck.path(width, height, octaves=octaves))
+
+    @classmethod
+    def built(cls, width, height, octaves=1):
+        """returns a built Map object"""
+        map = cls(width, height)
+        map.build(octaves)
+        return map
 
     def __neg__(self):
         """Get the negative of the map"""
