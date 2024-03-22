@@ -56,8 +56,7 @@ def path(x: int, y: int, octaves: int, progress: bool = False, setseed: int = 0)
         for i in range(1, row):
             for j in range(1, col):
                 if arr[i][j] != -1:
-                    arr[i][j] = max(arr[i][j - 1],
-                                    arr[i - 1][j])
+                    arr[i][j] = max(arr[i][j - 1], arr[i - 1][j])
 
         return arr[row - 1][col - 1] == 1
 
@@ -73,11 +72,16 @@ def path(x: int, y: int, octaves: int, progress: bool = False, setseed: int = 0)
             seed = random.randint(1, x * y * 1000)
         if failedSeeds.count(seed) == 0 and setseed == 0:
             solved = isPath(terraingen.terrain(x, y, octaves, seed=seed))
-            sys.stdout.write("\rChecking seed: " + str(seed) + ", Number: " + str(len(failedSeeds) + 1))
+            sys.stdout.write(
+                "\rChecking seed: "
+                + str(seed)
+                + ", Number: "
+                + str(len(failedSeeds) + 1)
+            )
             sys.stdout.flush()
             if solved:
-                print(f'\nWorking Seed: ' + str(seed))
-                print(f'Failed Seeds: ' + str(len(failedSeeds)))
+                print("\nWorking Seed: " + str(seed))
+                print("Failed Seeds: " + str(len(failedSeeds)))
             failedSeeds.append(seed)
     A = terraingen.terrain(x, y, octaves, progress, seed=seed)
     for i in range(len(A)):

@@ -9,7 +9,8 @@ from Terrain import border, pathcheck
 
 class Map:
     """Map class"""
-    def __init__(self, width, height,threshold=0.5):
+
+    def __init__(self, width, height, threshold=0.5):
         self.width = width
         self.height = height
         self.map = np.array([[0 for x in range(width)] for y in range(height)])
@@ -36,7 +37,12 @@ class Map:
     @property
     def thresholded(self):
         """Get the thresholded map"""
-        return np.array([[1 if self.map[y][x] > self.threshold else 0 for x in range(self.width)] for y in range(self.height)])
+        return np.array(
+            [
+                [1 if self.map[y][x] > self.threshold else 0 for x in range(self.width)]
+                for y in range(self.height)
+            ]
+        )
 
     @property
     def negative(self):
@@ -66,7 +72,9 @@ class Map:
 
     def build(self, octaves):
         """build the map"""
-        self.map = terraingen.terrain(self.width, self.height, octaves, seed=random.randint(0, 1000000))
+        self.map = terraingen.terrain(
+            self.width, self.height, octaves, seed=random.randint(0, 1000000)
+        )
 
     def __mul__(self, other):
         """Multiply the map by a given value"""
@@ -84,7 +92,6 @@ class Map:
             return self.map + other.map
         else:
             raise TypeError("Map object Can only be added to another Map object")
-
 
     def get(self, x, y):
         """Get the value at a given position"""
@@ -111,4 +118,3 @@ class Map:
         border.bordercheck
         """
         return border.bordercheck(self.thresholded)
-

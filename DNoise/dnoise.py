@@ -1,5 +1,4 @@
 import os.path
-from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,12 +6,10 @@ import torch.nn as nn
 import torch.utils.data
 import torchsummary
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Device: {}\n".format(device))
 
 
-# 2. Define the CNN model
-# Define the encoder-decoder model
 class EncoderDecoder(nn.Module):
     def __init__(self):
         super(EncoderDecoder, self).__init__()
@@ -24,7 +21,7 @@ class EncoderDecoder(nn.Module):
             nn.ReLU(),
             nn.MaxPool2d(2),
             nn.Conv2d(64, 128, 3, padding=1),
-            nn.ReLU()
+            nn.ReLU(),
         )
 
         self.decoder = nn.Sequential(
@@ -32,7 +29,7 @@ class EncoderDecoder(nn.Module):
             nn.ReLU(),
             nn.ConvTranspose2d(64, 32, kernel_size=4, stride=2, padding=1),
             nn.ReLU(),
-            nn.Conv2d(32, 1, 3, padding=1)
+            nn.Conv2d(32, 1, 3, padding=1),
         )
 
     def forward(self, x):
@@ -52,18 +49,18 @@ class MAELoss(nn.Module):
 
 
 def saveModel(model, model_name):
-    torch.save(model.state_dict(), './models/{}'.format(model_name))
-    model_scripted = torch.jit.script(model) # Export to TorchScript
-    model_scripted.save('./models/synthnav-model-script.pt')
+    torch.save(model.state_dict(), "./models/{}".format(model_name))
+    model_scripted = torch.jit.script(model)  # Export to TorchScript
+    model_scripted.save("./models/synthnav-model-script.pt")
 
 
 def main():
     loss_array = list()
-    # print(summary(model, (1, 1, 256, 256)))
 
-    if os.path.exists('./models/{}'.format(model_name)):
+    # Only load the model if it already exists
+    if os.path.exists("./models/{}".format(model_name)):
         print("Loaded Model")
-        model.load_state_dict(torch.load(f='./models/{}'.format(model_name)))
+        model.load_state_dict(torch.load(f="./models/{}".format(model_name)))
 
     # Create an instance of the custom MSE loss function
     criterion = MAELoss()
@@ -76,14 +73,16 @@ def main():
             for sub_folder in folder[1]:
                 for file in os.listdir(os.path.join(folder_name, sub_folder)):
                     try:
-                        name, image_type = file.split('_')
+                        name, image_type = file.split("_")
+                    except ValueError:
+                        continue
 
-                    except:
-                        return
-                    if image_type == 'clean.jpeg':
+
+
+                    if image_type == "clean.jpeg":
                         # Add the clean image to the dictionary
                         sync_dir_inner[name] = file
-                    elif image_type == 'noisy.jpeg':
+                    elif image_type == "noisy.jpeg":
                         # Check if there is already a clean image for this pair in the dictionary
                         if name in sync_dir_inner:
                             # Add the noisy image to the dictionary
@@ -96,10 +95,10 @@ def main():
 
     dirname = os.path.dirname(__file__)
 
-    high_quality = os.path.join(dirname, 'train_images')
-    sync_dir = create_synced_dictionary('train_images')
+    high_quality = os.path.join(dirname, "train_images")
+    sync_dir = create_synced_dictionary("train_images")
 
-    val_dir = os.path.join(dirname, 'val_images')
+    val_dir = os.path.join(dirname, "val_images")
     val_sync = create_synced_dictionary(val_dir)
 
     # Training loop
@@ -136,8 +135,15 @@ def main():
             loss_array.append(loss.item())
 
             if (i + 1) % batch_size == 0:
-                print("Epoch: {}/{}, Batch: {}/{}, Loss: {:.4f}%".format(epoch + 1, num_epochs, i + 1, batch_size,
-                                                                         (1 - loss.item()) * 100))
+                print(
+                    "Epoch: {}/{}, Batch: {}/{}, Loss: {:.4f}%".format(
+                        epoch + 1,
+                        num_epochs,
+                        i + 1,
+                        batch_size,
+                        (1 - loss.item()) * 100,
+                    )
+                )
             i += 1
 
         if (epoch + 1) % 20 == 0:
@@ -192,22 +198,22 @@ def visualize_predictions(model, val_sync, val_dir):
         noisy_image = noisy_image.cpu()
         noisy_image = noisy_image.detach().numpy()
 
-        cmap = 'plasma_r'
+        cmap = "plasma_r"
 
         # Visualize the clean, noisy, and de-noised images
         fig, axs = plt.subplots(2, 3)
         axs[0, 0].imshow(clean_image, cmap=cmap)
-        axs[0, 0].set_title('Input (Clean)')
+        axs[0, 0].set_title("Input (Clean)")
         axs[1, 0].imshow(clean_deionised, cmap=cmap)
-        axs[1, 0].set_title('Output (Clean)')
+        axs[1, 0].set_title("Output (Clean)")
         axs[0, 1].imshow(noisy_image, cmap=cmap)
-        axs[0, 1].set_title('Input (Noisy)')
+        axs[0, 1].set_title("Input (Noisy)")
         axs[1, 1].imshow(de_noised_image, cmap=cmap)
-        axs[1, 1].set_title('Output (Noisy)')
+        axs[1, 1].set_title("Output (Noisy)")
         axs[0, 2].imshow(clean_image - noisy_image, cmap=cmap)
-        axs[0, 2].set_title('Input Difference')
+        axs[0, 2].set_title("Input Difference")
         axs[1, 2].imshow(clean_deionised - de_noised_image, cmap=cmap)
-        axs[1, 2].set_title('Output Difference')
+        axs[1, 2].set_title("Output Difference")
         plt.show()
         vis_iter = 1
 
@@ -242,11 +248,11 @@ if __name__ == "__main__":
     # Iterate directory
     dirname = os.path.dirname(__file__)
 
-    high_quality = os.path.join(dirname, 'train_images/noisy')
-    model_name = 'synthnav-model-0.pth'
+    high_quality = os.path.join(dirname, "train_images/noisy")
+    model_name = "synthnav-model-0.pth"
     for path in os.listdir(high_quality):
         # check if current path is a file
-        if os.path.isfile(os.path.join('train_images/noisy', path)):
+        if os.path.isfile(os.path.join("train_images/noisy", path)):
             count += 1
 
     batch_size = 128

@@ -1,0 +1,72 @@
+\documentclass{article}
+
+% Packages
+\usepackage{natbib}
+
+\title{Synthetic Navigation: Machine Learning Autonomous Navigation Using Predicted and Ground-Truthed Maps}
+
+\author{
+    David Rubin \\
+    Horizons CIS \\
+    % \texttt{daviru007@example.com}
+    \and
+    Marcus E. Kauffman \\
+    De La Salle High School \\
+    % \texttt{marcus email}
+}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    TODO: abstract
+\end{abstract}
+
+\section{Rationale}
+    Navigation over uncharted terrain has always required precise instruments
+and careful data collection. Thanks to modern technology, such as satellite 
+systems and GPS, no area is left completely undocumented \citep{deschamps-berger2020, kervyn2007, li1988}. 
+Those who want to autonomously explore areas are left with two options: 
+they can use an open-loop navigation system, relying solely on potentially 
+inaccurate collected data, or they can use a closed-loop system which uses 
+only sensor (ground-truthed) input, disregarding any preexisting data. 
+This preexisting data, while it cannot be relied on, can be useful for 
+navigation. 
+
+    A pathfinding situation consists of a “predicted” map, which is available 
+immediately and a “ground-truthed”, “observed” or “actual” map which is 
+revealed to the algorithm or model as it explores the map. These two maps 
+have a variation between them, the degree of which is referred to as the 
+“edit distance” and expressed as a percentage, where 0\% is zero difference 
+between the maps and 100\% means that the second map was generated separately 
+from the first map. The combination of both maps is referred to as the 
+“environment,” the shortest possible path between two points, the “start” 
+and the “goal,” is the “best path” or “shortest path,” and the path that 
+the algorithm takes is the “path” or “chosen path.” Due to the iterative 
+nature of the D* algorithm and the machine learning model, the chosen path 
+will most often not be the best path. 
+
+    The most popular open-loop pathfinding algorithm is A* (pronounced “a-star”) 
+uses node based weighted pathfinding and prioritizes pathfinding in directions 
+that appear to be better. D* is an adaptation of A* for dynamic environments 
+using an “incremental search strategy” when the final environment cannot be 
+determined (X. Sun et al., 2010). 
+
+    Many different techniques for machine learning 
+(ML) exist (Amit Patel, 2022). For this application, reinforcement learning 
+is best as it has shown success with pathfinding (Roy et al., 2017) and is 
+able to make a choice between exploration and using past data which is necessary 
+for using a combination of both maps. 
+
+    This research will describe the 
+feasibility and limits of the use of a ML model for navigation of real 
+autonomous vehicles compared to traditional (A* and D*) pathfinding algorithms.
+
+% Bibliography
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

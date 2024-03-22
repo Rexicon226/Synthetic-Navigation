@@ -5,8 +5,14 @@ import numpy as np
 from perlin_noise import PerlinNoise
 
 
-def noiseMaps(x: int, y: int, octaves1, difference: float, seed: Optional[int] = 0,
-              seedDifference: Optional[int] = 1):
+def noiseMaps(
+    x: int,
+    y: int,
+    octaves1,
+    difference: float,
+    seed: Optional[int] = 0,
+    seedDifference: Optional[int] = 1,
+):
     """function that generates two maps with a "difference" in between
     works by generating two perlin noise maps and then adding them and returning both the sum and one individual
     Parameters
@@ -30,14 +36,25 @@ def noiseMaps(x: int, y: int, octaves1, difference: float, seed: Optional[int] =
     map1 = PerlinNoise(octaves1, seed)
     map2 = PerlinNoise(octaves1, seed + seedDifference)
     discrete1 = [[map1([i / x, j / y]) for j in range(y)] for i in range(x)]
-    discrete2 = [[(difference * map2([i / x, j / y])) + (1 - difference) * (discrete1[i][j]) for j in range(y)] for i in
-                 range(x)]
+    discrete2 = [
+        [
+            (difference * map2([i / x, j / y])) + (1 - difference) * (discrete1[i][j])
+            for j in range(y)
+        ]
+        for i in range(x)
+    ]
 
     return discrete1, discrete2
 
 
-def thresholdedNoiseMaps(x: int, y: int, octaves1, difference: float, seed: Optional[int] = 0,
-                         seedDifference: Optional[int] = 1):
+def thresholdedNoiseMaps(
+    x: int,
+    y: int,
+    octaves1,
+    difference: float,
+    seed: Optional[int] = 0,
+    seedDifference: Optional[int] = 1,
+):
     d1, d2 = noiseMaps(x, y, octaves1, difference, seed, seedDifference)
     td1 = [[-int(np.floor(x)) for x in d1[y]] for y in range(y)]
     td2 = [[-int(np.floor(x)) for x in d2[y]] for y in range(y)]
@@ -45,13 +62,19 @@ def thresholdedNoiseMaps(x: int, y: int, octaves1, difference: float, seed: Opti
     return np.array(td1), np.array(td2)
 
 
-def correctNoiseMaps(x: int, y: int, octaves1, difference: float, seed: Optional[int] = 0,
-                     seedDifference: Optional[int] = 1):
+def correctNoiseMaps(
+    x: int,
+    y: int,
+    octaves1,
+    difference: float,
+    seed: Optional[int] = 0,
+    seedDifference: Optional[int] = 1,
+):
     """same as noiseMaps only it gets threshold"""
 
     d1, d2 = noiseMaps(x, y, octaves1, difference, seed, seedDifference)
     td1 = [[-int(np.floor(x)) for x in d1[y]] for y in range(y)]
-    td2 = [[-int(np.floor(x)) for x in d2[y]] for y in range(y)]
+    # td2 = [[-int(np.floor(x)) for x in d2[y]] for y in range(y)]
 
     return td1
 

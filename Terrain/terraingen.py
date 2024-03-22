@@ -27,10 +27,15 @@ def terrain(x: int, y: int, octaves: int, progress: bool = False, seed: int = 0)
 
     noise = PerlinNoise(octaves=octaves, seed=seed)
     if progress:
-        picarr = [[int(np.floor(noise([i / x, j / y]))) for j in range(y)] for i in tqdm(range(x))]
+        picarr = [
+            [int(np.floor(noise([i / x, j / y]))) for j in range(y)]
+            for i in tqdm(range(x))
+        ]
         return picarr
     if not progress:
-        picarr = [[int(np.floor(noise([i / x, j / y]))) for j in range(y)] for i in range(x)]
+        picarr = [
+            [int(np.floor(noise([i / x, j / y]))) for j in range(y)] for i in range(x)
+        ]
         return picarr
 
 
@@ -55,7 +60,6 @@ def threedterrain(x: int, y: int, octaves: int, progress: bool = False, seed: in
     pic : list[list[0,1]]
         threshold list of smooth noise
     """
-    cutoff = 0
     multiplier = 1.5
     noise = PerlinNoise(octaves=octaves, seed=seed)
     if progress:
@@ -84,5 +88,5 @@ if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
     pic = threedterrain(256, 256, 4, True, seed=12308)
-    plt.imshow(pic, cmap='Greys')
+    plt.imshow(pic, cmap="Greys")
     plt.show()

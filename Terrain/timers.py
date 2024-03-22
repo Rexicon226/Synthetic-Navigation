@@ -1,6 +1,6 @@
 import time
-from math import *
 
+from math import floor, log10
 
 class BaseTimer:
     """class for timing things such as testing performance
@@ -28,7 +28,7 @@ class FunctionTimer(BaseTimer):
 
     def __init__(self, name):
         self.name = name
-        print(f"----- Starting \"{self.name}\" -----")
+        print(f'----- Starting "{self.name}" -----')
         super().__init__()
 
     def stop(self):
@@ -39,7 +39,7 @@ class FunctionTimer(BaseTimer):
 
         ts = round_sig(ts, 5)
 
-        print(f"----- Done. \"{self.name}\" took {ts}s -----")
+        print(f'----- Done. "{self.name}" took {ts}s -----')
 
     def final(self):
         totalTime = 1

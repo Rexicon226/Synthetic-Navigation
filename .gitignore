@@ -1,0 +1,10 @@
+__pycache__/
+.ruff_cache/
+
+Paper/*.aux
+Paper/*.log
+Paper/*.bbl
+Paper/*.blg
+Paper/*.pdf
+
+q.log

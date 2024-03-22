@@ -4,6 +4,8 @@ import Terrain.terraingen as terraingen
 from Terrain.timers import FunctionTimer
 from typing import Union
 import numpy as np
+
+
 def bordercheck(pic: Union[list[list[int]], np.ndarray]):
     """Returns a modified array where the borders of the blobs are ``0`` and everything else is ``1``.
 
@@ -18,12 +20,14 @@ def bordercheck(pic: Union[list[list[int]], np.ndarray]):
     Returns
     -------
     borderpic : list[list[{1,0}]]
-         """
+    """
     f = FunctionTimer("Border Check")
 
     for i in range(len(pic)):
         pic[i] = [abs(ele) for ele in pic[i]]
-    borderpic = copy.deepcopy(pic)  # create a deep copy so that stuff doesn't get messed up
+    borderpic = copy.deepcopy(
+        pic
+    )  # create a deep copy so that stuff doesn't get messed up
 
     for x in range(len(pic)):
         for y in range(len(pic)):

@@ -48,10 +48,10 @@ def addnoise(pic: list[list[int]], weight: int):
     return noisepic
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pic = terrain(256, 256, 4, True, 12391823)
     noisepic = addnoise(pic, 5)
     fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 6))
-    axes[0].imshow(pic, cmap='Greys')
-    axes[1].imshow(noisepic, cmap='Greys')
+    axes[0].imshow(pic, cmap="Greys")
+    axes[1].imshow(noisepic, cmap="Greys")
     plt.show()

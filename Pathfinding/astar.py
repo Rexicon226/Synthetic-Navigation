@@ -45,7 +45,10 @@ class AStarPathfinder:
                 neighbor = (x + dx, y + dy)
 
                 if (0 <= neighbor[0] < 256) and (0 <= neighbor[1] < 256):
-                    if self.terrain[neighbor[0], neighbor[1]] == 0 and neighbor not in visited:
+                    if (
+                        self.terrain[neighbor[0], neighbor[1]] == 0
+                        and neighbor not in visited
+                    ):
                         distance = self.heuristic(neighbor, self.end)
                         heapq.heappush(queue, (distance, neighbor))
                         self.path.append(neighbor)
@@ -65,10 +68,10 @@ class AStarPathfinder:
         return matrix
 
     def animate(self):
-        self.ax[1][0].imshow(self.terrain, cmap='plasma')
+        self.ax[1][0].imshow(self.terrain, cmap="plasma")
         path_matrix = self.path2matrix(path)
         # overlay_matrix = self.overlay_path(path_matrix, self.terrain)
-        self.ax[1][0].imshow(path_matrix, cmap='Reds')
+        self.ax[1][0].imshow(path_matrix, cmap="Reds")
 
         self.ax[0][1].imshow(masked)
         self.ax[1][0].set_title("Path")
@@ -77,19 +80,21 @@ class AStarPathfinder:
         self.ax[1][1].hist(de_noised_original, bins=25)
         self.ax[1][1].set_title("De-Noised Image Histogram")
 
-        self.ax[0][0].imshow(de_noised_original, cmap='plasma')
+        self.ax[0][0].imshow(de_noised_original, cmap="plasma")
         self.ax[0][0].set_title("De-Noised Image")
 
-        self.fig.suptitle("A* Pathfinding Example"
-                          "\nImage Size: 256 x 256\n"
-                          "Noise Level: {}%\nAccuracy: {:.2f}%".format(noise_level, loss),
-                          fontsize=16)
+        self.fig.suptitle(
+            "A* Pathfinding Example"
+            "\nImage Size: 256 x 256\n"
+            "Noise Level: {}%\nAccuracy: {:.2f}%".format(noise_level, loss),
+            fontsize=16,
+        )
 
         self.fig.set_size_inches(18.5, 10.5)
         plt.show()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     x = random.randint(50, 200)
     y = random.randint(50, 200)
     noise_level = 30
@@ -105,7 +110,7 @@ if __name__ == '__main__':
 
     masked = ev.generate()
 
-    vi = Visualizer('../ML/models/synthnav-model-0.pth', noisy_pic)
+    vi = Visualizer("../DNoise/models/synthnav-model-0.pth", noisy_pic)
 
     de_noised_original, loss = vi.dNoise(masked)
     de_noised = vi.thresholdDNoise(de_noised_original, 0.5)

@@ -11,7 +11,7 @@ def reverse(pic: list):
     return pic
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pic = terraingen.terrain(10, 10, 3, True, 12309)
     print(pic)
     pic = reverse(pic)

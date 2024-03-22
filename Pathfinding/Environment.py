@@ -3,7 +3,7 @@ import copy
 
 import numpy as np
 import enum
-from typing import List, Tuple
+from typing import Tuple
 from math import sqrt
 import random
 
@@ -12,10 +12,9 @@ from matplotlib.animation import FuncAnimation
 
 import sys
 
-from Terrain.map import Map
 
 # adding Folder_2 to the system path
-sys.path.insert(0, '..')
+sys.path.insert(0, "..")
 
 OPEN = 0
 WALL = 1
@@ -40,7 +39,10 @@ class ACTS(enum.Enum):
 def circleUpdate(base, add, radius, coordinates: Tuple[int, int]):
     for y, ny in enumerate(base):
         for x, nx in enumerate(base):
-            distance = sqrt((coordinates[0] - x) * (coordinates[0] - x) + (coordinates[1] - y) * (coordinates[1] - y))
+            distance = sqrt(
+                (coordinates[0] - x) * (coordinates[0] - x)
+                + (coordinates[1] - y) * (coordinates[1] - y)
+            )
             if distance < radius:
                 base[y][x] = add[y][x]
 
@@ -110,8 +112,7 @@ def update(i):
     env.viewing_state()
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     import Terrain.pathcheck as pathcheck
 
     amap = pathcheck.path(256, 256, 3, setseed=1239082)

@@ -1,7 +1,8 @@
-from random import random, randint
+from random import random
 
 import numpy as np
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class AStarAnimator(QtWidgets.QWidget):
     def __init__(self, terrains):
@@ -43,7 +44,13 @@ class AStarAnimator(QtWidgets.QWidget):
 
         # Convert the terrain to a QImage and set it on the QLabel
         img = np.uint8(terrain * 255)
-        qimage = QtGui.QImage(img, img.shape[1], img.shape[0], img.strides[0], QtGui.QImage.Format_Grayscale8)
+        qimage = QtGui.QImage(
+            img,
+            img.shape[1],
+            img.shape[0],
+            img.strides[0],
+            QtGui.QImage.Format_Grayscale8,
+        )
         pixmap = QtGui.QPixmap.fromImage(qimage)
         self.terrain_label.setPixmap(pixmap)
         self.terrain_label.setFixedSize(pixmap.size())
@@ -66,13 +73,14 @@ class AStarAnimator(QtWidgets.QWidget):
     def mousePressEvent(self, event):
         x = event.x()
         y = event.y()
-        self.path.append((x,y))
+        self.path.append((x, y))
         self.update_terrain()
 
     def save_path(self):
         print("Saved")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     import sys
 
     # Create a random terrain
@@ -80,7 +88,6 @@ if __name__ == '__main__':
     for i in range(terrain.shape[0]):
         for j in range(terrain.shape[1]):
             terrain[i, j] = random()
-
 
     # Create the GUI
     app = QtWidgets.QApplication(sys.argv)

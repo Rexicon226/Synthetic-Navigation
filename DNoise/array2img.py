@@ -9,7 +9,6 @@ from Terrain import generator
 import math
 from Terrain import timers
 import os
-import cv2
 
 
 def array2image(x, y, octaves, weight, seed: int = 0, iD: int = 0):
@@ -22,7 +21,7 @@ def array2image(x, y, octaves, weight, seed: int = 0, iD: int = 0):
     print(img)
     timer.stop()
     timer = timers.FunctionTimer("Clean - Image Save")
-    img.save('./val_images/clean/' + str(iD) + '_clean.jpeg', bits=1, optimize=True)
+    img.save("./val_images/clean/" + str(iD) + "_clean.jpeg", bits=1, optimize=True)
     timer.stop()
     timer = timers.FunctionTimer("Noisy - Generate")
     array = generator.generateNoise(x, y, octaves, weight, seed)
@@ -32,7 +31,7 @@ def array2image(x, y, octaves, weight, seed: int = 0, iD: int = 0):
     img = PIL.Image.fromarray(bool_array)
     timer.stop()
     timer = timers.FunctionTimer("Noisy - Image Save")
-    img.save('./val_images/noisy/' + str(iD) + '_noisy.jpeg', bits=1, optimize=True)
+    img.save("./val_images/noisy/" + str(iD) + "_noisy.jpeg", bits=1, optimize=True)
     timer.stop()
 
 
@@ -53,7 +52,7 @@ def convert_to_1bit(input_dir, output_dir):
                         print("Uncertain Image")
             bool_array = np.array(img_array, dtype=bool)
             img = PIL.Image.fromarray(bool_array)
-            img.save('./train_images/noisy/' + file, bits=1, optimize=True)
+            img.save("./train_images/noisy/" + file, bits=1, optimize=True)
 
 
 threshold = 128

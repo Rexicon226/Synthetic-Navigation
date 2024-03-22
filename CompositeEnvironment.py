@@ -4,9 +4,11 @@ import numpy as np
 
 from Terrain import generator
 import matplotlib.pyplot as plt
-from ML.dnoise import EncoderDecoder as ed
+from DNoise.dnoise import EncoderDecoder as ed
 import torch
 from torch import nn
+
+Image = np.ndarray
 
 
 class MAELoss(nn.Module):
@@ -22,20 +24,26 @@ loss_fn = MAELoss()
 
 
 class Environment:
-    def __init__(self, image, noisy, radius, center=None):
+    def __init__(
+        self, image: Image, noisy: Image, radius: int, center: None | tuple
+    ) -> None:
         self.image = image.copy()
         self.radius = radius
         self.noisy_image = noisy.copy()
         self.center = center
 
-    def generate(self):
-        masked = get_visible_image(self.image, self.radius, self.noisy_image, self.center)
+    def generate(self) -> Image:
+        masked = get_visible_image(
+            self.image, self.radius, self.noisy_image, self.center
+        )
         return masked
 
 
-def create_circular_mask(h, w, radius, center=None):
+def create_circular_mask(
+    h: int, w: int, radius: int, center: None | tuple = None
+) -> np.ndarray:
     if center is None:  # use the middle of the image
-        center = (int(w / 2), int(h / 2))
+        center = (w / 2, h / 2)
 
     y, x = np.ogrid[:h, :w]
     dist_from_center = np.sqrt((x - center[0]) ** 2 + (y - center[1]) ** 2)
@@ -44,7 +52,9 @@ def create_circular_mask(h, w, radius, center=None):
     return mask
 
 
-def get_visible_image(image, radius, noisy, center):
+def get_visible_image(
+    image: Image, radius: int, noisy: Image, center: None | tuple
+) -> Image:
     # Find the size of the image
     image = np.abs(image)
 
@@ -64,12 +74,10 @@ def get_visible_image(image, radius, noisy, center):
 
 
 class Visualizer:
-
     def __init__(self, model_path, original):
-
         self.model_path = model_path
         self.original = original.copy()
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     def dNoiseVis(self, inputpic):
         print("Loaded Model")
@@ -94,17 +102,22 @@ class Visualizer:
         de_noised_image = de_noised_image.cpu().numpy()
         print("Processed Image")
         fig, ax = plt.subplots(2, 2)
-        ax[0][0].imshow(de_noised_image, cmap='plasma_r')
-        ax[0][0].set_title('De-Noised Image')
-        ax[0][1].imshow(inputpic, cmap='plasma_r')
-        ax[0][1].set_title('Input')
-        ax[1][0].imshow(self.original, cmap='plasma_r')
-        ax[1][0].set_title('Clean Image')
+        ax[0][0].imshow(de_noised_image, cmap="plasma_r")
+        ax[0][0].set_title("De-Noised Image")
+        ax[0][1].imshow(inputpic, cmap="plasma_r")
+        ax[0][1].set_title("Noisy Image")
+        ax[1][0].imshow(self.original, cmap="plasma_r")
+        ax[1][0].set_title("Ground Image")
         ax[1][1].hist(de_noised_image, bins=25)
-        ax[1][1].set_title('De-Noised Image Histogram')
+        ax[1][1].set_title("De-Noised Image Histogram")
 
-        fig.suptitle("Image Size: 256 x 256\nNoise Level: {}%\nAccuracy: {:.2f}%".format(noise_level, loss),
-                     fontsize=16, y=0.9)
+        fig.suptitle(
+            "Image Size: 256 x 256\nNoise Level: {}%\nAccuracy: {:.2f}%".format(
+                noise_level, loss
+            ),
+            fontsize=16,
+            y=0.9,
+        )
         plt.show()
 
     def dNoise(self, image):
@@ -141,16 +154,15 @@ if __name__ == "__main__":
     seed = random.randint(1, 100000000000)
     x = random.randint(50, 200)
     y = random.randint(50, 200)
-    noise_level = 30
+    noise_level = 80
     print("({}, {})".format(x, y))
     pic = np.array(generator.generateClean(256, 256, 5, seed, True))
     noisy_pic = np.array(generator.generateNoise(256, 256, 5, noise_level, seed, True))
     pic, noisy_pic = np.abs(pic), np.abs(noisy_pic)
 
     ev = Environment(pic, noisy_pic, 50, center=(x, y))
-
     masked = ev.generate()
 
-    vi = Visualizer('./ML/models/synthnav-model-0.pth', pic)
+    vi = Visualizer("./DNoise/models/synthnav-model-0.pth", pic)
 
     vi.dNoiseVis(masked)
