@@ -1,4 +1,5 @@
 """Map class"""
+
 import random
 
 import numpy as np

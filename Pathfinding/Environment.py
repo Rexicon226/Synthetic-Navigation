@@ -1,4 +1,5 @@
 """Pathfinding environment that different algorithms interact with"""
+
 import copy
 
 import numpy as np
