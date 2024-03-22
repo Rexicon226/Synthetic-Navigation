@@ -6,6 +6,7 @@ If a function gets defined once and could be used over and over, it'll go in her
 
 from math import floor, log10
 
+
 def round_sig(x, sig=2):
     """
     Rounds `x` to `sig` significant figures.

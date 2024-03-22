@@ -1,6 +1,7 @@
 import time
 from Terrain.helpers import round_sig
 
+
 class BaseTimer:
     """class for timing things such as testing performance
 
@@ -25,6 +26,7 @@ class BaseTimer:
         Returns the time elapsed since the timer was instantiated
         """
         return time.perf_counter() - self.startTime
+
 
 class FunctionTimer(BaseTimer):
     name: str
@@ -63,5 +65,3 @@ if __name__ == "__main__":
 
     x.stop()
     x.print()
-
-
