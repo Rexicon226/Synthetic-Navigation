@@ -6,6 +6,7 @@ from typing import Union
 import sumPerlin
 import noiseAdder
 
+
 def blobs(array: Union[list[list[int]], np.ndarray]) -> int:
     """
     Calculates the number of "islands" in the given array

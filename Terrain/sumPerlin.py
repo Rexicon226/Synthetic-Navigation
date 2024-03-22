@@ -15,7 +15,7 @@ def noiseMaps(
 ):
     """
     function that generates two maps with a "difference" in between
-    
+
     works by generating two perlin noise maps and then adding them and returning both the sum and one individual
     Parameters
     ----------
