@@ -1,8 +1,10 @@
-import Terrain.generator as generator
+import generator
 import matplotlib.pyplot as plt
 import numpy as np
 from typing import Union
 
+import sumPerlin
+import noiseAdder
 
 def blobs(array: Union[list[list[int]], np.ndarray]) -> int:
     """
@@ -14,22 +16,23 @@ def blobs(array: Union[list[list[int]], np.ndarray]) -> int:
 
     Parameters
     ----------
-    array : list[list[1,0]]
-        2 dimensional binary array of the "terrain". Typically generated with perlin noise.
+    array : list[list[1,0]] / np.ndarray
+        2 dimensional binary array of the "terrain" or a `NDArray` of the same shape.
 
     Returns
     -------
-    islands, oceans : int,int
-        number of regions with a value of 0, number of regions with a value of 1"""
+    islands: int
+        number of regions with a value of 0
+    """
     # Create a copy of the array to mark visited cells
     visited = [[False for _ in row] for row in array]
 
     # Initialize the island count to 0
     island_count = 0
 
-    # Iterate through each cell in the array
     for i in range(len(array)):
         for j in range(len(array[i])):
+            print("here")
             # If the cell is land and has not been visited yet, it's part of a new island
             if array[i][j] == 1 and not visited[i][j]:
                 island_count += 1
@@ -54,19 +57,24 @@ def mark_island(array, visited, i, j):
 if __name__ == "__main__":
     size = 256
     octaves = 5
-    weight = 30
-    noisepic = generator.generateNoise(size, size, octaves, weight, True)
-    pic = generator.generateClean(size, size, octaves, True)
+    noise_level = 30
+    seed = 12308
+    clean_map = generator.generateClean(size, size, octaves, noise_level, seed, True)
+    noise_map = sumPerlin.correctNoiseMaps(clean_map, size, size, octaves, noise_level / 100, seed)
+    noise_map = noiseAdder.addNoise(noise_map, noise_level / 2)
 
-    pic_islands = blobs(pic)
-    noisepic_islands = blobs(noisepic)
+    clean_map_islands = blobs(clean_map)
+    # noise_map_islands = blobs(noise_map)
+
+    print(clean_map_islands)
 
     fig, axes = plt.subplots(1, 2)
-    axes[0].imshow(pic)
     axes[0].set_title("Clean")
-    axes[1].imshow(noisepic)
-    axes[1].set_title("Noisy")
+    axes[0].imshow(clean_map)
 
-    print("Clean pic islands: {}, Noisy pic islands: {}".format(pic_islands, noisepic_islands))
+    axes[1].set_title("Noisy")
+    axes[1].imshow(noise_map)
+
+    # print("Clean map islands: {}, Noisy map islands: {}".format(clean_map_islands, noise_map_islands))
 
     plt.show()

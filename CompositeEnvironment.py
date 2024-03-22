@@ -5,7 +5,7 @@ import numpy as np
 from Terrain import generator
 import matplotlib.pyplot as plt
 from DNoise.dnoise import EncoderDecoder as ed
-from Terrain.timer import FunctionTimer
+from Terrain.timing import FunctionTimer
 import torch
 from torch import nn
 

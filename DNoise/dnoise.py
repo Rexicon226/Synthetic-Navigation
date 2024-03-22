@@ -66,7 +66,6 @@ def main():
     criterion = MAELoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
-    # noinspection PyTypeChecker
     def create_synced_dictionary(folder_name):
         sync_dir_inner = {}
         for folder in os.walk(folder_name):

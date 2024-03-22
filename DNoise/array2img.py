@@ -7,7 +7,7 @@ from tqdm import tqdm
 import threading
 from Terrain import generator
 import math
-from Terrain import timer
+from Terrain import timing
 import os
 
 

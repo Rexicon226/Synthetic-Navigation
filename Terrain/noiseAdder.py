@@ -4,10 +4,10 @@ from random import choices
 
 import matplotlib.pyplot as plt
 
-from Terrain.terraingen import terrain
+from terraingen import terrain
 
 
-def addnoise(pic: list[list[int]], weight: int):
+def addNoise(pic: list[list[int]], weight: int):
     """
     This function takes in an array and adds random noise to it depending on the weights set.
 
@@ -50,7 +50,7 @@ def addnoise(pic: list[list[int]], weight: int):
 
 if __name__ == "__main__":
     pic = terrain(256, 256, 4, True, 12391823)
-    noisepic = addnoise(pic, 5)
+    noisepic = addNoise(pic, 5)
     fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 6))
     axes[0].imshow(pic, cmap="Greys")
     axes[1].imshow(noisepic, cmap="Greys")
