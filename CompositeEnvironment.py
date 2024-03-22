@@ -24,24 +24,18 @@ loss_fn = MAELoss()
 
 
 class Environment:
-    def __init__(
-        self, image: Image, noisy: Image, radius: int, center: None | tuple
-    ) -> None:
+    def __init__(self, image: Image, noisy: Image, radius: int, center: None | tuple) -> None:
         self.image = image.copy()
         self.radius = radius
         self.noisy_image = noisy.copy()
         self.center = center
 
     def generate(self) -> Image:
-        masked = get_visible_image(
-            self.image, self.radius, self.noisy_image, self.center
-        )
+        masked = get_visible_image(self.image, self.radius, self.noisy_image, self.center)
         return masked
 
 
-def create_circular_mask(
-    h: int, w: int, radius: int, center: None | tuple = None
-) -> np.ndarray:
+def create_circular_mask(h: int, w: int, radius: int, center: None | tuple = None) -> np.ndarray:
     if center is None:  # use the middle of the image
         center = (w / 2, h / 2)
 
@@ -52,9 +46,7 @@ def create_circular_mask(
     return mask
 
 
-def get_visible_image(
-    image: Image, radius: int, noisy: Image, center: None | tuple
-) -> Image:
+def get_visible_image(image: Image, radius: int, noisy: Image, center: None | tuple) -> Image:
     # Find the size of the image
     image = np.abs(image)
 
@@ -112,9 +104,7 @@ class Visualizer:
         ax[1][1].set_title("De-Noised Image Histogram")
 
         fig.suptitle(
-            "Image Size: 256 x 256\nNoise Level: {}%\nAccuracy: {:.2f}%".format(
-                noise_level, loss
-            ),
+            "Image Size: 256 x 256\nNoise Level: {}%\nAccuracy: {:.2f}%".format(noise_level, loss),
             fontsize=16,
             y=0.9,
         )

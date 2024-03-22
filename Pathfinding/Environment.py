@@ -39,10 +39,7 @@ class ACTS(enum.Enum):
 def circleUpdate(base, add, radius, coordinates: Tuple[int, int]):
     for y, ny in enumerate(base):
         for x, nx in enumerate(base):
-            distance = sqrt(
-                (coordinates[0] - x) * (coordinates[0] - x)
-                + (coordinates[1] - y) * (coordinates[1] - y)
-            )
+            distance = sqrt((coordinates[0] - x) * (coordinates[0] - x) + (coordinates[1] - y) * (coordinates[1] - y))
             if distance < radius:
                 base[y][x] = add[y][x]
 

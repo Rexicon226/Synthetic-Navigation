@@ -25,9 +25,7 @@ def bordercheck(pic: Union[list[list[int]], np.ndarray]):
 
     for i in range(len(pic)):
         pic[i] = [abs(ele) for ele in pic[i]]
-    borderpic = copy.deepcopy(
-        pic
-    )  # create a deep copy so that stuff doesn't get messed up
+    borderpic = copy.deepcopy(pic)  # create a deep copy so that stuff doesn't get messed up
 
     for x in range(len(pic)):
         for y in range(len(pic)):

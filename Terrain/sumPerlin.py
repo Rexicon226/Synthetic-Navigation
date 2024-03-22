@@ -37,11 +37,7 @@ def noiseMaps(
     map2 = PerlinNoise(octaves1, seed + seedDifference)
     discrete1 = [[map1([i / x, j / y]) for j in range(y)] for i in range(x)]
     discrete2 = [
-        [
-            (difference * map2([i / x, j / y])) + (1 - difference) * (discrete1[i][j])
-            for j in range(y)
-        ]
-        for i in range(x)
+        [(difference * map2([i / x, j / y])) + (1 - difference) * (discrete1[i][j]) for j in range(y)] for i in range(x)
     ]
 
     return discrete1, discrete2

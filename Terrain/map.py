@@ -38,10 +38,7 @@ class Map:
     def thresholded(self):
         """Get the thresholded map"""
         return np.array(
-            [
-                [1 if self.map[y][x] > self.threshold else 0 for x in range(self.width)]
-                for y in range(self.height)
-            ]
+            [[1 if self.map[y][x] > self.threshold else 0 for x in range(self.width)] for y in range(self.height)]
         )
 
     @property
@@ -72,9 +69,7 @@ class Map:
 
     def build(self, octaves):
         """build the map"""
-        self.map = terraingen.terrain(
-            self.width, self.height, octaves, seed=random.randint(0, 1000000)
-        )
+        self.map = terraingen.terrain(self.width, self.height, octaves, seed=random.randint(0, 1000000))
 
     def __mul__(self, other):
         """Multiply the map by a given value"""

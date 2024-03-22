@@ -45,10 +45,7 @@ class AStarPathfinder:
                 neighbor = (x + dx, y + dy)
 
                 if (0 <= neighbor[0] < 256) and (0 <= neighbor[1] < 256):
-                    if (
-                        self.terrain[neighbor[0], neighbor[1]] == 0
-                        and neighbor not in visited
-                    ):
+                    if self.terrain[neighbor[0], neighbor[1]] == 0 and neighbor not in visited:
                         distance = self.heuristic(neighbor, self.end)
                         heapq.heappush(queue, (distance, neighbor))
                         self.path.append(neighbor)
@@ -84,9 +81,9 @@ class AStarPathfinder:
         self.ax[0][0].set_title("De-Noised Image")
 
         self.fig.suptitle(
-            "A* Pathfinding Example"
-            "\nImage Size: 256 x 256\n"
-            "Noise Level: {}%\nAccuracy: {:.2f}%".format(noise_level, loss),
+            "A* Pathfinding Example" "\nImage Size: 256 x 256\n" "Noise Level: {}%\nAccuracy: {:.2f}%".format(
+                noise_level, loss
+            ),
             fontsize=16,
         )
 

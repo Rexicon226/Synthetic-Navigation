@@ -77,8 +77,6 @@ def main():
                     except ValueError:
                         continue
 
-
-
                     if image_type == "clean.jpeg":
                         # Add the clean image to the dictionary
                         sync_dir_inner[name] = file

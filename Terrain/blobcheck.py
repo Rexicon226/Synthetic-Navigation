@@ -47,14 +47,7 @@ def mark_island(array, visited, i, j):
     neighbors = [(i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)]
     for x, y in neighbors:
         # If the adjacent cell is land and has not been visited yet, it's part of the same island
-        if (
-            x >= 0
-            and x < len(array)
-            and y >= 0
-            and y < len(array[i])
-            and array[x][y] == 1
-            and not visited[x][y]
-        ):
+        if x >= 0 and x < len(array) and y >= 0 and y < len(array[i]) and array[x][y] == 1 and not visited[x][y]:
             mark_island(array, visited, x, y)
 
 
@@ -74,10 +67,6 @@ if __name__ == "__main__":
     axes[1].imshow(noisepic)
     axes[1].set_title("Noisy")
 
-    print(
-        "Clean pic islands: {}, Noisy pic islands: {}".format(
-            pic_islands, noisepic_islands
-        )
-    )
+    print("Clean pic islands: {}, Noisy pic islands: {}".format(pic_islands, noisepic_islands))
 
     plt.show()

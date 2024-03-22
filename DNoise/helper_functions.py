@@ -19,6 +19,7 @@ import zipfile
 
 from pathlib import Path
 
+
 def walk_through_dir(dir_path):
     """
     Walks through dir_path returning its contents.
@@ -32,9 +33,7 @@ def walk_through_dir(dir_path):
       name of each subdirectory
     """
     for dirpath, dirnames, filenames in os.walk(dir_path):
-        print(
-            f"There are {len(dirnames)} directories and {len(filenames)} images in '{dirpath}'."
-        )
+        print(f"There are {len(dirnames)} directories and {len(filenames)} images in '{dirpath}'.")
 
 
 def plot_decision_boundary(model: torch.nn.Module, X: torch.Tensor, y: torch.Tensor):
@@ -74,9 +73,7 @@ def plot_decision_boundary(model: torch.nn.Module, X: torch.Tensor, y: torch.Ten
 
 
 # Plot linear data or training and test and predictions (optional)
-def plot_predictions(
-    train_data, train_labels, test_data, test_labels, predictions=None
-):
+def plot_predictions(train_data, train_labels, test_data, test_labels, predictions=None):
     """
     Plots linear training data and test data and compares predictions.
     """
@@ -222,9 +219,7 @@ def pred_and_plot_image(
     target_image_pred_label = torch.argmax(target_image_pred_probs, dim=1)
 
     # 8. Plot the image alongside the prediction and prediction probability
-    plt.imshow(
-        target_image.squeeze().permute(1, 2, 0)
-    )  # make sure it's the right size for matplotlib
+    plt.imshow(target_image.squeeze().permute(1, 2, 0))  # make sure it's the right size for matplotlib
     if class_names:
         title = f"Pred: {class_names[target_image_pred_label.cpu()]} | Prob: {target_image_pred_probs.max().cpu():.3f}"
     else:

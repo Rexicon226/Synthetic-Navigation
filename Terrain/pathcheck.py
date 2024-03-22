@@ -72,12 +72,7 @@ def path(x: int, y: int, octaves: int, progress: bool = False, setseed: int = 0)
             seed = random.randint(1, x * y * 1000)
         if failedSeeds.count(seed) == 0 and setseed == 0:
             solved = isPath(terraingen.terrain(x, y, octaves, seed=seed))
-            sys.stdout.write(
-                "\rChecking seed: "
-                + str(seed)
-                + ", Number: "
-                + str(len(failedSeeds) + 1)
-            )
+            sys.stdout.write("\rChecking seed: " + str(seed) + ", Number: " + str(len(failedSeeds) + 1))
             sys.stdout.flush()
             if solved:
                 print("\nWorking Seed: " + str(seed))

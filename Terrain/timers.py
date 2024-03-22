@@ -2,6 +2,7 @@ import time
 
 from math import floor, log10
 
+
 class BaseTimer:
     """class for timing things such as testing performance
 
