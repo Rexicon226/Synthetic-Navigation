@@ -1,7 +1,7 @@
 import copy
 
 import Terrain.terraingen as terraingen
-from Terrain.timers import FunctionTimer
+from Terrain.timer import FunctionTimer
 from typing import Union
 import numpy as np
 

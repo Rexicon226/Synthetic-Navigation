@@ -1,7 +1,5 @@
 import time
-
-from math import floor, log10
-
+from Terrain.helpers import round_sig
 
 class BaseTimer:
     """class for timing things such as testing performance
@@ -16,39 +14,54 @@ class BaseTimer:
     time : float
         time since object was instantiated"""
 
+    startTime: float
+
     def __init__(self):
         self.startTime = time.perf_counter()
 
     @property
-    def time(self):
+    def time(self) -> float:
+        """
+        Returns the time elapsed since the timer was instantiated
+        """
         return time.perf_counter() - self.startTime
 
-
 class FunctionTimer(BaseTimer):
-    totalTime = 0
+    name: str
+    totalTime: float
+    stopTime: float
 
     def __init__(self, name):
         self.name = name
+
+    def start(self):
+        """
+        Starts the timer
+        """
         print(f'----- Starting "{self.name}" -----')
         super().__init__()
 
     def stop(self):
-        ts = self.time
+        """
+        Stops the timer and prints the time elapsed
+        """
+        self.stopTime = time.perf_counter()
+        self.totalTime = self.stopTime - self.startTime
 
-        def round_sig(x, sig=2):
-            return round(x, sig - int(floor(log10(abs(x)))) - 1)
-
-        ts = round_sig(ts, 5)
-
-        print(f'----- Done. "{self.name}" took {ts}s -----')
-
-    def final(self):
-        totalTime = 1
-        print(f"----- Code Done. Total Time Spent: {totalTime}")
+    def print(self):
+        """
+        Prints the time elapsed
+        """
+        print(f'----- "{self.name}" took {round_sig(self.totalTime)} seconds ----- ')
 
 
 if __name__ == "__main__":
     x = FunctionTimer("testing")
+    x.start()
+
     time.sleep(1)
+
     x.stop()
-    x.final()
+    x.print()
+
+

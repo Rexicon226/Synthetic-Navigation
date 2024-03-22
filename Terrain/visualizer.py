@@ -5,7 +5,7 @@ import Terrain.border as border
 import Terrain.noiseadder as noiseadder
 import Terrain.pathcheck as pathcheck
 import Terrain.sumPerlin as sumPerlin
-from Terrain.timers import FunctionTimer
+from Terrain.timer import FunctionTimer
 
 
 def visualize(
