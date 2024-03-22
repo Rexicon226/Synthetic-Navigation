@@ -1,0 +1,8 @@
+line-length = 120
+indent-width = 4
+
+fixable = ["ALL"]
+unfixable = []
+
+[format]
+line-ending = "lf"
