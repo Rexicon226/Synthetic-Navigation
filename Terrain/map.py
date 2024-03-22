@@ -4,7 +4,7 @@ import random
 
 import numpy as np
 import terraingen
-import blobcheck
+import Terrain.blob as blob
 from Terrain import border, pathcheck
 
 
@@ -104,7 +104,7 @@ class Map:
         -------
         blobcheck.check
         """
-        return blobcheck.blobs(self.thresholded)
+        return blob.blobs(self.thresholded)
 
     @property
     def border(self):

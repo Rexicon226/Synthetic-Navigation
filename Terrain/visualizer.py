@@ -1,11 +1,11 @@
 import matplotlib.pyplot as plt
 
-import Terrain.blobcheck as blobcheck
+import Terrain.blob as blob
 import Terrain.border as border
-import Terrain.noiseadder as noiseadder
+import Terrain.noiseAdder as noiseAdder
 import Terrain.pathcheck as pathcheck
 import Terrain.sumPerlin as sumPerlin
-from Terrain.timers import FunctionTimer
+from Terrain.timing import FunctionTimer
 
 
 def visualize(
@@ -21,13 +21,13 @@ def visualize(
     Simple Function used to quickly visualize multi-view
     """
     pic = pathcheck.path(x, y, octaves, progress, setseed)
-    noisepic = noiseadder.addnoise(pic, noiselevel)
+    noisepic = noiseAdder.addNoise(pic, noiselevel)
     borderpic = border.bordercheck(pic)
     f = FunctionTimer("Island Check")
     perlinnoise = sumPerlin.correctNoiseMaps(x, y, octaves, noiselevel / 100, setseed)
-    islands = blobcheck.blobs(pic)
-    noiseislands = blobcheck.blobs(noisepic)
-    totalnoise = noiseadder.addnoise(perlinnoise, noiselevel)
+    islands = blob.blobs(pic)
+    noiseislands = blob.blobs(noisepic)
+    totalnoise = noiseAdder.addNoise(perlinnoise, noiselevel)
     print("      Pic Islands: " + str(islands))
     print("      NoisePic Islands: " + str(noiseislands))
 

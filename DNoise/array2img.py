@@ -7,30 +7,30 @@ from tqdm import tqdm
 import threading
 from Terrain import generator
 import math
-from Terrain import timers
+from Terrain import timing
 import os
 
 
 def array2image(x, y, octaves, weight, seed: int = 0, iD: int = 0):
-    timer = timers.FunctionTimer("Clean - Generate")
+    timer = timer.FunctionTimer("Clean - Generate")
     array = generator.generateClean(x, y, octaves, seed)
     timer.stop()
     bool_array = np.array(array, dtype=bool)
-    timer = timers.FunctionTimer("Clean - To Image")
+    timer = timer.FunctionTimer("Clean - To Image")
     img = PIL.Image.fromarray(bool_array)
     print(img)
     timer.stop()
-    timer = timers.FunctionTimer("Clean - Image Save")
+    timer = timer.FunctionTimer("Clean - Image Save")
     img.save("./val_images/clean/" + str(iD) + "_clean.jpeg", bits=1, optimize=True)
     timer.stop()
-    timer = timers.FunctionTimer("Noisy - Generate")
+    timer = timer.FunctionTimer("Noisy - Generate")
     array = generator.generateNoise(x, y, octaves, weight, seed)
     timer.stop()
     bool_array = np.array(array, dtype=bool)
-    timer = timers.FunctionTimer("Noisy - To Image")
+    timer = timer.FunctionTimer("Noisy - To Image")
     img = PIL.Image.fromarray(bool_array)
     timer.stop()
-    timer = timers.FunctionTimer("Noisy - Image Save")
+    timer = timer.FunctionTimer("Noisy - Image Save")
     img.save("./val_images/noisy/" + str(iD) + "_noisy.jpeg", bits=1, optimize=True)
     timer.stop()
 

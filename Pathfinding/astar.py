@@ -4,7 +4,7 @@ import heapq
 
 import random
 
-from Terrain.timers import FunctionTimer
+from Terrain.timing import FunctionTimer
 from CompositeEnvironment import Visualizer, Environment
 from Terrain import pathcheck, generator
 

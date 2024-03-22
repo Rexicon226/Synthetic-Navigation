@@ -5,6 +5,7 @@ import numpy as np
 from Terrain import generator
 import matplotlib.pyplot as plt
 from DNoise.dnoise import EncoderDecoder as ed
+from Terrain.timing import FunctionTimer
 import torch
 from torch import nn
 
@@ -81,7 +82,14 @@ class Visualizer:
         inputpic = torch.tensor(inputpic, dtype=torch.float32).view(1, 1, 256, 256)
         inputpic = inputpic.type(torch.cuda.FloatTensor)
 
+        de_noise_timer = FunctionTimer("De-Noising")
+        de_noise_timer.start()
+
         de_noised_image = model(inputpic)
+
+        de_noise_timer.stop()
+        de_noise_timer.print()
+
         loss = loss_fn(de_noised_image, inputpic)
 
         loss = (1 - loss.item()) * 100
@@ -154,5 +162,4 @@ if __name__ == "__main__":
     masked = ev.generate()
 
     vi = Visualizer("./DNoise/models/synthnav-model-0.pth", pic)
-
     vi.dNoiseVis(masked)

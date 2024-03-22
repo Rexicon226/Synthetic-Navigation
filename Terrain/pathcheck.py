@@ -2,7 +2,7 @@ import random
 import sys
 
 import Terrain.terraingen as terraingen
-from Terrain.timers import FunctionTimer
+from Terrain.timing import FunctionTimer
 
 
 def path(x: int, y: int, octaves: int, progress: bool = False, setseed: int = 0):

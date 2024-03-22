@@ -5,6 +5,7 @@ torchsummary~=1.5.1
 scipy~=1.10.0
 tqdm~=4.64.1
 requests~=2.31.0
+perlin_noise
 
-torch~=1.13.0+cu117
-torchvision~=0.14.0+cu117
+--extra-index-url https://download.pytorch.org/whl/cu118
+torch==2.2.1+cu118

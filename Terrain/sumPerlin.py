@@ -13,7 +13,9 @@ def noiseMaps(
     seed: Optional[int] = 0,
     seedDifference: Optional[int] = 1,
 ):
-    """function that generates two maps with a "difference" in between
+    """
+    function that generates two maps with a "difference" in between
+
     works by generating two perlin noise maps and then adding them and returning both the sum and one individual
     Parameters
     ----------
@@ -70,7 +72,6 @@ def correctNoiseMaps(
 
     d1, d2 = noiseMaps(x, y, octaves1, difference, seed, seedDifference)
     td1 = [[-int(np.floor(x)) for x in d1[y]] for y in range(y)]
-    # td2 = [[-int(np.floor(x)) for x in d2[y]] for y in range(y)]
 
     return td1
 

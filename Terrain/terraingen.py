@@ -26,12 +26,8 @@ def terrain(x: int, y: int, octaves: int, progress: bool = False, seed: int = 0)
     """
 
     noise = PerlinNoise(octaves=octaves, seed=seed)
-    if progress:
-        picarr = [[int(np.floor(noise([i / x, j / y]))) for j in range(y)] for i in tqdm(range(x))]
-        return picarr
-    if not progress:
-        picarr = [[int(np.floor(noise([i / x, j / y]))) for j in range(y)] for i in range(x)]
-        return picarr
+    prange = range(x) if not progress else tqdm(range(x))
+    return [[int(np.floor(noise([i / x, j / y]))) for j in range(y)] for i in prange]
 
 
 def threedterrain(x: int, y: int, octaves: int, progress: bool = False, seed: int = 0):
